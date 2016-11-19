@@ -1,0 +1,34 @@
+<ui:composition template="../templates/layout_central.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="content">
+		<h:form>
+			<p:tabMenu style="height:47px;overflow: hidden">
+				<p:menuitem value="Início" url="/user/index.jsf" immediate="true" />
+				<p:menuitem value="Enviar"
+					action="#{emailManagedBean.enviarEmail()}" />
+				<p:menuitem value="Salvar Rascunho" action="#" />
+				<p:menuitem value="Cancelar" url="/user/index.jsf" immediate="true" />
+			</p:tabMenu>
+			<br />
+			<p:messages autoUpdate="true" showDetail="true" />
+			<p:panelGrid columns="2">
+				<h:outputText value="Para: " />
+				<p:inputText value="#{emailManagedBean.emailsTexto}" />
+				<h:outputText value="CC: " />
+				<p:inputText value="#{emailManagedBean.emailsTextoCC}" />
+				<h:outputText value="CCO: " />
+				<p:inputText value="#{emailManagedBean.emailsTextoCCO}" />
+				<h:outputText value="Assunto: " />
+				<p:inputText value="#{emailManagedBean.email.assunto}" />
+			</p:panelGrid>
+			<p:editor value="#{emailManagedBean.email.corpo}">
+			</p:editor>
+		</h:form>
+	</ui:define>
+</ui:composition>

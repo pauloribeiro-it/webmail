@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<http>
+		<intercept-url pattern="/adm/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/user/**" access="ROLE_USUARIO,ROLE_ADMINISTRADOR" />
+		<form-login login-page="/login.jsf"
+			always-use-default-target="true" default-target-url="/user/index.jsf"
+			authentication-failure-url="/login.jsf?login_error=1" />
+		<logout invalidate-session="true" logout-success-url="/login.jsf" logout-url="/user/logout" />
+		<remember-me />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="webmailDataSource"
+				authorities-by-username-query="SELECT u.login, a.papel
+											 FROM login u, autorizacao a 
+											WHERE u.login = a.login 
+											  AND u.login = ?"
+				users-by-username-query="SELECT l.login, l.senha, l.ativo 
+									   FROM login l
+									  WHERE l.login = ?" />
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>
