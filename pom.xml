@@ -4,7 +4,7 @@
 
 	<groupId>email</groupId>
 	<artifactId>webmail</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
  
 	<name>webmail</name>
@@ -35,7 +35,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.0.0</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
@@ -43,6 +43,7 @@
 			</plugin>
 		</plugins>
 		<resources></resources>
+		<finalName>webmail</finalName>
 	</build>
 
 	<dependencies>
