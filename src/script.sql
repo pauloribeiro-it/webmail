@@ -20,12 +20,19 @@ create table amigo
   constraint fk_amigo_usuario2 foreign key(id_usuario2) references usuario(id)
 );
 
+create table status_email(
+	codigo integer,
+	descricao varchar(100),
+	constraint pk_status_email primary key(codigo)
+);
+
 create table email
 (
   id integer auto_increment,
   assunto varchar(100),
   corpo varchar(2000),
   id_remetente integer,
+  status_email integer,
   data_hora_criacao timestamp,
   data_hora_lido timestamp,
   data_hora_recebido timestamp,
@@ -33,7 +40,8 @@ create table email
   data_hora_deletado timestamp,
   data_hora_enviado timestamp,
   constraint pk_email primary key (id),
-  constraint fk_email_remetente foreign key(id_remetente) references usuario(id)
+  constraint fk_email_remetente foreign key(id_remetente) references usuario(id),
+  constraint fk_status_email foreign key(status_email) references status_email(codigo) 
 );
 
 create table email_destinatario
@@ -75,12 +83,11 @@ CREATE TABLE login(
     constraint fk_login_usuario foreign key (id_usuario) references usuario(id)
 );
 
-CREATE TABLE autorizacao(
-	login varchar (100),
-	papel varchar (20),
-    constraint pk_autorizacao primary key(login,papel),
-    constraint fk_autorizacao foreign key (login) references login(login)
-);
+insert into status_email(codigo,descricao) values(1,'Rascunho');
+insert into status_email(codigo,descricao) values(2,'Enviado');
+insert into status_email(codigo,descricao) values(3,'Recebido');
+insert into status_email(codigo,descricao) values(4,'Lido');
+insert into status_email(codigo,descricao) values(5,'Excluído');
 
 insert into filtro(id,nome) values(1,'Caixa de Entrada','Email.corpo= ;Email.assunto= ;Email.corpo= ');
 insert into filtro(id,nome) values(2,'Lixo','Email.corpo= ;Email.assunto= ;Email.corpo= ');

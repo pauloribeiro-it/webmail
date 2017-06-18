@@ -1,0 +1,14 @@
+Anotações
+- O campo regra da tabela filtro deverá conter as restrições para recuperação de email, ele pode conter restrições
+relativas aos remetentes dos emails, ao corpo do email e ao assunto do email e ao seu status.
+- Definir os status dos emails. 
+  - Rascunho
+  - Enviado
+  - Recebido
+  - Lido/Excluído
+  
+ - Os filtros default irão funcionar a partir dos status, já os filtros personalizados irão funcionar a partir das
+ regras.
+ - Um email pode cair em um filtro quando o email for recebido e usuário pode mover para outro filtro. A regra do filtro
+ só vai ser aplicada quando o email for recebido e for selecionado o filtro, após isso o usuário poderá mover o email para
+ o filtro que desejar.
