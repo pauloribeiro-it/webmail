@@ -30,7 +30,7 @@ public class FiltroDAO extends GenericDAO<Filtro, Long> {
 	public List<EmailFiltro> obtemEmailFiltroUsuario(Usuario usuario) {
 		List<EmailFiltro> emailFiltros = null;
 		Query query = entityManager.createQuery(
-				resource.getString("EmailFiltro.obtemFiltrosUsuario"))
+				getQueryByFullName("EmailFiltro.obtemFiltrosUsuario"))
 				.setParameter("usuario", usuario);
 		emailFiltros = (List<EmailFiltro>) query.getResultList();
 		return emailFiltros;
@@ -47,7 +47,7 @@ public class FiltroDAO extends GenericDAO<Filtro, Long> {
 	public List<Filtro> obtemFiltrosUsuario(Usuario usuario) {
 		List<Filtro> filtros = null;
 		Query query = entityManager.createQuery(
-				resource.getString("Filtro.filtroUsuario")).setParameter(
+				getQueryByFullName("Filtro.filtroUsuario")).setParameter(
 				"idFiltro",
 				obtemEmailFiltroUsuario(obtemEmailFiltroUsuario(usuario)));
 		filtros = (List<Filtro>) query.getResultList();
@@ -58,8 +58,7 @@ public class FiltroDAO extends GenericDAO<Filtro, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosPadrao() {
 		List<Filtro> filtros = null;
-		Query query = entityManager.createQuery(resource
-				.getString("Filtro.filtrosPadrao"));
+		Query query = entityManager.createQuery(getQueryByFullName("Filtro.filtrosPadrao"));
 		filtros = (List<Filtro>) query.getResultList();
 		return filtros;
 	}

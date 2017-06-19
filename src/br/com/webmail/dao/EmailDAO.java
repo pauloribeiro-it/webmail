@@ -11,7 +11,7 @@ public class EmailDAO extends GenericDAO<Email, Long> {
 	public List<Email> obtemEmailsFromFiltros(List<EmailFiltro> filtros) {
 		List<Email> emails = null;
 		emails = (List<Email>) entityManager.createQuery(
-				resource.getString("Email.emailFromFiltro")).setParameter(1,
+				getQueryByFullName("Email.emailFromFiltro")).setParameter(1,
 				filtros);
 		return emails;
 	}
