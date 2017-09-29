@@ -79,14 +79,14 @@ public class EmailManagedBean implements Serializable {
 	}
 
 	private void configuraFiltrosPersonalizados() {
-		String userName = WebmailUtil.getUsuarioLogado();
-		List<Filtro> filtrosResult = filtroBean.obtemFiltrosUsuario(usuarioDAO
-				.findByLogin(userName));
-		for (Filtro filtro : filtrosResult) {
-			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
-			itemMenu.setCommand("#{emailManagedBean.retornaFiltros}");
-			submenu.addElement(itemMenu);
-		}
+//		String userName = WebmailUtil.getUsuarioLogado();
+//		List<Filtro> filtrosResult = filtroBean.obtemFiltrosUsuario(usuarioDAO
+//				.findByLogin(userName));
+//		for (Filtro filtro : filtrosResult) {
+//			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
+//			itemMenu.setCommand("#{emailManagedBean.retornaFiltros}");
+//			submenu.addElement(itemMenu);
+//		}
 	}
 
 	public void retornaFiltros(ActionEvent e) {
@@ -101,10 +101,10 @@ public class EmailManagedBean implements Serializable {
 
 	private void configuraEmail() {
 		configuraDatas();
-		Usuario remetente = usuarioDAO.findByLogin(WebmailUtil
-				.getUsuarioLogado());
-		email.setRemetente(remetente);
-		email.setDestinatarios(getDestinatarios());
+//		Usuario remetente = usuarioDAO.findByLogin(WebmailUtil
+//				.getUsuarioLogado());
+//		email.setRemetente(remetente);
+//		email.setDestinatarios(getDestinatarios());
 	}
 
 	private void saveEmail() {
