@@ -3,10 +3,10 @@ package br.com.webmail.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.webmail.entities.Email;
-import br.com.webmail.entities.EmailFiltro;
-import br.com.webmail.entities.Filtro;
-import br.com.webmail.entities.Usuario;
+import br.com.webmail.domain.email.Email;
+import br.com.webmail.domain.email.EmailFiltro;
+import br.com.webmail.domain.filtro.Filtro;
+import br.com.webmail.domain.usuario.Usuario;
 
 public enum EnumQueries {
 	//Email
