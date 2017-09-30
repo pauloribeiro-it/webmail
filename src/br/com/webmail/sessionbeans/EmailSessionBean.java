@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.web.sessionsbean.ifc.EmailIFC;
+import br.com.webmail.dao.DAOInterface;
 import br.com.webmail.dao.EmailDAO;
 import br.com.webmail.dao.GenericDAO;
 import br.com.webmail.entities.Email;
@@ -16,14 +17,13 @@ import br.com.webmail.entities.Filtro;
 @Stateless
 public class EmailSessionBean implements EmailIFC {
 
-	@Inject
-	private EmailDAO dao;
+	private EmailDAO dao = new EmailDAO();
 
 	@Inject
-	private GenericDAO<EmailDestinatario, Email> destinatarioDAO;
+	private DAOInterface<EmailDestinatario, Email> destinatarioDAO;
 
 	@Inject
-	private GenericDAO<EmailFiltro, Long> emailFiltroDAO;
+	private DAOInterface<EmailFiltro, Long> emailFiltroDAO;
 
 	@Override
 	public void save(Email email) {

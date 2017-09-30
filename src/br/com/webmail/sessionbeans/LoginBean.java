@@ -6,14 +6,14 @@ import javax.inject.Inject;
 
 import br.com.web.sessionsbean.ifc.AutorizacaoIFC;
 import br.com.web.sessionsbean.ifc.LoginIFC;
-import br.com.webmail.dao.GenericDAO;
+import br.com.webmail.dao.DAOInterface;
 import br.com.webmail.entities.Login;
 
 @Stateless
 public class LoginBean implements LoginIFC{
 
 	@Inject
-	private GenericDAO<Login, String> dao;
+	private DAOInterface<Login, String> dao;
 
 	@EJB
 	private AutorizacaoIFC autorizacaoBean;

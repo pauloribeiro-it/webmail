@@ -13,7 +13,6 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
-import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
@@ -25,9 +24,7 @@ import br.com.webmail.dao.UsuarioDAO;
 import br.com.webmail.entities.Autorizacao;
 import br.com.webmail.entities.Email;
 import br.com.webmail.entities.EmailDestinatario;
-import br.com.webmail.entities.Filtro;
 import br.com.webmail.entities.Login;
-import br.com.webmail.entities.Usuario;
 import br.com.webmail.util.WebmailUtil;
 
 @ViewScoped

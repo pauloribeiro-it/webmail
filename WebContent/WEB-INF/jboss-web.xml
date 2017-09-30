@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
 	<resource-ref>
-		<res-ref-name>jdbc/mail</res-ref-name>
-		<jndi-name>java:/jdbc/mail</jndi-name>
+		<res-ref-name>jdbc/webmail</res-ref-name>
+		<jndi-name>java:jboss/datasources/webmail</jndi-name>
 	</resource-ref>
 </jboss-web>  
