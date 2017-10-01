@@ -8,13 +8,17 @@ import javax.persistence.Query;
 
 import org.jboss.logging.Logger;
 
-import br.com.webmail.dao.GenericDAO;
+import br.com.webmail.dao.DAO;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.email.EmailDAO;
 import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.usuario.Usuario;
 
-public class FiltroDAO extends GenericDAO<Filtro, Long> {
+public class FiltroDAO extends DAO<Filtro, Long> {
+	public FiltroDAO(Class<Filtro> especializacao) {
+		super(especializacao);
+	}
+
 	@Inject
 	private EmailDAO emailDAO;
 

@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-import br.com.webmail.dao.GenericDAO;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroIFC;
 import br.com.webmail.domain.login.Login;
@@ -15,8 +13,8 @@ import br.com.webmail.domain.login.LoginIFC;
 @Stateless
 public class UsuarioBean implements UsuarioIFC {
 
-	@Inject
-	private GenericDAO<Usuario, Long> dao;
+//	@Inject
+//	private GenericDAO<Usuario, Long> dao;
 
 	@EJB
 	private LoginIFC loginBean;
@@ -25,27 +23,29 @@ public class UsuarioBean implements UsuarioIFC {
 	private FiltroIFC filtroBean;
 
 	public Usuario find(Long id) {
-		return dao.find(id);
+//		return dao.find(id);
+		return null;
 	}
 
 	public void save(Usuario usuario, String senha) {
 		Login login = configuraPerfil(usuario, senha);
 		usuario.setEmail(getEmailFormatado(usuario.getEmail()));
-		dao.save(usuario);
+//		dao.save(usuario);
 		loginBean.save(login);
 		associaFiltrosPadrao(usuario, filtroBean.obtemFiltrosPadrao());
 	}
 
 	public void merge(Usuario usuario) {
-		dao.merge(usuario);
+//		dao.merge(usuario);
 	}
 
 	public void delete(Usuario usuario) {
-		dao.delete(usuario);
+//		dao.delete(usuario);
 	}
 
 	public List<Usuario> findAll() {
-		return dao.findAll();
+//		return dao.findAll();
+		return null;
 	}
 
 	private Login configuraPerfil(Usuario usuario, String senha) {

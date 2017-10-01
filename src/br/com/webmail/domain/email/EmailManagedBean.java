@@ -2,7 +2,6 @@ package br.com.webmail.domain.email;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,18 +9,13 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
-import br.com.webmail.dao.GenericDAO;
-import br.com.webmail.domain.autorizacao.Autorizacao;
 import br.com.webmail.domain.filtro.FiltroIFC;
-import br.com.webmail.domain.login.Login;
-import br.com.webmail.domain.usuario.UsuarioDAO;
 import br.com.webmail.util.WebmailUtil;
 
 @ViewScoped
@@ -32,11 +26,11 @@ public class EmailManagedBean implements Serializable {
 	private DefaultSubMenu submenu;
 	private List<Email> emails;
 	
-	@Inject
-	private GenericDAO<Autorizacao, Login> autorizacaoDao;
+//	@Inject
+//	private GenericDAO<Autorizacao, Login> autorizacaoDao;
 	
-	@Inject
-	private Email email;
+//	@Inject
+	private Email email = new Email();
 
 	@EJB
 	private FiltroIFC filtroBean;
@@ -44,8 +38,8 @@ public class EmailManagedBean implements Serializable {
 	@EJB
 	private EmailIFC emailBean;
 
-	@Inject
-	private UsuarioDAO usuarioDAO;
+//	@Inject
+//	private UsuarioDAO usuarioDAO;
 
 	private String emailsTexto;
 
@@ -63,7 +57,7 @@ public class EmailManagedBean implements Serializable {
 	public void configuraPagina() {
 		this.submenu = new DefaultSubMenu("Emails");
 		simpleMenuModel.addElement(submenu);
-		System.out.println(autorizacaoDao.findAll());
+//		System.out.println(autorizacaoDao.findAll());
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
 	}
@@ -102,13 +96,13 @@ public class EmailManagedBean implements Serializable {
 	}
 
 	private void saveEmail() {
-		email.setDestinatarios(null);
-		emailBean.save(email);
+//		email.setDestinatarios(null);
+//		emailBean.save(email);
 		logger.info("inseriu email");
 		emailBean.saveDestinatarios(getDestinatarios());
 		logger.info("inseriu destinatarios");
-		emailBean.saveEmailFiltro(email,
-				filtroBean.obtemFiltrosUsuario(email.getRemetente()));
+//		emailBean.saveEmailFiltro(email,
+//				filtroBean.obtemFiltrosUsuario(email.getRemetente()));
 		logger.info("inseriu email_filtro");
 	}
 
@@ -117,12 +111,12 @@ public class EmailManagedBean implements Serializable {
 		List<String> destinatariosTexto = WebmailUtil.getEmails(emailsTexto);
 		List<String> destinatariosCC = WebmailUtil.getEmails(emailsTextoCC);
 		List<String> destinatariosCCO = WebmailUtil.getEmails(emailsTextoCCO);
-		destinatarios.addAll(constroiEmailDestinatarios(email,
-				destinatariosTexto, false, false));
-		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosCC,
-				true, false));
-		destinatarios.addAll(constroiEmailDestinatarios(email,
-				destinatariosCCO, false, true));
+//		destinatarios.addAll(constroiEmailDestinatarios(email,
+//				destinatariosTexto, false, false));
+//		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosCC,
+//				true, false));
+//		destinatarios.addAll(constroiEmailDestinatarios(email,
+//				destinatariosCCO, false, true));
 		return destinatarios;
 	}
 
@@ -142,17 +136,17 @@ public class EmailManagedBean implements Serializable {
 		emailDestinatario.setEmail(email);
 		emailDestinatario.setCC(isCC);
 		emailDestinatario.setCCO(isCCO);
-		emailDestinatario.setUsuario(usuarioDAO.findByLogin(destinatario));
+//		emailDestinatario.setUsuario(usuarioDAO.findByLogin(destinatario));
 		return emailDestinatario;
 	}
 
 	private void configuraDatas() {
-		email.setDataHoraCriacao(new Date());
-		email.setDataHoraDeletado(null);
-		email.setDataHoraEnviado(new Date());
-		email.setDataHoraExcluido(null);
-		email.setDataHoraLido(null);
-		email.setDataHoraRecebido(null);
+//		email.setDataHoraCriacao(new Date());
+//		email.setDataHoraDeletado(null);
+//		email.setDataHoraEnviado(new Date());
+//		email.setDataHoraExcluido(null);
+//		email.setDataHoraLido(null);
+//		email.setDataHoraRecebido(null);
 	}
 
 	public List<Email> getEmails() {

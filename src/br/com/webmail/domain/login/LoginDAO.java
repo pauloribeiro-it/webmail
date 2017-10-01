@@ -1,7 +1,11 @@
 package br.com.webmail.domain.login;
 
-import br.com.webmail.dao.GenericDAO;
+import br.com.webmail.dao.DAO;
 
-public class LoginDAO extends GenericDAO<Login, String>{
+public class LoginDAO extends DAO<Login, String>{
+
+	public LoginDAO(Class<Login> especializacao) {
+		super(especializacao);
+	}
 
 }

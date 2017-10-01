@@ -3,36 +3,33 @@ package br.com.webmail.domain.email;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
-import br.com.webmail.dao.DAOInterface;
-import br.com.webmail.dao.GenericDAO;
 import br.com.webmail.domain.filtro.Filtro;
 
 @Stateless
 public class EmailSessionBean implements EmailIFC {
+//	@Inject
+//	private EmailDAO dao;
+//
+//	@Inject
+//	private DAOInterface<EmailDestinatario, Email> destinatarioDAO;
+//
+//	@Inject
+//	private DAOInterface<EmailFiltro, Long> emailFiltroDAO;
 
-	private EmailDAO dao = new EmailDAO();
-
-	@Inject
-	private DAOInterface<EmailDestinatario, Email> destinatarioDAO;
-
-	@Inject
-	private DAOInterface<EmailFiltro, Long> emailFiltroDAO;
-
-	@Override
 	public void save(Email email) {
-		dao.save(email);
+//		dao.save(email);
 	}
 
 	public void update(Email email) {
-		dao.merge(email);
+//		dao.merge(email);
 	}
 
 	@Override
 	public void saveDestinatarios(List<EmailDestinatario> destinatarios) {
-		for (EmailDestinatario destinatario : destinatarios)
-			destinatarioDAO.save(destinatario);
+		for (EmailDestinatario destinatario : destinatarios){
+//			destinatarioDAO.save(destinatario);
+		}
 	}
 
 	@Override
@@ -42,7 +39,7 @@ public class EmailSessionBean implements EmailIFC {
 		// no momento em que for salvar o email_filtro verificar se há um
 		// email_filtro com email null, caso existir atualiza-lo com o novo
 		// email
-		emailFiltroDAO.save(emailFiltro);
+//		emailFiltroDAO.save(emailFiltro);
 	}
 
 	private Filtro findFiltro(Email email, List<Filtro> filtros) {
