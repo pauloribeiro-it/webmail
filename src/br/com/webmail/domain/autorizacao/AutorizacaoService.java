@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import br.com.webmail.domain.login.Login;
 
 @Local
-public interface AutorizacaoIFC {
+public interface AutorizacaoService {
 	void save(Login login);
 	Autorizacao find(Login login);
 	void delete(Login login);

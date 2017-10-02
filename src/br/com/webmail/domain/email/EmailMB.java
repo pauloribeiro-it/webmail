@@ -15,12 +15,12 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
-import br.com.webmail.domain.filtro.FiltroIFC;
+import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.util.WebmailUtil;
 
 @ViewScoped
 @ManagedBean(name = "emailManagedBean")
-public class EmailManagedBean implements Serializable {
+public class EmailMB implements Serializable {
 	private static final long serialVersionUID = 5052247699927310089L;
 	private MenuModel simpleMenuModel = new DefaultMenuModel();
 	private DefaultSubMenu submenu;
@@ -33,10 +33,10 @@ public class EmailManagedBean implements Serializable {
 	private Email email = new Email();
 
 	@EJB
-	private FiltroIFC filtroBean;
+	private FiltroService filtroBean;
 
 	@EJB
-	private EmailIFC emailBean;
+	private EmailService emailBean;
 
 //	@Inject
 //	private UsuarioDAO usuarioDAO;
@@ -47,9 +47,9 @@ public class EmailManagedBean implements Serializable {
 
 	private String emailsTextoCCO;
 
-	private static final Logger logger = Logger.getLogger(EmailManagedBean.class);
+	private static final Logger logger = Logger.getLogger(EmailMB.class);
 	
-	public EmailManagedBean() {
+	public EmailMB() {
 
 	}
 

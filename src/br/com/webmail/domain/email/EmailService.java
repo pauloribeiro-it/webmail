@@ -7,7 +7,7 @@ import javax.ejb.Local;
 import br.com.webmail.domain.filtro.Filtro;
 
 @Local
-public interface EmailIFC {
+public interface EmailService {
 	void save(Email email);
 	void saveDestinatarios(List<EmailDestinatario> destinatarios);
 	void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario);

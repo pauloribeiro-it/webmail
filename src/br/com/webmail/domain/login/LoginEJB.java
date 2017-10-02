@@ -9,10 +9,14 @@ import javax.persistence.PersistenceContextType;
 
 import br.com.webmail.dao.DAO;
 import br.com.webmail.dao.DaoProduces;
-import br.com.webmail.domain.autorizacao.AutorizacaoIFC;
+import br.com.webmail.daotest.CrudDao;
+import br.com.webmail.daotest.Dao;
+import br.com.webmail.daotest.LoginDao;
+import br.com.webmail.domain.autorizacao.AutorizacaoService;
+import br.com.webmail.domain.filtro.Filtro;
 
 @Stateless
-public class LoginBean implements LoginIFC{
+public class LoginEJB implements LoginService{
 	@PersistenceContext(unitName = "webmail", type = PersistenceContextType.TRANSACTION)
 	protected EntityManager entityManager;
 	
@@ -20,8 +24,18 @@ public class LoginBean implements LoginIFC{
 	@DaoProduces
 	private DAO<Login, String> dao;
 	
+//	@Inject
+//	@DaoProduces
+//	private EmailDAO emailDao;
+	
+	@Inject
+	private LoginDao loginDao;
+	
+	@Inject @Dao
+	private CrudDao<Filtro,Long> filtroDao;
+	
 	@EJB
-	private AutorizacaoIFC autorizacaoBean;
+	private AutorizacaoService autorizacaoBean;
 
 	public void save(Login login) {
 //		dao.save(login);
@@ -29,8 +43,9 @@ public class LoginBean implements LoginIFC{
 	}
 
 	public Login find(String login) {
-//		return dao.find(login);
-		entityManager.createQuery("select u from Usuario u").getResultList().forEach(lo->System.out.println(lo));
+//		dao.find(login);
+//		entityManager.createQuery("select u from Usuario u").getResultList().forEach(lo->System.out.println(lo));
+		System.out.println(loginDao.findAll());
 		return null;
 	}
 

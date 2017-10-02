@@ -7,7 +7,7 @@ import javax.ejb.Local;
 import br.com.webmail.domain.usuario.Usuario;
 
 @Local
-public interface FiltroIFC {
+public interface FiltroService {
 	List<Filtro> obtemFiltrosUsuario(Usuario usuario);
 	List<Filtro> obtemFiltrosPadrao();
 	void associaFiltroUsuario(Usuario usuario, Filtro filtro);

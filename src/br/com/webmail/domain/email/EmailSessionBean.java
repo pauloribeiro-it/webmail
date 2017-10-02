@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 import br.com.webmail.domain.filtro.Filtro;
 
 @Stateless
-public class EmailSessionBean implements EmailIFC {
+public class EmailSessionBean implements EmailService {
 //	@Inject
 //	private EmailDAO dao;
 //

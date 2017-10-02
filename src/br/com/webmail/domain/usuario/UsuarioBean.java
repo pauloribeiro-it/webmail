@@ -6,21 +6,21 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.webmail.domain.filtro.Filtro;
-import br.com.webmail.domain.filtro.FiltroIFC;
+import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.login.Login;
-import br.com.webmail.domain.login.LoginIFC;
+import br.com.webmail.domain.login.LoginService;
 
 @Stateless
-public class UsuarioBean implements UsuarioIFC {
+public class UsuarioBean implements UsuarioService {
 
 //	@Inject
 //	private GenericDAO<Usuario, Long> dao;
 
 	@EJB
-	private LoginIFC loginBean;
+	private LoginService loginBean;
 
 	@EJB
-	private FiltroIFC filtroBean;
+	private FiltroService filtroBean;
 
 	public Usuario find(Long id) {
 //		return dao.find(id);

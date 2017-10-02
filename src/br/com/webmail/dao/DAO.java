@@ -5,15 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
-@Named("dao")
+@Named("daoGeneric")
 @Stateless
 public class DAO <E, PK>{
-//	@PersistenceContext(unitName = "webmail", type = PersistenceContextType.EXTENDED)
 	protected EntityManager entityManager;
-	
 	private Class<E> especializacao;
 	
 	public DAO(){
@@ -22,6 +18,11 @@ public class DAO <E, PK>{
 	
 	public DAO(Class<E> especializacao){
 		this.especializacao = especializacao;
+	}
+	
+	public DAO(Class<E> especializacao,EntityManager em){
+		this.especializacao = especializacao;
+		this.entityManager = em;
 	}
 	
 	public E find(PK pk) {

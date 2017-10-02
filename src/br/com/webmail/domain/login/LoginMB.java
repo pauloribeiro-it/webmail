@@ -24,7 +24,7 @@ public class LoginMB {
 	private String password;
 	
 	@EJB
-	private LoginIFC loginBean;
+	private LoginService loginBean;
 	
 	public LoginMB(){
 		

@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import br.com.webmail.domain.login.Login;
 
 @Stateless
-public class AutorizacaoBean implements AutorizacaoIFC{
+public class AutorizacaoBean implements AutorizacaoService{
 //	@Inject
 //	private GenericDAO<Autorizacao, Login> dao;
 

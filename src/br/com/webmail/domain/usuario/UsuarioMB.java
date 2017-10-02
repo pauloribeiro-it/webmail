@@ -21,7 +21,7 @@ public class UsuarioMB implements Serializable {
 	private String senha;
 
 	@EJB
-	private UsuarioIFC usuarioBean;
+	private UsuarioService usuarioBean;
 
 	public UsuarioMB() {
 	}

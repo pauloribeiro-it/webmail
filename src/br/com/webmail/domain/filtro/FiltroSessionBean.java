@@ -9,7 +9,7 @@ import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.usuario.Usuario;
 
 @Stateless
-public class FiltroSessionBean implements FiltroIFC{
+public class FiltroSessionBean implements FiltroService{
 	private FiltroDAO dao = new FiltroDAO(Filtro.class);
 	
 //	@Inject

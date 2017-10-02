@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 @Local
-public interface UsuarioIFC {
+public interface UsuarioService {
 	 Usuario find(Long id);
 	 void save(Usuario usuario, String senha);
 	 void merge(Usuario usuario);
