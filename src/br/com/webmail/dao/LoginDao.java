@@ -1,4 +1,4 @@
-package br.com.webmail.daotest;
+package br.com.webmail.dao;
 
 import javax.ejb.Stateless;
 

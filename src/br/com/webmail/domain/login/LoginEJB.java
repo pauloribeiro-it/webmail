@@ -7,11 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
-import br.com.webmail.dao.DAO;
-import br.com.webmail.dao.DaoProduces;
-import br.com.webmail.daotest.CrudDao;
-import br.com.webmail.daotest.Dao;
-import br.com.webmail.daotest.LoginDao;
+import br.com.webmail.dao.CrudDao;
+import br.com.webmail.dao.Dao;
+import br.com.webmail.dao.LoginDao;
 import br.com.webmail.domain.autorizacao.AutorizacaoService;
 import br.com.webmail.domain.filtro.Filtro;
 
@@ -21,8 +19,8 @@ public class LoginEJB implements LoginService{
 	protected EntityManager entityManager;
 	
 	@Inject
-	@DaoProduces
-	private DAO<Login, String> dao;
+	@Dao
+	private CrudDao<Login, String> dao;
 	
 //	@Inject
 //	@DaoProduces

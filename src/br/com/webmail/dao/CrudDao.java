@@ -1,4 +1,4 @@
-package br.com.webmail.daotest;
+package br.com.webmail.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -55,4 +55,12 @@ public class CrudDao<T,PK> implements Serializable {
     public List<T> findWithNamedQuery(String namedQueryName){
         return dao.findWithNamedQuery(namedQueryName);
     }
+    
+    protected String getQueryByName(String name){
+		return EnumQueries.findQueryByName(name).getQuery();
+	}
+	
+	protected String getQueryByFullName(String name){
+		return EnumQueries.findQueryByFullName(name).getQuery();
+	}
 }

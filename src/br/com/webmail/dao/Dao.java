@@ -1,4 +1,4 @@
-package br.com.webmail.daotest;
+package br.com.webmail.dao;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;

@@ -3,21 +3,20 @@ package br.com.webmail.domain.filtro;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.Query;
 
 import org.jboss.logging.Logger;
 
-import br.com.webmail.dao.DAO;
+import br.com.webmail.dao.CrudDao;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.email.EmailDAO;
 import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.usuario.Usuario;
 
-public class FiltroDAO extends DAO<Filtro, Long> {
-	public FiltroDAO(Class<Filtro> especializacao) {
-		super(especializacao);
-	}
+@Stateless
+public class FiltroDAO extends CrudDao<Filtro, Long> {
 
 	@Inject
 	private EmailDAO emailDAO;
@@ -34,7 +33,7 @@ public class FiltroDAO extends DAO<Filtro, Long> {
 	@SuppressWarnings("unchecked")
 	public List<EmailFiltro> obtemEmailFiltroUsuario(Usuario usuario) {
 		List<EmailFiltro> emailFiltros = null;
-		Query query = entityManager.createQuery(
+		Query query = getEntityManager().createQuery(
 				getQueryByFullName("EmailFiltro.obtemFiltrosUsuario"))
 				.setParameter("usuario", usuario);
 		emailFiltros = (List<EmailFiltro>) query.getResultList();
@@ -51,7 +50,7 @@ public class FiltroDAO extends DAO<Filtro, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosUsuario(Usuario usuario) {
 		List<Filtro> filtros = null;
-		Query query = entityManager.createQuery(
+		Query query = getEntityManager().createQuery(
 				getQueryByFullName("Filtro.filtroUsuario")).setParameter(
 				"idFiltro",
 				obtemEmailFiltroUsuario(obtemEmailFiltroUsuario(usuario)));
@@ -63,7 +62,7 @@ public class FiltroDAO extends DAO<Filtro, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosPadrao() {
 		List<Filtro> filtros = null;
-		Query query = entityManager.createQuery(getQueryByFullName("Filtro.filtrosPadrao"));
+		Query query = getEntityManager().createQuery(getQueryByFullName("Filtro.filtrosPadrao"));
 		filtros = (List<Filtro>) query.getResultList();
 		return filtros;
 	}

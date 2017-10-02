@@ -5,24 +5,19 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 
-import br.com.webmail.dao.DAO;
+import br.com.webmail.dao.CrudDao;
 
-@Named("emailDao")
 @Stateless
-public class EmailDAO extends DAO<Email, Long> {
+public class EmailDAO extends CrudDao<Email, Long> {
 	
 	public EmailDAO(){
 		
 	}
 	
-//	public EmailDAO(Class<Email> especializacao,EntityManager em) {
-//		super(especializacao,em);
-//	}
-
 	@SuppressWarnings("unchecked")
 	public List<Email> obtemEmailsFromFiltros(List<EmailFiltro> filtros) {
 		List<Email> emails = null;
-		emails = (List<Email>) entityManager.createQuery(
+		emails = (List<Email>) getEntityManager().createQuery(
 				getQueryByFullName("Email.emailFromFiltro")).setParameter(1,
 				filtros);
 		return emails;

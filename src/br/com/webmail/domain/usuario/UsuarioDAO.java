@@ -1,17 +1,15 @@
 package br.com.webmail.domain.usuario;
 
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
-import br.com.webmail.dao.DAO;
+import br.com.webmail.dao.CrudDao;
 
-public class UsuarioDAO extends DAO<Usuario, Long> {
-
-	public UsuarioDAO(Class<Usuario> especializacao) {
-		super(especializacao);
-	}
+@Stateless
+public class UsuarioDAO extends CrudDao<Usuario, Long> {
 
 	public Usuario findByLogin(String login) {
-		Query query = entityManager.createQuery(getQueryByFullName("Usuario.findUsuarioByLogin"))
+		Query query = getEntityManager().createQuery(getQueryByFullName("Usuario.findUsuarioByLogin"))
 				.setParameter("login", login);
 		return (Usuario) query.getSingleResult();
 	}

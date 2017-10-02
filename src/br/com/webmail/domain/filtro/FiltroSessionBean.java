@@ -10,7 +10,8 @@ import br.com.webmail.domain.usuario.Usuario;
 
 @Stateless
 public class FiltroSessionBean implements FiltroService{
-	private FiltroDAO dao = new FiltroDAO(Filtro.class);
+	@Inject
+	private FiltroDAO dao;
 	
 //	@Inject
 //	private DAOInterface<EmailFiltro, Long> emailFiltroDAO;
