@@ -2,9 +2,6 @@ package br.com.webmail.domain.usuario;
 
 import java.util.List;
 
-import javax.ejb.Local;
-
-@Local
 public interface UsuarioService {
 	 Usuario find(Long id);
 	 void save(Usuario usuario, String senha);

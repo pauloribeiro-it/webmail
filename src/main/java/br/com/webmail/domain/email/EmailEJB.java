@@ -3,32 +3,35 @@ package br.com.webmail.domain.email;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import br.com.webmail.dao.CrudDao;
+import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
 
 @Stateless
-public class EmailSessionBean implements EmailService {
-//	@Inject
-//	private EmailDAO dao;
-//
-//	@Inject
-//	private DAOInterface<EmailDestinatario, Email> destinatarioDAO;
-//
-//	@Inject
-//	private DAOInterface<EmailFiltro, Long> emailFiltroDAO;
+public class EmailEJB implements EmailService {
+	@Inject
+	private EmailDAO dao;
+	
+	@Inject @Dao
+	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
+	
+	@Inject @Dao
+	private CrudDao<EmailFiltro, Long> emailFiltroDAO;
 
 	public void save(Email email) {
-//		dao.save(email);
+		dao.insert(email);
 	}
 
 	public void update(Email email) {
-//		dao.merge(email);
+		dao.update(email);
 	}
 
 	@Override
 	public void saveDestinatarios(List<EmailDestinatario> destinatarios) {
 		for (EmailDestinatario destinatario : destinatarios){
-//			destinatarioDAO.save(destinatario);
+			destinatarioDAO.insert(destinatario);
 		}
 	}
 
@@ -39,7 +42,7 @@ public class EmailSessionBean implements EmailService {
 		// no momento em que for salvar o email_filtro verificar se há um
 		// email_filtro com email null, caso existir atualiza-lo com o novo
 		// email
-//		emailFiltroDAO.save(emailFiltro);
+		emailFiltroDAO.insert(emailFiltro);
 	}
 
 	private Filtro findFiltro(Email email, List<Filtro> filtros) {

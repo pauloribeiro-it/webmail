@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContextType;
 
 import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
-import br.com.webmail.dao.LoginDao;
 import br.com.webmail.domain.autorizacao.AutorizacaoService;
 import br.com.webmail.domain.filtro.Filtro;
 
@@ -22,13 +21,6 @@ public class LoginEJB implements LoginService{
 	@Dao
 	private CrudDao<Login, String> dao;
 	
-//	@Inject
-//	@DaoProduces
-//	private EmailDAO emailDao;
-	
-	@Inject
-	private LoginDao loginDao;
-	
 	@Inject @Dao
 	private CrudDao<Filtro,Long> filtroDao;
 	
@@ -36,19 +28,14 @@ public class LoginEJB implements LoginService{
 	private AutorizacaoService autorizacaoBean;
 
 	public void save(Login login) {
-//		dao.save(login);
 		autorizacaoBean.save(login);
 	}
 
 	public Login find(String login) {
-//		dao.find(login);
-//		entityManager.createQuery("select u from Usuario u").getResultList().forEach(lo->System.out.println(lo));
-		System.out.println(loginDao.findAll());
-		return null;
+		return dao.find(login);
 	}
 
 	public void delete(Login login) {
 		autorizacaoBean.delete(login);
-//		dao.delete(login);
 	}
 }

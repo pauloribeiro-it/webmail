@@ -4,17 +4,21 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import br.com.webmail.dao.CrudDao;
+import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.login.Login;
 import br.com.webmail.domain.login.LoginService;
 
 @Stateless
-public class UsuarioBean implements UsuarioService {
+public class UsuarioEJB implements UsuarioService {
 
-//	@Inject
-//	private GenericDAO<Usuario, Long> dao;
+	@Inject
+	@Dao
+	private CrudDao<Usuario, Long> dao;
 
 	@EJB
 	private LoginService loginBean;
@@ -23,8 +27,7 @@ public class UsuarioBean implements UsuarioService {
 	private FiltroService filtroBean;
 
 	public Usuario find(Long id) {
-//		return dao.find(id);
-		return null;
+		return dao.find(id);
 	}
 
 	public void save(Usuario usuario, String senha) {
@@ -36,16 +39,15 @@ public class UsuarioBean implements UsuarioService {
 	}
 
 	public void merge(Usuario usuario) {
-//		dao.merge(usuario);
+		dao.update(usuario);
 	}
 
 	public void delete(Usuario usuario) {
-//		dao.delete(usuario);
+		dao.delete(usuario.getId());
 	}
 
 	public List<Usuario> findAll() {
-//		return dao.findAll();
-		return null;
+		return dao.findAll();
 	}
 
 	private Login configuraPerfil(Usuario usuario, String senha) {

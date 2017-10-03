@@ -15,8 +15,8 @@ import javax.inject.Inject;
 public class UsuarioMB implements Serializable {
 
 	private static final long serialVersionUID = -7196103259003542702L;
-//	@Inject
-	private Usuario usuario = new Usuario();
+	@Inject
+	private Usuario usuario;
 
 	private String senha;
 

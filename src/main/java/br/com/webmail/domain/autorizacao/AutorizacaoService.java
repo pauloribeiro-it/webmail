@@ -1,10 +1,7 @@
 package br.com.webmail.domain.autorizacao;
 
-import javax.ejb.Local;
-
 import br.com.webmail.domain.login.Login;
 
-@Local
 public interface AutorizacaoService {
 	void save(Login login);
 	Autorizacao find(Login login);

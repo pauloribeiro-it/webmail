@@ -18,6 +18,8 @@ import br.com.webmail.domain.usuario.Usuario;
 @Stateless
 public class FiltroDAO extends CrudDao<Filtro, Long> {
 
+	private static final long serialVersionUID = 3364837670567051036L;
+
 	@Inject
 	private EmailDAO emailDAO;
 

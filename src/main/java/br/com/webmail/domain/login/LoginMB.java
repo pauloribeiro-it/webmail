@@ -31,7 +31,7 @@ public class LoginMB {
 	}
 	@PostConstruct
 	public void init(){
-		System.out.println("inicio");
+		
 	}
 	
 	public void loginUser() {
