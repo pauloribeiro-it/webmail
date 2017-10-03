@@ -8,6 +8,7 @@ import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
 
+
 public enum EnumQueries {
 	//Email
 	EMAILFROMFILTRO(Email.class,"emailFromFiltro","select e from Email e where e.id in (:emailFiltro)"),
