@@ -11,6 +11,8 @@ import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.autorizacao.AutorizacaoService;
 import br.com.webmail.domain.filtro.Filtro;
+import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.util.WebmailUtil;
 
 @Stateless
 public class LoginEJB implements LoginService{
@@ -31,11 +33,14 @@ public class LoginEJB implements LoginService{
 		autorizacaoBean.save(login);
 	}
 
-	public Login find(String login) {
-		return dao.find(login);
+	public Login configuraPerfil(Usuario usuario, String senha) {
+		Login login = new Login();
+		login.setUsuario(usuario);
+		login.setAtivo(true);
+		login.setSenha(senha);
+		login.setLogin(WebmailUtil.getEmailFormatado(usuario.getEmail()));
+		return login;
 	}
-
-	public void delete(Login login) {
-		autorizacaoBean.delete(login);
-	}
+	
+	
 }

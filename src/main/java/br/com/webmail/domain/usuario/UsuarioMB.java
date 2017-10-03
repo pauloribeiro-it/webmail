@@ -1,20 +1,20 @@
 package br.com.webmail.domain.usuario;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean(name = "usuarioMB")
+@Named("usuarioMB")
 @RequestScoped
 public class UsuarioMB implements Serializable {
 
 	private static final long serialVersionUID = -7196103259003542702L;
+	
 	@Inject
 	private Usuario usuario;
 
@@ -43,17 +43,11 @@ public class UsuarioMB implements Serializable {
 	}
 
 	public String cadastro() {
-		configuraDatas();
-		usuarioBean.save(usuario, senha);
+		usuarioBean.registraUsuario(usuario, senha);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				null, "Cadastro concluído com sucesso."));
 		return "login.jsf";
-	}
-
-	private void configuraDatas() {
-		usuario.setDataCriacao(new Date());
-		usuario.setUltimoLogin(new Date());
 	}
 
 }

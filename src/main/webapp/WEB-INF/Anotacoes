@@ -12,3 +12,8 @@ relativas aos remetentes dos emails, ao corpo do email e ao assunto do email e a
  - Um email pode cair em um filtro quando o email for recebido e usuário pode mover para outro filtro. A regra do filtro
  só vai ser aplicada quando o email for recebido e for selecionado o filtro, após isso o usuário poderá mover o email para
  o filtro que desejar.
+ 
+ Tarefas:
+ Deixar apenas filtros default: entrada, saída, rascunho, enviados.
+ Criar properties para internacionalização das mensagens.
+ Deixar apenas um usuário

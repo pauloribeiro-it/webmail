@@ -1,7 +1,6 @@
 package br.com.webmail.domain.login;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
@@ -22,9 +21,6 @@ import org.apache.shiro.subject.Subject;
 public class LoginMB {
 	private String username;
 	private String password;
-	
-	@EJB
-	private LoginService loginBean;
 	
 	public LoginMB(){
 		
@@ -92,7 +88,4 @@ public class LoginMB {
 		this.password = password;
 	}
 	
-	public void testa(){
-		loginBean.find("");
-	}
 }
