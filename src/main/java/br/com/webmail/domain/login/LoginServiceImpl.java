@@ -30,6 +30,7 @@ public class LoginServiceImpl implements LoginService{
 	private AutorizacaoService autorizacaoBean;
 
 	public void save(Login login) {
+		dao.insert(login);
 		autorizacaoBean.save(login);
 	}
 

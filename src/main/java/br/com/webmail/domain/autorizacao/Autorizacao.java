@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.webmail.domain.login.Login;
@@ -23,7 +23,7 @@ public class Autorizacao implements Serializable{
 	private String papel;
 	
 	@Id
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="login",referencedColumnName="login")
 	private Login login;
 
