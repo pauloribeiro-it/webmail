@@ -62,11 +62,4 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 		return filtros;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Filtro> obtemFiltrosPadrao() {
-		List<Filtro> filtros = null;
-		Query query = getEntityManager().createQuery(EnumQueries.FILTROPADRAO.getQuery());
-		filtros = (List<Filtro>) query.getResultList();
-		return filtros;
-	}
 }

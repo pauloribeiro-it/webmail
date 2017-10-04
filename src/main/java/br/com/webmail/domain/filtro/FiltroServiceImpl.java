@@ -28,7 +28,7 @@ public class FiltroServiceImpl implements FiltroService{
 	}
 
 	public List<Filtro> obtemFiltrosPadrao() {
-		return dao.obtemFiltrosPadrao();
+		return dao.findAll();
 	}
 
 }

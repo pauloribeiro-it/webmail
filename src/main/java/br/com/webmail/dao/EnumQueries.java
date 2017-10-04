@@ -18,7 +18,6 @@ public enum EnumQueries {
 	
 	//Filtro
 	FILTROUSUARIO(Filtro.class,"filtroUsuario","select f from Filtro f where f.id in (:idFiltro)"),
-	FILTROPADRAO(Filtro.class,"filtrosPadrao","select f from Filtro f where f.nome in('Caixa de Entrada','Lixo','Rascunhos','Enviados','Excluídos')"),
 	
 	//Usuário
 	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login");
