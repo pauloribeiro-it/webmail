@@ -8,14 +8,14 @@ import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.login.Login;
 
 @Stateless
-public class AutorizacaoEJB implements AutorizacaoService{
+public class AutorizacaoServiceImpl implements AutorizacaoService{
 	@Inject @Dao
 	private CrudDao<Autorizacao, Login> dao;
 
 	public void save(Login login) {
 		Autorizacao autorizacao = new Autorizacao();
 		autorizacao.setLogin(login);
-		autorizacao.setPapel("ROLE_USUARIO");
+		autorizacao.setPapel("admin");
 		dao.insert(autorizacao);
 	}
 

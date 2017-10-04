@@ -16,7 +16,7 @@ import br.com.webmail.domain.login.LoginService;
 import static br.com.webmail.util.WebmailUtil.*;
 
 @Stateless
-public class UsuarioEJB implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService {
 
 	@Inject
 	@Dao
@@ -26,7 +26,7 @@ public class UsuarioEJB implements UsuarioService {
 	private LoginService loginBean;
 
 	@EJB
-	private FiltroService filtroBean;
+	private FiltroService filtroService;
 
 	public void registraUsuario(Usuario usuario, String senha) {
 		Login login = loginBean.configuraPerfil(usuario, getEncryptedPassword(senha));
@@ -34,12 +34,12 @@ public class UsuarioEJB implements UsuarioService {
 		usuario.setEmail(getEmailFormatado(usuario.getEmail()));
 		usuarioDao.insert(usuario);
 		loginBean.save(login);
-		associaFiltrosPadrao(usuario, filtroBean.obtemFiltrosPadrao());
+		associaFiltrosPadrao(usuario, filtroService.obtemFiltrosPadrao());
 	}
 
 	private void associaFiltrosPadrao(Usuario usuario, List<Filtro> filtros) {
 		for (Filtro filtro : filtros) {
-			filtroBean.associaFiltroUsuario(usuario, filtro);
+			filtroService.associaFiltroUsuario(usuario, filtro);
 		}
 	}
 	

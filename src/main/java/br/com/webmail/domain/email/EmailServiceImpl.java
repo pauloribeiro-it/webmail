@@ -11,7 +11,7 @@ import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
-public class EmailEJB implements EmailService {
+public class EmailServiceImpl implements EmailService {
 	@Inject
 	private EmailDAO dao;
 	

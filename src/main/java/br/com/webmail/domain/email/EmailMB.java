@@ -36,13 +36,13 @@ public class EmailMB implements Serializable {
 	private Email email;
 
 	@EJB
-	private FiltroService filtroBean;
+	private FiltroService filtroService;
 
 	@EJB
-	private EmailService emailBean;
+	private EmailService emailService;
 
-	@Inject
-	private UsuarioDAO usuarioDAO;
+//	@Inject
+//	private UsuarioDAO usuarioDAO;
 
 	private String emailsTexto;
 
@@ -70,13 +70,13 @@ public class EmailMB implements Serializable {
 
 	private void configuraFiltrosPersonalizados() {
 		String userName = WebmailUtil.getNomeUsuarioLogado();
-		List<Filtro> filtrosResult = filtroBean.obtemFiltrosUsuario(usuarioDAO
-				.findByLogin(userName));
-		for (Filtro filtro : filtrosResult) {
-			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
-			itemMenu.setCommand("#{emailMB.retornaFiltros}");
-			submenu.addElement(itemMenu);
-		}
+//		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuarioDAO
+//				.findByLogin(userName));
+//		for (Filtro filtro : filtrosResult) {
+//			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
+//			itemMenu.setCommand("#{emailMB.retornaFiltros}");
+//			submenu.addElement(itemMenu);
+//		}
 	}
 
 	public void retornaFiltros(ActionEvent e) {
@@ -91,20 +91,20 @@ public class EmailMB implements Serializable {
 
 	private void configuraEmail() {
 		configuraDatas();
-		Usuario remetente = usuarioDAO.findByLogin(WebmailUtil
-				.getNomeUsuarioLogado());
-		email.setRemetente(remetente);
-		email.setDestinatarios(getDestinatarios());
+//		Usuario remetente = usuarioDAO.findByLogin(WebmailUtil
+//				.getNomeUsuarioLogado());
+//		email.setRemetente(remetente);
+//		email.setDestinatarios(getDestinatarios());
 	}
 
 	private void saveEmail() {
 		email.setDestinatarios(null);
-		emailBean.save(email);
+		emailService.save(email);
 		logger.info("inseriu email");
-		emailBean.saveDestinatarios(getDestinatarios());
+		emailService.saveDestinatarios(getDestinatarios());
 		logger.info("inseriu destinatarios");
-		emailBean.saveEmailFiltro(email,
-				filtroBean.obtemFiltrosUsuario(email.getRemetente()));
+		emailService.saveEmailFiltro(email,
+				filtroService.obtemFiltrosUsuario(email.getRemetente()));
 		logger.info("inseriu email_filtro");
 	}
 
@@ -135,10 +135,10 @@ public class EmailMB implements Serializable {
 	private EmailDestinatario constroiEmailDestinatario(Email email,
 			String destinatario, boolean isCC, boolean isCCO) {
 		EmailDestinatario emailDestinatario = new EmailDestinatario();
-		emailDestinatario.setEmail(email);
-		emailDestinatario.setCC(isCC);
-		emailDestinatario.setCCO(isCCO);
-		emailDestinatario.setUsuario(usuarioDAO.findByLogin(destinatario));
+//		emailDestinatario.setEmail(email);
+//		emailDestinatario.setCC(isCC);
+//		emailDestinatario.setCCO(isCCO);
+//		emailDestinatario.setUsuario(usuarioDAO.findByLogin(destinatario));
 		return emailDestinatario;
 	}
 

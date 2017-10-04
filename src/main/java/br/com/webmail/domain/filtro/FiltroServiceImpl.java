@@ -11,7 +11,7 @@ import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
-public class FiltroSessionBean implements FiltroService{
+public class FiltroServiceImpl implements FiltroService{
 	@Inject
 	private FiltroDAO dao;
 	

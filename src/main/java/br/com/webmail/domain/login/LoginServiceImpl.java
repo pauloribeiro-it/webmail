@@ -15,7 +15,7 @@ import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.util.WebmailUtil;
 
 @Stateless
-public class LoginEJB implements LoginService{
+public class LoginServiceImpl implements LoginService{
 	@PersistenceContext(unitName = "webmail", type = PersistenceContextType.TRANSACTION)
 	protected EntityManager entityManager;
 	
