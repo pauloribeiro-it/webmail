@@ -10,10 +10,11 @@ import javax.persistence.Query;
 import org.jboss.logging.Logger;
 
 import br.com.webmail.dao.CrudDao;
+import br.com.webmail.dao.EnumQueries;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.email.EmailDAO;
-import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
 public class FiltroDAO extends CrudDao<Filtro, Long> {
@@ -33,19 +34,20 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<EmailFiltro> obtemEmailFiltroUsuario(Usuario usuario) {
-		List<EmailFiltro> emailFiltros = null;
+	public List<UsuarioFiltro> obtemEmailFiltroUsuario(Usuario usuario) {
+		List<UsuarioFiltro> emailFiltros = null;
 		Query query = getEntityManager().createQuery(
-				getQueryByFullName("EmailFiltro.obtemFiltrosUsuario"))
+				EnumQueries.OBTEMFILTROSUSUARIO.getQuery())
 				.setParameter("usuario", usuario);
-		emailFiltros = (List<EmailFiltro>) query.getResultList();
+		emailFiltros = (List<UsuarioFiltro>) query.getResultList();
 		return emailFiltros;
 	}
 
-	public List<Long> obtemEmailFiltroUsuario(List<EmailFiltro> emails) {
+	public List<Long> obtemEmailFiltroUsuario(List<UsuarioFiltro> filtrosUsuario) {
 		List<Long> ids = new ArrayList<Long>();
-		for (EmailFiltro emailFiltro : emails) 
-			ids.add(emailFiltro.getFiltro().getId());
+		for (UsuarioFiltro filtroUsuario : filtrosUsuario){
+			ids.add(filtroUsuario.getFiltro().getId());
+		}
 		return ids;
 	}
 
@@ -53,8 +55,7 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 	public List<Filtro> obtemFiltrosUsuario(Usuario usuario) {
 		List<Filtro> filtros = null;
 		Query query = getEntityManager().createQuery(
-				getQueryByFullName("Filtro.filtroUsuario")).setParameter(
-				"idFiltro",
+				EnumQueries.FILTROUSUARIO.getQuery()).setParameter("idFiltro",
 				obtemEmailFiltroUsuario(obtemEmailFiltroUsuario(usuario)));
 		filtros = (List<Filtro>) query.getResultList();
 		logger.info("Size = " + filtros.size());
@@ -64,7 +65,7 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosPadrao() {
 		List<Filtro> filtros = null;
-		Query query = getEntityManager().createQuery(getQueryByFullName("Filtro.filtrosPadrao"));
+		Query query = getEntityManager().createQuery(EnumQueries.FILTROPADRAO.getQuery());
 		filtros = (List<Filtro>) query.getResultList();
 		return filtros;
 	}

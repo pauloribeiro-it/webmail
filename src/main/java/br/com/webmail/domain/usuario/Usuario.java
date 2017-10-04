@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.webmail.domain.email.EmailFiltro;
-
 @Entity
 @Table(name="usuario")
 public class Usuario {
@@ -33,7 +31,7 @@ public class Usuario {
 	private Date ultimoLogin;
 	
 	@OneToMany
-	private List<EmailFiltro> filtros;
+	private List<UsuarioFiltro> filtros;
 	
 	public Usuario(){
 		
@@ -84,11 +82,11 @@ public class Usuario {
 		this.ultimoLogin = ultimoLogin;
 	}
 
-	public List<EmailFiltro> getFiltros() {
+	public List<UsuarioFiltro> getFiltros() {
 		return filtros;
 	}
 
-	public void setFiltros(List<EmailFiltro> filtros) {
+	public void setFiltros(List<UsuarioFiltro> filtros) {
 		this.filtros = filtros;
 	}
 

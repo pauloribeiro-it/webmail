@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.webmail.domain.email.Email;
-import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 
 public enum EnumQueries {
@@ -14,7 +14,7 @@ public enum EnumQueries {
 	EMAILFROMFILTRO(Email.class,"emailFromFiltro","select e from Email e where e.id in (:emailFiltro)"),
 	
 	//Email Filtro
-	OBTEMFILTROSUSUARIO(EmailFiltro.class,"obtemFiltrosUsuario","select f from EmailFiltro f where f.usuario=:usuario"),
+	OBTEMFILTROSUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario"),
 	
 	//Filtro
 	FILTROUSUARIO(Filtro.class,"filtroUsuario","select f from Filtro f where f.id in (:idFiltro)"),
@@ -65,7 +65,7 @@ public enum EnumQueries {
 				return query;
 			}
 		}
-		throw new RuntimeException("Query :"+name+" não encontrada.");
+		throw new IllegalArgumentException("Query :"+name+" não encontrada.");
 	}
 	
 	public static EnumQueries findQueryByFullName(String name){
@@ -74,6 +74,6 @@ public enum EnumQueries {
 				return query;
 			}
 		}
-		throw new RuntimeException("Query :"+name+" não encontrada.");
+		throw new IllegalArgumentException("Query :"+name+" não encontrada.");
 	}
 }

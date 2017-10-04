@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import br.com.webmail.dao.CrudDao;
+import br.com.webmail.dao.EnumQueries;
+import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
 public class EmailDAO extends CrudDao<Email, Long> {
@@ -16,11 +18,10 @@ public class EmailDAO extends CrudDao<Email, Long> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Email> obtemEmailsFromFiltros(List<EmailFiltro> filtros) {
+	public List<Email> obtemEmailsFromFiltros(List<UsuarioFiltro> filtros) {
 		List<Email> emails = null;
 		emails = (List<Email>) getEntityManager().createQuery(
-				getQueryByFullName("Email.emailFromFiltro")).setParameter(1,
-				filtros);
+				EnumQueries.EMAILFROMFILTRO.getQuery()).setParameter(1,filtros);
 		return emails;
 	}
 	

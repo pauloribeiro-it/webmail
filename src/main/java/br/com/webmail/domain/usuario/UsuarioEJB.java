@@ -34,11 +34,10 @@ public class UsuarioEJB implements UsuarioService {
 		usuario.setEmail(getEmailFormatado(usuario.getEmail()));
 		usuarioDao.insert(usuario);
 		loginBean.save(login);
-//		associaFiltrosPadrao(usuario, filtroBean.obtemFiltrosPadrao());
+		associaFiltrosPadrao(usuario, filtroBean.obtemFiltrosPadrao());
 	}
 
-	private void associaFiltrosPadrao(Usuario usuario,
-			List<Filtro> filtros) {
+	private void associaFiltrosPadrao(Usuario usuario, List<Filtro> filtros) {
 		for (Filtro filtro : filtros) {
 			filtroBean.associaFiltroUsuario(usuario, filtro);
 		}
@@ -48,4 +47,5 @@ public class UsuarioEJB implements UsuarioService {
 		usuario.setDataCriacao(new Date());
 		usuario.setUltimoLogin(new Date());
 	}
+	
 }

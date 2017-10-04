@@ -7,8 +7,8 @@ import javax.inject.Inject;
 
 import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
-import br.com.webmail.domain.email.EmailFiltro;
 import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
 public class FiltroSessionBean implements FiltroService{
@@ -16,14 +16,14 @@ public class FiltroSessionBean implements FiltroService{
 	private FiltroDAO dao;
 	
 	@Inject @Dao
-	private CrudDao<EmailFiltro, Long> emailFiltroDAO;
+	private CrudDao<UsuarioFiltro, Long> emailFiltroDAO;
 	
 	public List<Filtro> obtemFiltrosUsuario(Usuario usuario) {
 		return dao.obtemFiltrosUsuario(usuario);
 	}
 
 	public void associaFiltroUsuario(Usuario usuario, Filtro filtro) {
-		EmailFiltro emailFiltro = new EmailFiltro(null,filtro,usuario);
+		UsuarioFiltro emailFiltro = new UsuarioFiltro(filtro,usuario);
 		emailFiltroDAO.insert(emailFiltro);
 	}
 

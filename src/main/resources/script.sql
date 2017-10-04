@@ -10,6 +10,14 @@ create table usuario
   constraint pk_usuario primary key (id)
 );
 
+CREATE TABLE login(
+	login varchar (100),
+	senha varchar (100),
+    id_usuario integer,
+    constraint pk_user primary key(login),
+    constraint fk_login_usuario foreign key (id_usuario) references usuario(id)
+);
+
 create table amigo	
 (
   id_usuario1 integer,
@@ -20,10 +28,21 @@ create table amigo
   constraint fk_amigo_usuario2 foreign key(id_usuario2) references usuario(id)
 );
 
-create table status_email(
-	codigo integer,
-	descricao varchar(100),
-	constraint pk_status_email primary key(codigo)
+create table filtro
+(
+	id integer auto_increment,
+    nome varchar(30),
+    constraint pk_filtro primary key(id)
+);
+
+create table usuario_filtro
+(
+	id integer auto_increment,
+    id_filtro integer,
+    id_usuario integer,
+    constraint pk_usuario_filtro primary key (id),
+    constraint fk_usuario_filtro foreign key (id_filtro) references filtro(id),
+    constraint fk_filtro_usuario foreign key(id_usuario) references usuario(id)
 );
 
 create table email
@@ -39,9 +58,10 @@ create table email
   data_hora_excluido timestamp,
   data_hora_deletado timestamp,
   data_hora_enviado timestamp,
+  id_usuario_filtro integer,
   constraint pk_email primary key (id),
   constraint fk_email_remetente foreign key(id_remetente) references usuario(id),
-  constraint fk_status_email foreign key(status_email) references status_email(codigo) 
+  constraint fk_email_usuario_filtro foreign key(id_usuario_filtro) references usuario_filtro(id)
 );
 
 create table email_destinatario
@@ -55,42 +75,8 @@ create table email_destinatario
   constraint fk_email_destinatario_usuario foreign key (id_destinatario) references usuario(id)
 );
 
-create table filtro
-(
-	id integer auto_increment,
-    nome varchar(30),
-    regra varchar(200),
-    constraint pk_filtro primary key(id)
-);
-
-create table email_filtro
-(
-	id integer auto_increment,
-	id_email integer,
-    id_filtro integer,
-    id_usuario integer,
-    constraint pk_email_filtro primary key (id),
-    constraint fk_email_filtro_email foreign key (id_email) references email(id),
-    constraint fk_email_filtro_filtro foreign key (id_filtro) references filtro(id),
-    constraint fk_email_filtro_usuario foreign key(id_usuario) references usuario(id)
-);
-
-CREATE TABLE login(
-	login varchar (100),
-	senha varchar (100),
-    id_usuario integer,
-    constraint pk_user primary key(login),
-    constraint fk_login_usuario foreign key (id_usuario) references usuario(id)
-);
-
-insert into status_email(codigo,descricao) values(1,'Rascunho');
-insert into status_email(codigo,descricao) values(2,'Enviado');
-insert into status_email(codigo,descricao) values(3,'Recebido');
-insert into status_email(codigo,descricao) values(4,'Lido');
-insert into status_email(codigo,descricao) values(5,'Excluído');
-
-insert into filtro(id,nome) values(1,'Caixa de Entrada','Email.corpo= ;Email.assunto= ;Email.corpo= ');
-insert into filtro(id,nome) values(2,'Lixo','Email.corpo= ;Email.assunto= ;Email.corpo= ');
-insert into filtro(id,nome) values(3,'Rascunhos','Email.corpo= ;Email.assunto= ;Email.corpo= ');
-insert into filtro(id,nome) values(4,'Enviados','Email.corpo= ;Email.assunto= ;Email.corpo= ');
-insert into filtro(id,nome) values(5,'Excluídos','Email.corpo= ;Email.assunto= ;Email.corpo= ');
+insert into filtro(id,nome) values(1,'Caixa de Entrada');
+insert into filtro(id,nome) values(2,'Lixo');
+insert into filtro(id,nome) values(3,'Rascunhos');
+insert into filtro(id,nome) values(4,'Enviados');
+insert into filtro(id,nome) values(5,'Excluídos');

@@ -16,9 +16,6 @@ public class Filtro {
 	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name="regra")
-	private String regra;
-	
 	public Filtro() {
 
 	}
@@ -39,21 +36,12 @@ public class Filtro {
 		this.nome = nome;
 	}
 
-	public String getRegra() {
-		return regra;
-	}
-
-	public void setRegra(String regra) {
-		this.regra = regra;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((regra == null) ? 0 : regra.hashCode());
 		return result;
 	}
 
@@ -72,11 +60,6 @@ public class Filtro {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
-			return false;
-		if (regra == null) {
-			if (other.regra != null)
-				return false;
-		} else if (!regra.equals(other.regra))
 			return false;
 		return true;
 	}
