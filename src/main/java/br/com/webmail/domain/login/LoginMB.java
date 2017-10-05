@@ -1,6 +1,5 @@
 package br.com.webmail.domain.login;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
@@ -25,10 +24,6 @@ public class LoginMB {
 	public LoginMB(){
 		
 	}
-	@PostConstruct
-	public void init(){
-		
-	}
 	
 	public void loginUser() {
 
@@ -36,9 +31,11 @@ public class LoginMB {
 
 			Subject currentUser = SecurityUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, new Sha256Hash(password).toHex());
-
 			currentUser.login(token);
-
+			if (null != SecurityUtils.getSubject().getPrincipal()) {
+				NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/index.xhtml?faces-redirect=true");
+			}
 		} catch (UnknownAccountException uae) {
 			uae.printStackTrace();
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -60,16 +57,6 @@ public class LoginMB {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed!", aex.toString()));
 		}
 
-	}
-
-	public void authorizedUserControl() {
-
-		if (null != SecurityUtils.getSubject().getPrincipal()) {
-
-			NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-			nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/member/index.xhtml?faces-redirect=true");
-
-		}
 	}
 
 	public String getUsername() {

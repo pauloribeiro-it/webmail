@@ -12,10 +12,12 @@ public class AutorizacaoServiceImpl implements AutorizacaoService{
 	@Inject @Dao
 	private CrudDao<Autorizacao, Login> dao;
 
+	private static final String USUARIO_PAPEL = "user";
+	
 	public void save(Login login) {
 		Autorizacao autorizacao = new Autorizacao();
 		autorizacao.setLogin(login);
-		autorizacao.setPapel("admin");
+		autorizacao.setPapel(USUARIO_PAPEL);
 		dao.insert(autorizacao);
 	}
 
