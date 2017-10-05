@@ -56,8 +56,14 @@ public class LoginMB {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login failed!", aex.toString()));
 		}
-
 	}
+	
+	public void logout(){
+		SecurityUtils.getSubject().logout();
+		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "index.xhtml?faces-redirect=true");
+	}
+	
 
 	public String getUsername() {
 		return username;

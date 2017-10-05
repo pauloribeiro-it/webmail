@@ -12,14 +12,13 @@
 		<p:layoutUnit position="west" resizable="false" size="300"
 			minSize="300" maxSize="500">
 			<h:form>
-				<p:panelMenu model="#{emailManagedBean.simpleMenuModel}">
+				<p:panelMenu model="#{emailMB.simpleMenuModel}">
 				</p:panelMenu>
 				<br/>
-				<p:commandLink value="Configurações" action="#"></p:commandLink>
+				<p:commandLink value="Configurações" action="#"/>
 				<br/>
+				<p:commandButton value="Logout" actionListener="#{loginMB.logout}" immediate="true"/>
 			</h:form>
-			
-			<a href="./logout">Logout</a>
 		</p:layoutUnit>
 		<p:layoutUnit position="center">
 			<ui:insert name="content"></ui:insert>
