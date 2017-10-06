@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Entity
 @Table(name="email")
@@ -60,6 +62,9 @@ public class Email {
 	@Column(name="data_hora_enviado")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataHoraEnviado;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private UsuarioFiltro filtrosUsuario;
 	
 	public Email (){
 		
@@ -159,31 +164,19 @@ public class Email {
 		this.destinatarios = destinatarios;
 	}
 
+	public UsuarioFiltro getFiltrosUsuario() {
+		return filtrosUsuario;
+	}
+
+	public void setFiltrosUsuario(UsuarioFiltro filtrosUsuario) {
+		this.filtrosUsuario = filtrosUsuario;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
-		result = prime * result + ((corpo == null) ? 0 : corpo.hashCode());
-		result = prime * result
-				+ ((dataHoraCriacao == null) ? 0 : dataHoraCriacao.hashCode());
-		result = prime
-				* result
-				+ ((dataHoraDeletado == null) ? 0 : dataHoraDeletado.hashCode());
-		result = prime * result
-				+ ((dataHoraEnviado == null) ? 0 : dataHoraEnviado.hashCode());
-		result = prime
-				* result
-				+ ((dataHoraExcluido == null) ? 0 : dataHoraExcluido.hashCode());
-		result = prime * result
-				+ ((dataHoraLido == null) ? 0 : dataHoraLido.hashCode());
-		result = prime
-				* result
-				+ ((dataHoraRecebido == null) ? 0 : dataHoraRecebido.hashCode());
-		result = prime * result
-				+ ((destinatarios == null) ? 0 : destinatarios.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((remetente == null) ? 0 : remetente.hashCode());
 		return result;
 	}
 
@@ -196,59 +189,9 @@ public class Email {
 		if (getClass() != obj.getClass())
 			return false;
 		Email other = (Email) obj;
-		if (assunto == null) {
-			if (other.assunto != null)
-				return false;
-		} else if (!assunto.equals(other.assunto))
-			return false;
-		if (corpo == null) {
-			if (other.corpo != null)
-				return false;
-		} else if (!corpo.equals(other.corpo))
-			return false;
-		if (dataHoraCriacao == null) {
-			if (other.dataHoraCriacao != null)
-				return false;
-		} else if (!dataHoraCriacao.equals(other.dataHoraCriacao))
-			return false;
-		if (dataHoraDeletado == null) {
-			if (other.dataHoraDeletado != null)
-				return false;
-		} else if (!dataHoraDeletado.equals(other.dataHoraDeletado))
-			return false;
-		if (dataHoraEnviado == null) {
-			if (other.dataHoraEnviado != null)
-				return false;
-		} else if (!dataHoraEnviado.equals(other.dataHoraEnviado))
-			return false;
-		if (dataHoraExcluido == null) {
-			if (other.dataHoraExcluido != null)
-				return false;
-		} else if (!dataHoraExcluido.equals(other.dataHoraExcluido))
-			return false;
-		if (dataHoraLido == null) {
-			if (other.dataHoraLido != null)
-				return false;
-		} else if (!dataHoraLido.equals(other.dataHoraLido))
-			return false;
-		if (dataHoraRecebido == null) {
-			if (other.dataHoraRecebido != null)
-				return false;
-		} else if (!dataHoraRecebido.equals(other.dataHoraRecebido))
-			return false;
-		if (destinatarios == null) {
-			if (other.destinatarios != null)
-				return false;
-		} else if (!destinatarios.equals(other.destinatarios))
-			return false;
 		if (id != other.id)
-			return false;
-		if (remetente == null) {
-			if (other.remetente != null)
-				return false;
-		} else if (!remetente.equals(other.remetente))
 			return false;
 		return true;
 	}
-	
+
 }

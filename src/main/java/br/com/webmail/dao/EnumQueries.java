@@ -22,7 +22,12 @@ public enum EnumQueries {
 			+ "where u.id = :usuario"),
 	
 	//Usuário
-	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login");
+	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login"),
+	
+	//Email
+	OBTEMEMAILPORUSUARIOEFILTRO(Email.class,"obtemEmailPorUsuarioEFiltro",
+			"select e from Email e inner join e.usuarioFiltro uf inner join uf.filtro f inner join uf.usuario u"+
+			" where f.nome=:nomeFiltro and u.email=:login");
 	
 	private String queryName;
 	private String query;

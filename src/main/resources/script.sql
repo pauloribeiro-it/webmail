@@ -4,7 +4,7 @@ use webmail;
 create table usuario 
 ( id integer auto_increment,
   nome varchar(150),
-  email varchar(150),
+  email varchar(100),
   data_criacao timestamp,
   ultimo_login timestamp,
   constraint pk_usuario primary key (id)

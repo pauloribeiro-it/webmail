@@ -61,8 +61,6 @@ public class EmailMB implements Serializable {
 		simpleMenuModel.addElement(submenu);
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
-		String userName = WebmailUtil.getNomeUsuarioLogado();
-		System.out.println(userName);
 	}
 
 	private void obtemEmailsCaixaDeEntrada() {
@@ -75,13 +73,13 @@ public class EmailMB implements Serializable {
 		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuario);
 		for (Filtro filtro : filtrosResult) {
 			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
-			itemMenu.setCommand("#{emailMB.retornaFiltros}");
+			itemMenu.setCommand("#{emailMB.retornaEmails}");
 			submenu.addElement(itemMenu);
 		}
 	}
 
-	public void retornaFiltros(ActionEvent e) {
-
+	public void retornaEmails(ActionEvent e) {
+		String nomefiltro = (String)e.getSource();
 	}
 
 	public String enviarEmail() {

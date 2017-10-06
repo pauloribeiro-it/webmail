@@ -2,6 +2,7 @@ package br.com.webmail.domain.login;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -22,7 +23,7 @@ public class Login {
 	@Column(name="ativo")
 	private boolean isAtivo;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario",referencedColumnName="id")
 	private Usuario usuario;
 	

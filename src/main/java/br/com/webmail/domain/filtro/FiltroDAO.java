@@ -36,14 +36,6 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 		return emailFiltros;
 	}
 
-//	private List<Long> obtemEmailFiltroUsuario(List<UsuarioFiltro> filtrosUsuario) {
-//		List<Long> ids = new ArrayList<Long>();
-//		for (UsuarioFiltro filtroUsuario : filtrosUsuario){
-//			ids.add(filtroUsuario.getFiltro().getId());
-//		}
-//		return ids;
-//	}
-
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosPadraoUsuario(Usuario usuario) {
 		List<Filtro> filtros = null;

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
+import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Stateless
@@ -19,7 +20,7 @@ public class EmailServiceImpl implements EmailService {
 	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
 	
 	@Inject @Dao
-	private CrudDao<UsuarioFiltro, Long> emailFiltroDAO;
+	private CrudDao<UsuarioFiltro, Long> usuarioFiltroDAO;
 
 	public void save(Email email) {
 		dao.insert(email);
@@ -29,14 +30,12 @@ public class EmailServiceImpl implements EmailService {
 		dao.update(email);
 	}
 
-	@Override
 	public void saveDestinatarios(List<EmailDestinatario> destinatarios) {
 		for (EmailDestinatario destinatario : destinatarios){
 			destinatarioDAO.insert(destinatario);
 		}
 	}
 
-	@Override
 	public void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario) {
 //		UsuarioFiltro emailFiltro = constroiEmailFiltro(email,
 //				findFiltro(email, filtrosUsuario));
@@ -54,4 +53,7 @@ public class EmailServiceImpl implements EmailService {
 //		return emailFiltro;
 //	}
 
+	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, String nomeFiltro) {
+		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, nomeFiltro);
+	}
 }
