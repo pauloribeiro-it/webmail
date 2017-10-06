@@ -19,7 +19,7 @@ public class FiltroServiceImpl implements FiltroService{
 	private CrudDao<UsuarioFiltro, Long> emailFiltroDAO;
 	
 	public List<Filtro> obtemFiltrosUsuario(Usuario usuario) {
-		return dao.obtemFiltrosUsuario(usuario);
+		return dao.obtemFiltrosPadraoUsuario(usuario);
 	}
 
 	public void associaFiltroUsuario(Usuario usuario, Filtro filtro) {

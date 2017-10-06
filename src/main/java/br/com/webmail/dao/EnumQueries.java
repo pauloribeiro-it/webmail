@@ -17,7 +17,9 @@ public enum EnumQueries {
 	OBTEMFILTROSUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario"),
 	
 	//Filtro
-	FILTROUSUARIO(Filtro.class,"filtroUsuario","select f from Filtro f where f.id in (:idFiltro)"),
+	FILTROUSUARIO(Filtro.class,"filtroUsuario",
+			"select f from UsuarioFiltro uf inner join uf.filtro f inner join uf.usuario u "
+			+ "where u.id = :usuario"),
 	
 	//Usuário
 	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login");

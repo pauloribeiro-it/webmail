@@ -11,7 +11,7 @@
 			<p:tabMenu style="height:47px;overflow: hidden">
 				<p:menuitem value="Início" url="/user/index.jsf" immediate="true" />
 				<p:menuitem value="Enviar"
-					action="#{emailManagedBean.enviarEmail()}" />
+					action="#{emailMB.enviarEmail()}" />
 				<p:menuitem value="Salvar Rascunho" action="#" />
 				<p:menuitem value="Cancelar" url="/user/index.jsf" immediate="true" />
 			</p:tabMenu>
@@ -19,15 +19,15 @@
 			<p:messages autoUpdate="true" showDetail="true" />
 			<p:panelGrid columns="2">
 				<h:outputText value="Para: " />
-				<p:inputText value="#{emailManagedBean.emailsTexto}" />
+				<p:inputText value="#{emailMB.emailsTexto}" />
 				<h:outputText value="CC: " />
-				<p:inputText value="#{emailManagedBean.emailsTextoCC}" />
+				<p:inputText value="#{emailMB.emailsTextoCC}" />
 				<h:outputText value="CCO: " />
-				<p:inputText value="#{emailManagedBean.emailsTextoCCO}" />
+				<p:inputText value="#{emailMB.emailsTextoCCO}" />
 				<h:outputText value="Assunto: " />
-				<p:inputText value="#{emailManagedBean.email.assunto}" />
+				<p:inputText value="#{emailMB.email.assunto}" />
 			</p:panelGrid>
-			<p:editor value="#{emailManagedBean.email.corpo}">
+			<p:editor value="#{emailMB.email.corpo}">
 			</p:editor>
 		</h:form>
 	</ui:define>

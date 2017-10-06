@@ -7,10 +7,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 import org.primefaces.model.menu.DefaultMenuItem;
@@ -21,18 +20,17 @@ import org.primefaces.model.menu.MenuModel;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
-import br.com.webmail.domain.usuario.UsuarioDAO;
+import br.com.webmail.domain.usuario.UsuarioService;
 import br.com.webmail.util.WebmailUtil;
 
 @ViewScoped
-@ManagedBean(name = "emailManagedBean")
+@Named("emailMB")
 public class EmailMB implements Serializable {
 	private static final long serialVersionUID = 5052247699927310089L;
 	private MenuModel simpleMenuModel = new DefaultMenuModel();
 	private DefaultSubMenu submenu;
 	private List<Email> emails;
 	
-	@Inject
 	private Email email;
 
 	@EJB
@@ -41,9 +39,9 @@ public class EmailMB implements Serializable {
 	@EJB
 	private EmailService emailService;
 
-//	@Inject
-//	private UsuarioDAO usuarioDAO;
-
+	@EJB
+	private UsuarioService usuarioService;
+	
 	private String emailsTexto;
 
 	private String emailsTextoCC;
@@ -58,10 +56,13 @@ public class EmailMB implements Serializable {
 
 	@PostConstruct
 	public void configuraPagina() {
+		email = new Email();
 		this.submenu = new DefaultSubMenu("Emails");
 		simpleMenuModel.addElement(submenu);
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
+		String userName = WebmailUtil.getNomeUsuarioLogado();
+		System.out.println(userName);
 	}
 
 	private void obtemEmailsCaixaDeEntrada() {
@@ -70,13 +71,13 @@ public class EmailMB implements Serializable {
 
 	private void configuraFiltrosPersonalizados() {
 		String userName = WebmailUtil.getNomeUsuarioLogado();
-//		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuarioDAO
-//				.findByLogin(userName));
-//		for (Filtro filtro : filtrosResult) {
-//			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
-//			itemMenu.setCommand("#{emailMB.retornaFiltros}");
-//			submenu.addElement(itemMenu);
-//		}
+		Usuario usuario = usuarioService.findByLogin(userName);
+		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuario);
+		for (Filtro filtro : filtrosResult) {
+			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
+			itemMenu.setCommand("#{emailMB.retornaFiltros}");
+			submenu.addElement(itemMenu);
+		}
 	}
 
 	public void retornaFiltros(ActionEvent e) {
