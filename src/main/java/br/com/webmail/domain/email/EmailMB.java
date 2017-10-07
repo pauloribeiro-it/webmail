@@ -11,6 +11,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.apache.shiro.SecurityUtils;
 import org.jboss.logging.Logger;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -68,8 +69,7 @@ public class EmailMB implements Serializable {
 	}
 
 	private void configuraFiltrosPersonalizados() {
-		String userName = WebmailUtil.getNomeUsuarioLogado();
-		Usuario usuario = usuarioService.findByLogin(userName);
+		Usuario usuario = WebmailUtil.getUsuarioSessao();
 		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuario);
 		for (Filtro filtro : filtrosResult) {
 			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());

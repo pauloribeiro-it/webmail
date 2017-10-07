@@ -1,5 +1,6 @@
 package br.com.webmail.domain.login;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
@@ -15,11 +16,17 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 
+import br.com.webmail.domain.usuario.UsuarioService;
+import br.com.webmail.util.WebmailUtil;
+
 @Named(value="loginMB")
 @RequestScoped
 public class LoginMB {
 	private String username;
 	private String password;
+	
+	@EJB
+	private UsuarioService usuarioService;
 	
 	public LoginMB(){
 		
@@ -31,10 +38,13 @@ public class LoginMB {
 
 			Subject currentUser = SecurityUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, new Sha256Hash(password).toHex());
+			currentUser.getSession(true);
 			currentUser.login(token);
 			if (null != SecurityUtils.getSubject().getPrincipal()) {
+				currentUser.getSession().setAttribute(WebmailUtil.USER, usuarioService.findByLogin(username));
 				NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/index.xhtml?faces-redirect=true");
+				
 			}
 		} catch (UnknownAccountException uae) {
 			uae.printStackTrace();
@@ -59,6 +69,8 @@ public class LoginMB {
 	}
 	
 	public void logout(){
+		Subject subject = SecurityUtils.getSubject();
+		subject.getSession().setAttribute(WebmailUtil.USER, null);
 		SecurityUtils.getSubject().logout();
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "index.xhtml?faces-redirect=true");
