@@ -1,5 +1,6 @@
 package br.com.webmail.domain.email;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -22,21 +23,27 @@ public class EmailServiceImpl implements EmailService {
 	@Inject @Dao
 	private CrudDao<UsuarioFiltro, Long> usuarioFiltroDAO;
 
-	public void save(Email email) {
+	public void enviarEmail(Email email) {
+		configuraDatasEmail(email);
 		dao.insert(email);
+		saveDestinatarios(email.getDestinatarios());
 	}
 
 	public void update(Email email) {
 		dao.update(email);
 	}
 
-	public void saveDestinatarios(List<EmailDestinatario> destinatarios) {
+	private void saveDestinatarios(List<EmailDestinatario> destinatarios) {
 		for (EmailDestinatario destinatario : destinatarios){
 			destinatarioDAO.insert(destinatario);
 		}
 	}
-
-	public void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario) {
+	/**
+	 * quando for enviar o email selecionar apenas os filtros Caixa de Entrada e Enviados
+	 * @param email
+	 * @param filtrosUsuario
+	 */
+	private void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario) {
 //		UsuarioFiltro emailFiltro = constroiEmailFiltro(email,
 //				findFiltro(email, filtrosUsuario));
 //		// no momento em que for salvar o email_filtro verificar se há um
@@ -55,5 +62,14 @@ public class EmailServiceImpl implements EmailService {
 
 	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Integer idFiltro) {
 		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);
+	}
+	
+	private void configuraDatasEmail(Email email){
+		email.setDataHoraCriacao(new Date());
+		email.setDataHoraDeletado(null);
+		email.setDataHoraEnviado(new Date());
+		email.setDataHoraExcluido(null);
+		email.setDataHoraLido(null);
+		email.setDataHoraRecebido(null);
 	}
 }

@@ -14,6 +14,5 @@ relativas aos remetentes dos emails, ao corpo do email e ao assunto do email e a
  o filtro que desejar.
  
  Tarefas:
- Deixar apenas filtros default: entrada, saída, rascunho, enviados.
  Criar properties para internacionalização das mensagens.
- Deixar apenas um usuário
+ criar configurações de log e utilizar o log4j
