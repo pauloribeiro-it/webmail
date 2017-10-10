@@ -11,8 +11,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.shiro.SecurityUtils;
 import org.jboss.logging.Logger;
+import org.primefaces.event.MenuActionEvent;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -34,6 +34,8 @@ public class EmailMB implements Serializable {
 	
 	private Email email;
 
+	private Usuario usuario;
+	
 	@EJB
 	private FiltroService filtroService;
 
@@ -58,6 +60,7 @@ public class EmailMB implements Serializable {
 	@PostConstruct
 	public void configuraPagina() {
 		email = new Email();
+		usuario = WebmailUtil.getUsuarioSessao();
 		this.submenu = new DefaultSubMenu("Emails");
 		simpleMenuModel.addElement(submenu);
 		configuraFiltrosPersonalizados();
@@ -69,17 +72,20 @@ public class EmailMB implements Serializable {
 	}
 
 	private void configuraFiltrosPersonalizados() {
-		Usuario usuario = WebmailUtil.getUsuarioSessao();
 		List<Filtro> filtrosResult = filtroService.obtemFiltrosUsuario(usuario);
 		for (Filtro filtro : filtrosResult) {
 			DefaultMenuItem itemMenu = new DefaultMenuItem(filtro.getNome());
 			itemMenu.setCommand("#{emailMB.retornaEmails}");
+			itemMenu.setId(filtro.getId().toString());
+			itemMenu.setParam("idMenu", filtro.getId());
 			submenu.addElement(itemMenu);
 		}
 	}
 
 	public void retornaEmails(ActionEvent e) {
-		String nomefiltro = (String)e.getSource();
+		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
+		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
+		emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro.intValue());
 	}
 
 	public String enviarEmail() {

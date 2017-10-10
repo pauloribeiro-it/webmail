@@ -26,8 +26,8 @@ public enum EnumQueries {
 	
 	//Email
 	OBTEMEMAILPORUSUARIOEFILTRO(Email.class,"obtemEmailPorUsuarioEFiltro",
-			"select e from Email e inner join e.usuarioFiltro uf inner join uf.filtro f inner join uf.usuario u"+
-			" where f.nome=:nomeFiltro and u.email=:login");
+			"select e from Email e inner join e.usuarioFiltro uf inner join uf.usuario u"+
+			" where uf.idFiltro=:idFiltro and u.email=:login");
 	
 	private String queryName;
 	private String query;

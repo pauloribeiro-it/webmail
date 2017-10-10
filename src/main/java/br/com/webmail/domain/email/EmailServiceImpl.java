@@ -53,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
 //		return emailFiltro;
 //	}
 
-	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, String nomeFiltro) {
-		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, nomeFiltro);
+	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Integer idFiltro) {
+		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);
 	}
 }

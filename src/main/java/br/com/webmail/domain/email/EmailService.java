@@ -9,5 +9,5 @@ public interface EmailService {
 	void save(Email email);
 	void saveDestinatarios(List<EmailDestinatario> destinatarios);
 	void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario);
-	List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, String nomeFiltro);
+	List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Integer idFiltro);
 }

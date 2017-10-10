@@ -64,6 +64,7 @@ public class Email {
 	private Date dataHoraEnviado;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_filtro",referencedColumnName="id")
 	private UsuarioFiltro filtrosUsuario;
 	
 	public Email (){
