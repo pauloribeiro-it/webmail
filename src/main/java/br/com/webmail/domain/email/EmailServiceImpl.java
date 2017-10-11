@@ -3,14 +3,17 @@ package br.com.webmail.domain.email;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
+import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioFiltro;
+import br.com.webmail.enums.EnumFiltro;
 
 @Stateless
 public class EmailServiceImpl implements EmailService {
@@ -23,10 +26,26 @@ public class EmailServiceImpl implements EmailService {
 	@Inject @Dao
 	private CrudDao<UsuarioFiltro, Long> usuarioFiltroDAO;
 
+	@EJB
+	private FiltroService filtroService;
+	
 	public void enviarEmail(Email email) {
+		
+		//Obtém destinatários
+		List<EmailDestinatario> destinatarios = email.getDestinatarios();
+		email.setDestinatarios(null);
+		
+		//Configura propriedades 
 		configuraDatasEmail(email);
+		
+		//Insere email
 		dao.insert(email);
-		saveDestinatarios(email.getDestinatarios());
+		
+		//Salva destinatários
+		saveDestinatarios(destinatarios);
+		
+		//Associa filtros ao email salvo
+		configuraEmailFiltro(email);	
 	}
 
 	public void update(Email email) {
@@ -39,26 +58,21 @@ public class EmailServiceImpl implements EmailService {
 		}
 	}
 	/**
-	 * quando for enviar o email selecionar apenas os filtros Caixa de Entrada e Enviados
+	 * quando for enviar o email selecionar apenas os filtros Caixa de Entrada 
 	 * @param email
 	 * @param filtrosUsuario
 	 */
-	private void saveEmailFiltro(Email email, List<Filtro> filtrosUsuario) {
-//		UsuarioFiltro emailFiltro = constroiEmailFiltro(email,
-//				findFiltro(email, filtrosUsuario));
-//		// no momento em que for salvar o email_filtro verificar se há um
-//		// email_filtro com email null, caso existir atualiza-lo com o novo
-//		// email
-//		emailFiltroDAO.insert(emailFiltro);
+	private void configuraEmailFiltro(Email email) {
+		List<Filtro> filtros = filtroService.obtemFiltrosUsuario(email.getRemetente());
+		
+		filtros.removeIf(f->!EnumFiltro.CAIXA_ENTRADA.getValor().equals(f.getId().intValue()));
+		
+		UsuarioFiltro usuarioFiltro = filtroService.obtemFiltroUsuario(email.getRemetente(), filtros.get(0));
+		
+		email.setFiltrosUsuario(usuarioFiltro);
+		
+		dao.update(email);
 	}
-
-//	private EmailFiltro constroiEmailFiltro(Email email, Filtro filtro) {
-//		EmailFiltro emailFiltro = new EmailFiltro();
-//		emailFiltro.setEmail(email);
-//		emailFiltro.setUsuario(email.getRemetente());
-//		emailFiltro.setFiltro(filtro);
-//		return emailFiltro;
-//	}
 
 	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Integer idFiltro) {
 		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);

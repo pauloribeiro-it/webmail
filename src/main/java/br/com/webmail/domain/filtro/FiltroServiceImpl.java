@@ -31,4 +31,8 @@ public class FiltroServiceImpl implements FiltroService{
 		return dao.findAll();
 	}
 
+	public UsuarioFiltro obtemFiltroUsuario(Usuario usuario, Filtro filtro) {
+		return dao.obtemFiltroUsuario(usuario, filtro);
+	}
+
 }

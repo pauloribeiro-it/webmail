@@ -15,6 +15,7 @@ public enum EnumQueries {
 	
 	//Email Filtro
 	OBTEMFILTROSUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario"),
+	OBTEMFILTROUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario and f.filtro=:filtro"),
 	
 	//Filtro
 	FILTROUSUARIO(Filtro.class,"filtroUsuario",

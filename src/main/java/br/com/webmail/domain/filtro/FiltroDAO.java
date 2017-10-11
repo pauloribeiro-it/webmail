@@ -35,7 +35,14 @@ public class FiltroDAO extends CrudDao<Filtro, Long> {
 		emailFiltros = (List<UsuarioFiltro>) query.getResultList();
 		return emailFiltros;
 	}
-
+	
+	public UsuarioFiltro obtemFiltroUsuario(Usuario usuario,Filtro filtro) {
+		Query query = getEntityManager().createQuery(EnumQueries.OBTEMFILTROUSUARIO.getQuery())
+				.setParameter("usuario", usuario)
+				.setParameter("filtro",filtro);
+		return (UsuarioFiltro)query.getSingleResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Filtro> obtemFiltrosPadraoUsuario(Usuario usuario) {
 		List<Filtro> filtros = null;

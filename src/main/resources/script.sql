@@ -78,5 +78,4 @@ create table email_destinatario
 insert into filtro(id,nome) values(1,'Caixa de Entrada');
 insert into filtro(id,nome) values(2,'Lixo');
 insert into filtro(id,nome) values(3,'Rascunhos');
-insert into filtro(id,nome) values(4,'Enviados');
-insert into filtro(id,nome) values(5,'Excluídos');
+insert into filtro(id,nome) values(4,'Excluídos');
