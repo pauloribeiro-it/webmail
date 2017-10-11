@@ -1,13 +1,11 @@
 package br.com.webmail.domain.usuario;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,9 +27,6 @@ public class Usuario {
 	@Column(name="ultimo_login")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimoLogin;
-	
-	@OneToMany
-	private List<UsuarioFiltro> filtros;
 	
 	public Usuario(){
 		
@@ -82,26 +77,15 @@ public class Usuario {
 		this.ultimoLogin = ultimoLogin;
 	}
 
-	public List<UsuarioFiltro> getFiltros() {
-		return filtros;
-	}
-
-	public void setFiltros(List<UsuarioFiltro> filtros) {
-		this.filtros = filtros;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
+		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((filtros == null) ? 0 : filtros.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result
-				+ ((ultimoLogin == null) ? 0 : ultimoLogin.hashCode());
+		result = prime * result + ((ultimoLogin == null) ? 0 : ultimoLogin.hashCode());
 		return result;
 	}
 
@@ -123,11 +107,6 @@ public class Usuario {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (filtros == null) {
-			if (other.filtros != null)
-				return false;
-		} else if (!filtros.equals(other.filtros))
 			return false;
 		if (id != other.id)
 			return false;

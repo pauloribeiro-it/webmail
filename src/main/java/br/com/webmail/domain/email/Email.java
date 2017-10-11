@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
-import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 @Entity
 @Table(name="email")
@@ -64,8 +64,8 @@ public class Email {
 	private Date dataHoraEnviado;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_filtro",referencedColumnName="id")
-	private UsuarioFiltro filtrosUsuario;
+	@JoinColumn(name="id_filtro",referencedColumnName="id")
+	private Filtro filtro;
 	
 	public Email (){
 		
@@ -164,13 +164,13 @@ public class Email {
 	public void setDestinatarios(List<EmailDestinatario> destinatarios) {
 		this.destinatarios = destinatarios;
 	}
-
-	public UsuarioFiltro getFiltrosUsuario() {
-		return filtrosUsuario;
+	
+	public Filtro getFiltro() {
+		return filtro;
 	}
 
-	public void setFiltrosUsuario(UsuarioFiltro filtrosUsuario) {
-		this.filtrosUsuario = filtrosUsuario;
+	public void setFiltro(Filtro filtro) {
+		this.filtro = filtro;
 	}
 
 	@Override

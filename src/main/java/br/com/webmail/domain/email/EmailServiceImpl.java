@@ -12,7 +12,6 @@ import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
-import br.com.webmail.domain.usuario.UsuarioFiltro;
 import br.com.webmail.enums.EnumFiltro;
 
 @Stateless
@@ -23,9 +22,6 @@ public class EmailServiceImpl implements EmailService {
 	@Inject @Dao
 	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
 	
-	@Inject @Dao
-	private CrudDao<UsuarioFiltro, Long> usuarioFiltroDAO;
-
 	@EJB
 	private FiltroService filtroService;
 	
@@ -67,9 +63,7 @@ public class EmailServiceImpl implements EmailService {
 		
 		filtros.removeIf(f->!EnumFiltro.CAIXA_ENTRADA.getValor().equals(f.getId().intValue()));
 		
-		UsuarioFiltro usuarioFiltro = filtroService.obtemFiltroUsuario(email.getRemetente(), filtros.get(0));
-		
-		email.setFiltrosUsuario(usuarioFiltro);
+		email.setFiltro(filtros.get(0));
 		
 		dao.update(email);
 	}

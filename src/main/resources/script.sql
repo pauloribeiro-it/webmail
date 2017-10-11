@@ -18,31 +18,11 @@ CREATE TABLE login(
     constraint fk_login_usuario foreign key (id_usuario) references usuario(id)
 );
 
-create table amigo	
-(
-  id_usuario1 integer,
-  id_usuario2 integer,
-  habilitado boolean,
-  constraint pk_amigo primary key(id_usuario1,id_usuario2),
-  constraint fk_amigo_usuario1 foreign key(id_usuario1) references usuario(id),
-  constraint fk_amigo_usuario2 foreign key(id_usuario2) references usuario(id)
-);
-
 create table filtro
 (
 	id integer auto_increment,
     nome varchar(30),
     constraint pk_filtro primary key(id)
-);
-
-create table usuario_filtro
-(
-	id integer auto_increment,
-    id_filtro integer,
-    id_usuario integer,
-    constraint pk_usuario_filtro primary key (id),
-    constraint fk_usuario_filtro foreign key (id_filtro) references filtro(id),
-    constraint fk_filtro_usuario foreign key(id_usuario) references usuario(id)
 );
 
 create table email
@@ -58,10 +38,10 @@ create table email
   data_hora_excluido timestamp,
   data_hora_deletado timestamp,
   data_hora_enviado timestamp,
-  id_usuario_filtro integer,
+  id_filtro integer,
   constraint pk_email primary key (id),
   constraint fk_email_remetente foreign key(id_remetente) references usuario(id),
-  constraint fk_email_usuario_filtro foreign key(id_usuario_filtro) references usuario_filtro(id)
+  constraint fk_email_filtro foreign key(id_filtro) references filtro(id)
 );
 
 create table email_destinatario

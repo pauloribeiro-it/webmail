@@ -6,29 +6,23 @@ import java.util.List;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
-import br.com.webmail.domain.usuario.UsuarioFiltro;
 
 
 public enum EnumQueries {
 	//Email
 	EMAILFROMFILTRO(Email.class,"emailFromFiltro","select e from Email e where e.id in (:emailFiltro)"),
 	
-	//Email Filtro
-	OBTEMFILTROSUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario"),
-	OBTEMFILTROUSUARIO(UsuarioFiltro.class,"obtemFiltrosUsuario","select f from UsuarioFiltro f where f.usuario=:usuario and f.filtro=:filtro"),
-	
 	//Filtro
 	FILTROUSUARIO(Filtro.class,"filtroUsuario",
-			"select f from UsuarioFiltro uf inner join uf.filtro f inner join uf.usuario u "
-			+ "where u.id = :usuario"),
+			"select f from Filtro f "),
 	
 	//Usuário
 	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login"),
 	
 	//Email
 	OBTEMEMAILPORUSUARIOEFILTRO(Email.class,"obtemEmailPorUsuarioEFiltro",
-			"select e from Email e inner join e.usuarioFiltro uf inner join uf.usuario u"+
-			" where uf.idFiltro=:idFiltro and u.email=:login");
+			"select e from Email e inner join e.filtro f inner join e.destinatarios d inner join d.destinatario du "+
+			" where f.id=:idFiltro and du.email=:login");
 	
 	private String queryName;
 	private String query;
