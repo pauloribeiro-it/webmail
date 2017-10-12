@@ -6,7 +6,6 @@ create table usuario
   nome varchar(150),
   email varchar(100),
   data_criacao timestamp,
-  ultimo_login timestamp,
   constraint pk_usuario primary key (id)
 );
 
@@ -53,6 +52,24 @@ create table email_destinatario
   constraint pk_email_destinatario primary key (id_email,id_destinatario),
   constraint fk_email_destinatario_email foreign key (id_email) references email(id),
   constraint fk_email_destinatario_usuario foreign key (id_destinatario) references usuario(id)
+);
+
+create table auditoria_login(
+  id integer auto_increment,
+  id_sessao varchar(20),
+  id_usuario integer,
+  data_login timestamp,
+  constraint pk_auditoria_login primary key (id),
+  constraint fk_auditoria_login_usuario foreign key(id_usuario) references usuario(id)
+);
+
+create table auditoria_operacao(
+  id integer auto_increment,
+  id_auditoria_login integer,
+  desc_operacao varchar(200),
+  data_operacao timestamp,
+  constraint pk_auditoria_operacao primary key(id),
+  constraint fk_auditoria_login foreign key(id_auditoria_login) references auditoria_login(id)
 );
 
 insert into filtro(id,nome) values(1,'Caixa de Entrada');

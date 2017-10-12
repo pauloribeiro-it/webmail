@@ -19,4 +19,3 @@ relativas aos remetentes dos emails, ao corpo do email e ao assunto do email e a
  criar interceptor para login e para logs
  criar tabela de auditoria para login, o interceptor de login irá escrever nessa tabela
  criar qualifiers para auditoria de login e auditoria de ações (consultas, envio de emails) 
- excluir tabela usuario_filtro e então realizar o vinculo diretamente com a tabela filtro

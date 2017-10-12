@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="usuario")
@@ -24,9 +25,9 @@ public class Usuario {
 	@Column(name="data_criacao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	@Column(name="ultimo_login")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date ultimoLogin;
+	
+	@Transient
+	private String idSessao;
 	
 	public Usuario(){
 		
@@ -69,14 +70,6 @@ public class Usuario {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Date getUltimoLogin() {
-		return ultimoLogin;
-	}
-
-	public void setUltimoLogin(Date ultimoLogin) {
-		this.ultimoLogin = ultimoLogin;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,7 +78,6 @@ public class Usuario {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((ultimoLogin == null) ? 0 : ultimoLogin.hashCode());
 		return result;
 	}
 
@@ -114,11 +106,6 @@ public class Usuario {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
-			return false;
-		if (ultimoLogin == null) {
-			if (other.ultimoLogin != null)
-				return false;
-		} else if (!ultimoLogin.equals(other.ultimoLogin))
 			return false;
 		return true;
 	}
