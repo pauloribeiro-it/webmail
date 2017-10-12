@@ -1,5 +1,7 @@
 package br.com.webmail.domain.login;
 
+import java.util.Base64;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -16,7 +18,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 
+import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioService;
+import br.com.webmail.interceptors.AuditLogin;
 import br.com.webmail.util.WebmailUtil;
 
 @Named(value="loginMB")
@@ -31,7 +35,8 @@ public class LoginMB {
 	public LoginMB(){
 		
 	}
-	
+
+	@AuditLogin
 	public void loginUser() {
 
 		try {
@@ -41,10 +46,15 @@ public class LoginMB {
 			currentUser.getSession(true);
 			currentUser.login(token);
 			if (null != SecurityUtils.getSubject().getPrincipal()) {
-				currentUser.getSession().setAttribute(WebmailUtil.USER, usuarioService.findByLogin(username));
+				//configura o id da sessão
+				Usuario usuario = usuarioService.findByLogin(username);
+				usuario.setIdSessao(getSessionId(usuario));
+				
+				//configura na sessão
+				currentUser.getSession().setAttribute(WebmailUtil.USER, usuario);
+				
 				NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/index.xhtml?faces-redirect=true");
-				
 			}
 		} catch (UnknownAccountException uae) {
 			uae.printStackTrace();
@@ -93,4 +103,8 @@ public class LoginMB {
 		this.password = password;
 	}
 	
+	private String getSessionId(Usuario usuario){
+		String seed = usuario.getEmail()+System.currentTimeMillis();
+		return Base64.getEncoder().encodeToString(seed.getBytes());
+	}
 }

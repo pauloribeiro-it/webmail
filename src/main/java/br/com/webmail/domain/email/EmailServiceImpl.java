@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import br.com.webmail.dao.CrudDao;
 import br.com.webmail.dao.Dao;
@@ -25,6 +26,7 @@ public class EmailServiceImpl implements EmailService {
 	@EJB
 	private FiltroService filtroService;
 	
+	@Transactional
 	public void enviarEmail(Email email) {
 		
 		//Obtém destinatários

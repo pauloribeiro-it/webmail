@@ -17,11 +17,6 @@ public class FiltroServiceImpl implements FiltroService{
 		return dao.obtemFiltrosPadraoUsuario(usuario);
 	}
 
-	public void associaFiltroUsuario(Usuario usuario, Filtro filtro) {
-//		UsuarioFiltro emailFiltro = new UsuarioFiltro(filtro,usuario);
-//		emailFiltroDAO.insert(emailFiltro);
-	}
-
 	public List<Filtro> obtemFiltrosPadrao() {
 		return dao.findAll();
 	}

@@ -69,6 +69,14 @@ public class Usuario {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+	
+	public String getIdSessao() {
+		return idSessao;
+	}
+	
+	public void setIdSessao(String idSessao) {
+		this.idSessao = idSessao;
+	}
 
 	@Override
 	public int hashCode() {
