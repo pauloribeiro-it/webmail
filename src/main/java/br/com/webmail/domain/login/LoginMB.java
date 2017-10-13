@@ -18,6 +18,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 
+import br.com.webmail.domain.auditoria.AuditoriaLoginService;
 import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioService;
 import br.com.webmail.interceptors.AuditLogin;
@@ -31,6 +32,9 @@ public class LoginMB {
 	
 	@EJB
 	private UsuarioService usuarioService;
+	
+	@EJB
+	private AuditoriaLoginService auditoriaLoginService;
 	
 	public LoginMB(){
 		
@@ -81,6 +85,7 @@ public class LoginMB {
 	public void logout(){
 		Subject subject = SecurityUtils.getSubject();
 		subject.getSession().setAttribute(WebmailUtil.USER, null);
+		subject.getSession().setAttribute(WebmailUtil.AUDITORIALOGIN, null);
 		SecurityUtils.getSubject().logout();
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "index.xhtml?faces-redirect=true");

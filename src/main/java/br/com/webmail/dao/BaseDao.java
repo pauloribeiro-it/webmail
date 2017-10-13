@@ -43,8 +43,9 @@ public class BaseDao<T, PK> implements Serializable {
 		return (T) this.entityManager.merge(t);
 	}
 
-	public void insert(T t) {
+	public T insert(T t) {
 		this.entityManager.persist(t);
+		return t;
 	}
 
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)

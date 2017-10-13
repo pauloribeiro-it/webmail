@@ -17,10 +17,11 @@ public class Usuario {
 	//<f:validateRegex pattern="[A-Za-z0-9\\._-]" />
 	@Id
 	@GeneratedValue
+	@Column(name="id")
 	private long id;
-	@Column
+	@Column(name="nome")
 	private String nome;
-	@Column
+	@Column(name="email")
 	private String email;
 	@Column(name="data_criacao")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -116,6 +117,12 @@ public class Usuario {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", dataCriacao=" + dataCriacao
+				+ ", idSessao=" + idSessao + "]";
 	}
 
 }

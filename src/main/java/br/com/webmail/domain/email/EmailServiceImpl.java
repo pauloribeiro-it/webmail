@@ -14,8 +14,10 @@ import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.enums.EnumFiltro;
+import br.com.webmail.interceptors.AuditOperacao;
 
 @Stateless
+@AuditOperacao
 public class EmailServiceImpl implements EmailService {
 	@Inject
 	private EmailDAO dao;

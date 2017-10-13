@@ -3,6 +3,7 @@ package br.com.webmail.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.webmail.domain.auditoria.AuditoriaLogin;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
@@ -22,7 +23,11 @@ public enum EnumQueries {
 	//Email
 	OBTEMEMAILPORUSUARIOEFILTRO(Email.class,"obtemEmailPorUsuarioEFiltro",
 			"select e from Email e inner join e.filtro f inner join e.destinatarios d inner join d.destinatario du "+
-			" where f.id=:idFiltro and du.email=:login");
+			" where f.id=:idFiltro and du.email=:login"),
+	
+	//Auditoria Login
+	OBTEMAUDITORIALOGINPORUSUARIO(AuditoriaLogin.class,"obtemAuditoriaLoginPorUsuario",
+			"select a from AuditoriaLogin a inner join a.usuario u where u.id=:idUsuario and a.idSessao=:idSessao");
 	
 	private String queryName;
 	private String query;

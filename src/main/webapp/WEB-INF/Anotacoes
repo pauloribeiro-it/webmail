@@ -2,5 +2,3 @@
  Criar properties para internacionalização das mensagens.
  criar configurações de log e utilizar o log4j
  criar interceptor para login e para logs
- criar tabela de auditoria para login, o interceptor de login irá escrever nessa tabela
- criar qualifiers para auditoria de login e auditoria de ações (consultas, envio de emails) 

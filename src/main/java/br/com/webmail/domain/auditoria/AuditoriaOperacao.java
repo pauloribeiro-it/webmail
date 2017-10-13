@@ -32,6 +32,9 @@ public class AuditoriaOperacao {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataOperacao;
 	
+	@Column(name="descricao_erro")
+	private String descErro;
+	
 	public AuditoriaOperacao(){
 		
 	}
@@ -68,6 +71,14 @@ public class AuditoriaOperacao {
 		this.dataOperacao = dataOperacao;
 	}
 
+	public String getDescErro() {
+		return descErro;
+	}
+	
+	public void setDescErro(String descErro) {
+		this.descErro = descErro;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

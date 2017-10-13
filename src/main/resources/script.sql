@@ -66,8 +66,9 @@ create table auditoria_login(
 create table auditoria_operacao(
   id integer auto_increment,
   id_auditoria_login integer,
-  desc_operacao varchar(200),
+  desc_operacao varchar(500),
   data_operacao timestamp,
+  descricao_erro varchar(200),
   constraint pk_auditoria_operacao primary key(id),
   constraint fk_auditoria_login foreign key(id_auditoria_login) references auditoria_login(id)
 );

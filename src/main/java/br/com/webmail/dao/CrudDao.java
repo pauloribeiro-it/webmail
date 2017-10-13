@@ -47,8 +47,8 @@ public class CrudDao<T, PK> implements Serializable {
 		return dao.update(t);
 	}
 
-	public void insert(T t) {
-		dao.insert(t);
+	public T insert(T t) {
+		return dao.insert(t);
 	}
 
 	public List<T> findAll() {
