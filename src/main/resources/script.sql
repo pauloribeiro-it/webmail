@@ -56,7 +56,7 @@ create table email_destinatario
 
 create table auditoria_login(
   id integer auto_increment,
-  id_sessao varchar(20),
+  id_sessao varchar(100),
   id_usuario integer,
   data_login timestamp,
   constraint pk_auditoria_login primary key (id),

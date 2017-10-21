@@ -8,15 +8,15 @@
 
 	<ui:define name="content">
 		<h:form>
+			<p:growl id="messages" showDetail="true" autoUpdate="true"/>
 			<p:tabMenu style="height:47px;overflow: hidden">
 				<p:menuitem value="Início" url="/user/index.jsf" immediate="true" />
 				<p:menuitem value="Enviar"
-					action="#{emailMB.enviarEmail}" />
+					actionListener="#{emailMB.enviarEmail}" />
 				<p:menuitem value="Salvar Rascunho" action="#" />
 				<p:menuitem value="Cancelar" url="/user/index.jsf" immediate="true" />
 			</p:tabMenu>
 			<br />
-			<p:messages autoUpdate="true" showDetail="true" />
 			<p:panelGrid columns="2">
 				<h:outputText value="Para: " />
 				<p:inputText value="#{emailMB.emailsTexto}" />

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -81,14 +83,17 @@ public class EmailMB implements Serializable {
 	public void retornaEmails(ActionEvent e) {
 		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
 		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
-		emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro.intValue());
+		List<Email> emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro.intValue());
+		System.out.println("Quantidade de emails: "+emails.size());
 	}
 
-	public String enviarEmail() {
+	public void enviarEmail() {
 		email.setRemetente(usuario);
 		email.setDestinatarios(getDestinatarios());
 		emailService.enviarEmail(email);
-		return "/user/index.jsf";
+		FacesContext faces = FacesContext.getCurrentInstance();
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Email", "Email enviado com sucesso!"));
 	}
 
 	private List<EmailDestinatario> getDestinatarios() {
@@ -113,6 +118,14 @@ public class EmailMB implements Serializable {
 	}
 
 	private EmailDestinatario constroiEmailDestinatario(Email email,String destinatario, boolean isCC, boolean isCCO) {
+		Usuario usuario = usuarioService.findByLogin(destinatario);
+		
+		if(usuario == null){
+			FacesContext faces = FacesContext.getCurrentInstance();
+			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Destinatário", "Email não encontrado!"));
+		}
+		
 		EmailDestinatario emailDestinatario = new EmailDestinatario();
 		emailDestinatario.setEmail(email);
 		emailDestinatario.setCC(isCC);

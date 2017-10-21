@@ -14,6 +14,9 @@ public class UsuarioDAO extends CrudDao<Usuario, Long> {
 	public Usuario findByLogin(String login) {
 		Query query = getEntityManager().createQuery(EnumQueries.FINDUSUARIOBYLOGIN.getQuery())
 				.setParameter("login", login);
-		return (Usuario) query.getSingleResult();
+		if(query.getResultList() == null || query.getResultList().isEmpty()){
+			return null;
+		}
+		return (Usuario) query.getResultList().get(0);
 	}
 }
