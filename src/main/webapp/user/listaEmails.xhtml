@@ -8,7 +8,7 @@
 
 	<ui:define name="content">
 		<h:form id="form">
-			<p:dataList value="#{emailMB.emails}" var="email" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+			<p:dataList emptyMessage="Nenhum email encontrado." value="#{emailMB.emails}" var="email" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
 		        <f:facet name="header">
 		            Emails
 		        </f:facet>

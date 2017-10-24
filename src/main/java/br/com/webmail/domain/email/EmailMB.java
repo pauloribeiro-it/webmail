@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -48,10 +47,6 @@ public class EmailMB implements Serializable {
 	private UsuarioService usuarioService;
 	
 	private String emailsTexto;
-
-	private String emailsTextoCC;
-
-	private String emailsTextoCCO;
 
 //	private static final int IDFILTROENTRADA = 1;
 	
@@ -107,25 +102,21 @@ public class EmailMB implements Serializable {
 	private List<EmailDestinatario> getDestinatarios() {
 		List<EmailDestinatario> destinatarios = new ArrayList<EmailDestinatario>();
 		List<String> destinatariosTexto = WebmailUtil.getEmails(emailsTexto);
-		List<String> destinatariosCC = WebmailUtil.getEmails(emailsTextoCC);
-		List<String> destinatariosCCO = WebmailUtil.getEmails(emailsTextoCCO);
-		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosTexto, false, false));
-		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosCC,	true, false));
-		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosCCO, false, true));
+		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosTexto));
 		return destinatarios;
 	}
 
-	private List<EmailDestinatario> constroiEmailDestinatarios(Email email,	List<String> destinatarios, boolean isCC, boolean isCCO) {
+	private List<EmailDestinatario> constroiEmailDestinatarios(Email email,	List<String> destinatarios) {
 		List<EmailDestinatario> emailsDestinatario = new ArrayList<EmailDestinatario>();
 		if (destinatarios.size() > 0){
 			for (String str : destinatarios){
-				emailsDestinatario.add(constroiEmailDestinatario(email, str,isCC, isCCO));
+				emailsDestinatario.add(constroiEmailDestinatario(email, str));
 			}
 		}
 		return emailsDestinatario;
 	}
 
-	private EmailDestinatario constroiEmailDestinatario(Email email,String destinatario, boolean isCC, boolean isCCO) {
+	private EmailDestinatario constroiEmailDestinatario(Email email,String destinatario) {
 		Usuario usuario = usuarioService.findByLogin(destinatario);
 		
 //		if(usuario == null){
@@ -136,10 +127,12 @@ public class EmailMB implements Serializable {
 		
 		EmailDestinatario emailDestinatario = new EmailDestinatario();
 		emailDestinatario.setEmail(email);
-		emailDestinatario.setCC(isCC);
-		emailDestinatario.setCCO(isCCO);
 		emailDestinatario.setUsuario(usuario);
 		return emailDestinatario;
+	}
+	
+	public String obtemConfiguracoes(){
+		return "";
 	}
 
 	public List<Email> getEmails() {
@@ -172,22 +165,6 @@ public class EmailMB implements Serializable {
 
 	public void setEmailsTexto(String emailsTexto) {
 		this.emailsTexto = emailsTexto;
-	}
-
-	public String getEmailsTextoCC() {
-		return emailsTextoCC;
-	}
-
-	public void setEmailsTextoCC(String emailsTextoCC) {
-		this.emailsTextoCC = emailsTextoCC;
-	}
-
-	public String getEmailsTextoCCO() {
-		return emailsTextoCCO;
-	}
-
-	public void setEmailsTextoCCO(String emailsTextoCCO) {
-		this.emailsTextoCCO = emailsTextoCCO;
 	}
 
 	public Email getEmailSelecionado() {

@@ -2,7 +2,6 @@ package br.com.webmail.domain.email;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,12 +26,6 @@ public class EmailDestinatario implements Serializable{
 	@JoinColumn(name="id_destinatario",referencedColumnName="id")
 	private Usuario destinatario;
 	
-	@Column(name="is_cc")
-	private boolean isCC;
-	
-	@Column(name="is_cco")
-	private boolean isCCO;
-	
 	public EmailDestinatario(){
 		
 	}
@@ -53,22 +46,6 @@ public class EmailDestinatario implements Serializable{
 		this.destinatario = destinatario;
 	}
 
-	public boolean isCC() {
-		return isCC;
-	}
-
-	public void setCC(boolean isCC) {
-		this.isCC = isCC;
-	}
-
-	public boolean isCCO() {
-		return isCCO;
-	}
-
-	public void setCCO(boolean isCCO) {
-		this.isCCO = isCCO;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,8 +53,6 @@ public class EmailDestinatario implements Serializable{
 		result = prime * result
 				+ ((destinatario == null) ? 0 : destinatario.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + (isCC ? 1231 : 1237);
-		result = prime * result + (isCCO ? 1231 : 1237);
 		return result;
 	}
 
@@ -99,10 +74,6 @@ public class EmailDestinatario implements Serializable{
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (isCC != other.isCC)
-			return false;
-		if (isCCO != other.isCCO)
 			return false;
 		return true;
 	}

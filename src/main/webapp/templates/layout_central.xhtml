@@ -15,7 +15,7 @@
 				<p:panelMenu model="#{emailMB.simpleMenuModel}">
 				</p:panelMenu>
 				<br/>
-				<p:commandLink value="Configurações" action="#"/>
+				<p:commandButton value="Configurações" action="#{emailMB.obtemConfiguracoes()}" immediate="true"/>
 				<br/>
 				<p:commandButton value="Logout" actionListener="#{loginMB.logout}" immediate="true"/>
 			</h:form>

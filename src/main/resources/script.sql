@@ -47,8 +47,6 @@ create table email_destinatario
 (
   id_email integer,
   id_destinatario integer,
-  is_cc boolean,
-  is_cco boolean,
   constraint pk_email_destinatario primary key (id_email,id_destinatario),
   constraint fk_email_destinatario_email foreign key (id_email) references email(id),
   constraint fk_email_destinatario_usuario foreign key (id_destinatario) references usuario(id)
