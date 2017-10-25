@@ -85,7 +85,6 @@ public class EmailMB implements Serializable {
 		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
 		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
 		emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro.intValue());
-		System.out.println("Quantidade de emails: "+emails.size());
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/listaEmails.xhtml?faces-redirect=true");
 	}
@@ -97,6 +96,7 @@ public class EmailMB implements Serializable {
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Email", "Email enviado com sucesso!"));
+		email = new Email();
 	}
 
 	private List<EmailDestinatario> getDestinatarios() {
@@ -116,6 +116,17 @@ public class EmailMB implements Serializable {
 		return emailsDestinatario;
 	}
 
+	public String salvarRascunho(){
+		email.setRemetente(usuario);
+		email.setDestinatarios(null);
+		emailService.enviarEmail(email);
+		FacesContext faces = FacesContext.getCurrentInstance();
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Email", "Rascunho salvo com sucesso!"));
+		email = new Email();
+		return "";
+	}
+	
 	private EmailDestinatario constroiEmailDestinatario(Email email,String destinatario) {
 		Usuario usuario = usuarioService.findByLogin(destinatario);
 		
