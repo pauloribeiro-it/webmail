@@ -58,7 +58,7 @@ public class LoginMB {
 				currentUser.getSession().setAttribute(WebmailUtil.USER, usuario);
 				
 				NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/index.xhtml?faces-redirect=true");
+				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/listaEmails.xhtml?faces-redirect=true");
 			}
 		} catch (UnknownAccountException uae) {
 			uae.printStackTrace();
@@ -88,7 +88,7 @@ public class LoginMB {
 		subject.getSession().setAttribute(WebmailUtil.AUDITORIALOGIN, null);
 		SecurityUtils.getSubject().logout();
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "index.xhtml?faces-redirect=true");
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "login.xhtml?faces-redirect=true");
 	}
 	
 

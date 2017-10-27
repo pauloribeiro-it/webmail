@@ -48,7 +48,7 @@ public class EmailMB implements Serializable {
 	
 	private String emailsTexto;
 
-//	private static final int IDFILTROENTRADA = 1;
+	private static final int IDFILTROENTRADA = 1;
 	
 	private Email emailSelecionado;
 	
@@ -62,12 +62,19 @@ public class EmailMB implements Serializable {
 		usuario = WebmailUtil.getUsuarioSessao();
 		this.submenu = new DefaultSubMenu("Emails");
 		simpleMenuModel.addElement(submenu);
+		criaNovoEmailOpcaoMenu();
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
 	}
 
+	private void criaNovoEmailOpcaoMenu() {
+		DefaultMenuItem itemMenu = new DefaultMenuItem("Novo email");
+		itemMenu.setUrl("/user/novoEmail.jsf");
+		submenu.addElement(itemMenu);
+	}
+
 	private void obtemEmailsCaixaDeEntrada() {
-//		emailService.obtemEmailsPorUsuarioEFiltro(usuario, IDFILTROENTRADA);
+		this.emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, IDFILTROENTRADA);
 	}
 
 	private void configuraFiltrosPersonalizados() {
