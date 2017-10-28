@@ -7,35 +7,27 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="content">
-		<h:form id="form">
-			<p:dataList emptyMessage="Nenhum email encontrado." value="#{emailMB.emails}" var="email" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
-		        <f:facet name="header">
-		            Emails
-		        </f:facet>
-		        <p:commandLink update=":form:emailDetail" oncomplete="PF('emailDialog').show()" title="Detalhes do email" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
-		            <f:setPropertyActionListener value="#{email}" target="#{emailMB.emailSelecionado}" />
-		            <h:outputText value="#{email.assunto}, #{email.remetente.nome}" />
-		        </p:commandLink>
-		        <h:outputText value="#{email.assunto}, #{email.remetente.nome}" style="display:inline-block"/>
-   			</p:dataList>
- 
-		    <p:dialog header="Detalhes do email" widgetVar="emailDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
-		        <p:outputPanel id="emailDetail" style="text-align:center;">
-		            <p:panelGrid  columns="2" rendered="#{emailMB.emailSelecionado != null}" columnClasses="label,value">
-		               
-		                <h:outputText value="Assunto:" />
-		                <h:outputText value="#{emailMB.emailSelecionado.assunto}" />
-		 
-		                <h:outputText value="Corpo:" />
-		                <h:outputText value="#{emailMB.emailSelecionado.corpo}" />
-		 
-		                <h:outputText value="Remetente:" />
-		                <h:outputText value="#{emailMB.emailSelecionado.remetente.nome}"/>
-		 
-		            </p:panelGrid>
-		        </p:outputPanel>
-		    </p:dialog>
-		</h:form>
 		
+		<h:form id="form" prependId="false">
+			<p:growl id="msgs" showDetail="true" />
+			<p:dataTable id="tableEmails" var="email"
+				value="#{emailMB.emails}"
+				selection="#{emailMB.emailsSelecionados}" rowKey="#{email.id}"
+				style="margin-bottom:0">
+				<f:facet name="header">Emails</f:facet>
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Assunto">
+					<h:outputText value="#{email.assunto}" />
+				</p:column>
+				<p:column headerText="Remetente">
+					<h:outputText value="#{email.remetente.nome}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton process="tableEmails" value="Excluir" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails"/>
+				</f:facet>
+			</p:dataTable>
+
+		</h:form>
 	</ui:define>
 </ui:composition>

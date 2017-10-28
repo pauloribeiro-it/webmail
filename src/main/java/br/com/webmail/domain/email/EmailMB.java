@@ -52,6 +52,8 @@ public class EmailMB implements Serializable {
 	
 	private Email emailSelecionado;
 	
+	private List<Email> emailsSelecionados;
+	
 	public EmailMB() {
 
 	}
@@ -153,6 +155,10 @@ public class EmailMB implements Serializable {
 		return "";
 	}
 
+	public void excluiEmails(){
+		System.out.println();
+	}
+	
 	public List<Email> getEmails() {
 		return emails;
 	}
@@ -191,6 +197,14 @@ public class EmailMB implements Serializable {
 
 	public void setEmailSelecionado(Email emailSelecionado) {
 		this.emailSelecionado = emailSelecionado;
+	}
+
+	public List<Email> getEmailsSelecionados() {
+		return emailsSelecionados;
+	}
+
+	public void setEmailsSelecionados(List<Email> emailsSelecionados) {
+		this.emailsSelecionados = emailsSelecionados;
 	}
 
 }
