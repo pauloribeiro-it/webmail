@@ -61,7 +61,9 @@ public class AuditoriaOperacaoInterceptor {
 		
 		for(int i = 0;i<context.getMethod().getParameterCount();i++){
 			Parameter param = context.getMethod().getParameters()[i];
-			parametros.put(param.getName(), param.getType().getMethod("toString").invoke(context.getParameters()[i]));
+			if(!param.getType().isInterface()){
+				parametros.put(param.getName(), param.getType().getMethod("toString").invoke(context.getParameters()[i]));
+			}
 		}
 		
 		return descOperacao;

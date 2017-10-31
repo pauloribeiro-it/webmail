@@ -18,10 +18,10 @@ public class EmailDAO extends CrudDao<Email, Long> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Email> obtemEmailsPorUsuarioEPorFiltro(Usuario usuario, Integer idFiltro){
+	public List<Email> obtemEmailsPorUsuarioEPorFiltro(Usuario usuario, Long idFiltro){
 		List<Email> emails = null;
 		emails = (List<Email>) getEntityManager().createQuery(EnumQueries.OBTEMEMAILPORUSUARIOEFILTRO.getQuery()).
-				setParameter("idFiltro", idFiltro.longValue()).
+				setParameter("idFiltro", idFiltro).
 				setParameter("login", usuario.getEmail()).getResultList();
 		return emails;
 	}

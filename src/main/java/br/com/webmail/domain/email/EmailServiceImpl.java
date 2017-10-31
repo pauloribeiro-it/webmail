@@ -65,14 +65,14 @@ public class EmailServiceImpl implements EmailService {
 	private void configuraEmailFiltro(Email email) {
 		List<Filtro> filtros = filtroService.obtemFiltrosUsuario(email.getRemetente());
 		
-		filtros.removeIf(f->!EnumFiltro.CAIXA_ENTRADA.getValor().equals(f.getId().intValue()));
+		filtros.removeIf(f->!EnumFiltro.CAIXA_ENTRADA.getValor().equals(f.getId()));
 		
 		email.setFiltro(filtros.get(0));
 		
 		dao.update(email);
 	}
 
-	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Integer idFiltro) {
+	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Long idFiltro) {
 		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);
 	}
 	
@@ -83,5 +83,11 @@ public class EmailServiceImpl implements EmailService {
 		email.setDataHoraExcluido(null);
 		email.setDataHoraLido(null);
 		email.setDataHoraRecebido(null);
+	}
+
+	public void moveEmailsParaLixeira(List<Email> emails) {
+		Filtro filtro = filtroService.obtemFiltroPorId(EnumFiltro.LIXO.getValor());
+		emails.forEach(e->e.setFiltro(filtro));
+		emails.forEach(e->dao.update(e));
 	}
 }

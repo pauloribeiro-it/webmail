@@ -21,4 +21,8 @@ public class FiltroServiceImpl implements FiltroService{
 		return dao.findAll();
 	}
 
+	public Filtro obtemFiltroPorId(Long idFiltro) {
+		return dao.find(idFiltro);
+	}
+
 }

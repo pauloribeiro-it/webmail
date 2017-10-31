@@ -7,4 +7,5 @@ import br.com.webmail.domain.usuario.Usuario;
 public interface FiltroService {
 	List<Filtro> obtemFiltrosUsuario(Usuario usuario);
 	List<Filtro> obtemFiltrosPadrao();
+	Filtro obtemFiltroPorId(Long idFiltro);
 }

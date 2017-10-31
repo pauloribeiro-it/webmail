@@ -23,6 +23,7 @@ import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
 import br.com.webmail.domain.usuario.UsuarioService;
+import br.com.webmail.enums.EnumFiltro;
 import br.com.webmail.util.WebmailUtil;
 
 @RequestScoped
@@ -48,8 +49,6 @@ public class EmailMB implements Serializable {
 	
 	private String emailsTexto;
 
-	private static final int IDFILTROENTRADA = 1;
-	
 	private Email emailSelecionado;
 	
 	private List<Email> emailsSelecionados;
@@ -76,7 +75,7 @@ public class EmailMB implements Serializable {
 	}
 
 	private void obtemEmailsCaixaDeEntrada() {
-		this.emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, IDFILTROENTRADA);
+		this.emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, EnumFiltro.CAIXA_ENTRADA.getValor());
 	}
 
 	private void configuraFiltrosPersonalizados() {
@@ -93,7 +92,7 @@ public class EmailMB implements Serializable {
 	public void retornaEmails(ActionEvent e) {
 		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
 		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
-		emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro.intValue());
+		emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro);
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/listaEmails.xhtml?faces-redirect=true");
 	}
@@ -156,7 +155,12 @@ public class EmailMB implements Serializable {
 	}
 
 	public void excluiEmails(){
-		System.out.println();
+		emailService.moveEmailsParaLixeira(emailsSelecionados);
+		obtemEmailsCaixaDeEntrada(); 
+		emailsSelecionados = null;
+		FacesContext faces = FacesContext.getCurrentInstance();
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Email", "Emails excluídos com sucesso!"));
 	}
 	
 	public List<Email> getEmails() {

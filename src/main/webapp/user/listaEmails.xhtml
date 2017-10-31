@@ -9,7 +9,7 @@
 	<ui:define name="content">
 		
 		<h:form id="form" prependId="false">
-			<p:growl id="msgs" showDetail="true" />
+			<p:growl id="messages" showDetail="true" autoUpdate="true"/>
 			<p:dataTable id="tableEmails" var="email"
 				value="#{emailMB.emails}"
 				selection="#{emailMB.emailsSelecionados}" rowKey="#{email.id}"
