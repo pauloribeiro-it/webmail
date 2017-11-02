@@ -127,6 +127,7 @@ public class EmailMB implements Serializable {
 	public String salvarRascunho(){
 		email.setRemetente(usuario);
 		email.setDestinatarios(null);
+		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(),EnumFiltro.RASCUNHOS.getDescricao()));
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,

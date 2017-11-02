@@ -25,6 +25,9 @@ public enum EnumQueries {
 			"select e from Email e inner join e.filtro f inner join e.destinatarios d inner join d.destinatario du "+
 			" where f.id=:idFiltro and du.email=:login"),
 	
+	OBTEMRASCUNHOS(Email.class,"obtemRascunhos","select e from Email e inner join e.filtro f inner join e.remetente u"+
+			" where f.id=:idFiltro and u.id=:idUsuario"),
+	
 	//Auditoria Login
 	OBTEMAUDITORIALOGINPORUSUARIO(AuditoriaLogin.class,"obtemAuditoriaLoginPorUsuario",
 			"select a from AuditoriaLogin a inner join a.usuario u where u.id=:idUsuario and a.idSessao=:idSessao");

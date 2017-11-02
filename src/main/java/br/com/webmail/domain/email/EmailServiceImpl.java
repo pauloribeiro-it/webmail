@@ -73,6 +73,9 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	public List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Long idFiltro) {
+		if(EnumFiltro.RASCUNHOS.getValor().equals(idFiltro)){
+			return dao.obtemRascunhosUsuario(usuario);
+		}
 		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);
 	}
 	

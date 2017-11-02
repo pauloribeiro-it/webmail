@@ -74,4 +74,3 @@ create table auditoria_operacao(
 insert into filtro(id,nome) values(1,'Caixa de Entrada');
 insert into filtro(id,nome) values(2,'Lixo');
 insert into filtro(id,nome) values(3,'Rascunhos');
-insert into filtro(id,nome) values(4,'Excluídos');
