@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -26,7 +27,7 @@ import br.com.webmail.domain.usuario.UsuarioService;
 import br.com.webmail.enums.EnumFiltro;
 import br.com.webmail.util.WebmailUtil;
 
-@RequestScoped
+@SessionScoped
 @Named("emailMB")
 public class EmailMB implements Serializable {
 	private static final long serialVersionUID = 5052247699927310089L;
@@ -211,5 +212,5 @@ public class EmailMB implements Serializable {
 	public void setEmailsSelecionados(List<Email> emailsSelecionados) {
 		this.emailsSelecionados = emailsSelecionados;
 	}
-
+	
 }
