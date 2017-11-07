@@ -1,7 +1,9 @@
 package br.com.webmail.domain.email;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -93,4 +95,15 @@ public class EmailServiceImpl implements EmailService {
 		emails.forEach(e->e.setFiltro(filtro));
 		emails.forEach(e->dao.update(e));
 	}
+
+	public void excluiEmails(List<Email> emails) {
+		
+	}
+	
+	private List<Long> obtemIdsEmails(List<Email> emails){
+		List<Long> ids = new ArrayList<>();
+		
+		emails.stream().mapToLong(e -> e.getId());
+		return ids;
+ 	}
 }

@@ -14,7 +14,7 @@
 				value="#{emailMB.emails}"
 				selection="#{emailMB.emailsSelecionados}" rowKey="#{email.id}"
 				style="margin-bottom:0">
-				<f:facet name="header">Emails</f:facet>
+				<f:facet name="header">#{emailMB.filtroSelecionado.nome}</f:facet>
 				<p:column selectionMode="multiple"
 					style="width:16px;text-align:center" />
 				<p:column headerText="Assunto">

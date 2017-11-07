@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -54,6 +53,8 @@ public class EmailMB implements Serializable {
 	
 	private List<Email> emailsSelecionados;
 	
+	private Filtro filtroSelecionado = new Filtro();
+	
 	public EmailMB() {
 
 	}
@@ -64,6 +65,7 @@ public class EmailMB implements Serializable {
 		usuario = WebmailUtil.getUsuarioSessao();
 		this.submenu = new DefaultSubMenu("Emails");
 		simpleMenuModel.addElement(submenu);
+		filtroSelecionado = new Filtro(EnumFiltro.CAIXA_ENTRADA.getValor(), EnumFiltro.CAIXA_ENTRADA.getDescricao());
 		criaNovoEmailOpcaoMenu();
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
@@ -93,6 +95,7 @@ public class EmailMB implements Serializable {
 	public void retornaEmails(ActionEvent e) {
 		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
 		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
+		configuraFiltroSelecionado(EnumFiltro.obtemFiltroPorId(idFiltro));
 		emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro);
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/listaEmails.xhtml?faces-redirect=true");
@@ -131,8 +134,7 @@ public class EmailMB implements Serializable {
 		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(),EnumFiltro.RASCUNHOS.getDescricao()));
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Email", "Rascunho salvo com sucesso!"));
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Rascunho salvo com sucesso!"));
 		email = new Email();
 		return "";
 	}
@@ -161,8 +163,12 @@ public class EmailMB implements Serializable {
 		obtemEmailsCaixaDeEntrada(); 
 		emailsSelecionados = null;
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Email", "Emails excluídos com sucesso!"));
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Emails excluídos com sucesso!"));
+	}
+	
+	private void configuraFiltroSelecionado(EnumFiltro filtro){
+		this.filtroSelecionado.setId(filtro.getValor());
+		this.filtroSelecionado.setNome(filtro.getDescricao());
 	}
 	
 	public List<Email> getEmails() {
@@ -211,6 +217,14 @@ public class EmailMB implements Serializable {
 
 	public void setEmailsSelecionados(List<Email> emailsSelecionados) {
 		this.emailsSelecionados = emailsSelecionados;
+	}
+
+	public Filtro getFiltroSelecionado() {
+		return filtroSelecionado;
+	}
+
+	public void setFiltroSelecionado(Filtro filtroSelecionado) {
+		this.filtroSelecionado = filtroSelecionado;
 	}
 	
 }

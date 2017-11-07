@@ -18,4 +18,13 @@ public enum EnumFiltro {
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	public static EnumFiltro obtemFiltroPorId(Long id){
+		for(EnumFiltro filtro:values()){
+			if(filtro.getValor().equals(id)){
+				return filtro;
+			}
+		}
+		throw new IllegalArgumentException("Nenhum enum recuperado, id "+id+" inválido.");
+	}
 }
