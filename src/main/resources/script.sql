@@ -38,18 +38,11 @@ create table email
   data_hora_deletado timestamp,
   data_hora_enviado timestamp,
   id_filtro integer,
+  id_destinatario integer,
   constraint pk_email primary key (id),
   constraint fk_email_remetente foreign key(id_remetente) references usuario(id),
-  constraint fk_email_filtro foreign key(id_filtro) references filtro(id)
-);
-
-create table email_destinatario
-(
-  id_email integer,
-  id_destinatario integer,
-  constraint pk_email_destinatario primary key (id_email,id_destinatario),
-  constraint fk_email_destinatario_email foreign key (id_email) references email(id),
-  constraint fk_email_destinatario_usuario foreign key (id_destinatario) references usuario(id)
+  constraint fk_email_filtro foreign key(id_filtro) references filtro(id),
+  constraint fk_usuario_destinatario foreign key(id_destinatario) references usuario(id)
 );
 
 create table auditoria_login(

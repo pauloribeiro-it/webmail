@@ -1,7 +1,6 @@
 package br.com.webmail.domain.email;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +34,9 @@ public class Email {
 	@JoinColumn(name="id_remetente",referencedColumnName="id")
 	private Usuario remetente;
 	
-	@OneToMany(mappedBy="email")
-	private List<EmailDestinatario> destinatarios;
+	@ManyToOne
+	@JoinColumn(name="id_destinatario",referencedColumnName="id")
+	private Usuario destinatario;
 	
 	@Column(name="data_hora_criacao")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -157,20 +156,20 @@ public class Email {
 		this.remetente = usuario;
 	}
 	
-	public List<EmailDestinatario> getDestinatarios() {
-		return destinatarios;
-	}
-
-	public void setDestinatarios(List<EmailDestinatario> destinatarios) {
-		this.destinatarios = destinatarios;
-	}
-	
 	public Filtro getFiltro() {
 		return filtro;
 	}
 
 	public void setFiltro(Filtro filtro) {
 		this.filtro = filtro;
+	}
+
+	public Usuario getDestinatario() {
+		return destinatario;
+	}
+
+	public void setDestinatario(Usuario destinatario) {
+		this.destinatario = destinatario;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import br.com.webmail.domain.usuario.Usuario;
 
 
 public enum EnumQueries {
-	//Email
+	//Email Filtro
 	EMAILFROMFILTRO(Email.class,"emailFromFiltro","select e from Email e where e.id in (:emailFiltro)"),
 	
 	//Filtro
@@ -20,10 +20,13 @@ public enum EnumQueries {
 	//Usuário
 	FINDUSUARIOBYLOGIN(Usuario.class,"findUsuarioByLogin","select u from Usuario u where u.email=:login"),
 	
+	OBTEMDESTINATARIOEMAILPOREMAILEDESTINATARIO(Email.class,"findDestinatarios","select ed from EmailDestinatario ed "+
+																							" where ed.email in(:emails) and ed.destinatario = :destinatario"),
+	
 	//Email
 	OBTEMEMAILPORUSUARIOEFILTRO(Email.class,"obtemEmailPorUsuarioEFiltro",
-			"select e from Email e inner join e.filtro f inner join e.destinatarios d inner join d.destinatario du "+
-			" where f.id=:idFiltro and du.email=:login"),
+			"select e from Email e inner join e.filtro f inner join e.destinatario d "+
+			" where f.id=:idFiltro and d.id=:idDestinatario"),
 	
 	OBTEMRASCUNHOS(Email.class,"obtemRascunhos","select e from Email e inner join e.filtro f inner join e.remetente u"+
 			" where f.id=:idFiltro and u.id=:idUsuario"),

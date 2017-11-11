@@ -1,6 +1,5 @@
 package br.com.webmail.domain.email;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,8 +9,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import br.com.webmail.dao.CrudDao;
-import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
 import br.com.webmail.domain.usuario.Usuario;
@@ -24,8 +21,8 @@ public class EmailServiceImpl implements EmailService {
 	@Inject
 	private EmailDAO dao;
 	
-	@Inject @Dao
-	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
+//	@Inject @Dao
+//	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
 	
 	@EJB
 	private FiltroService filtroService;
@@ -33,18 +30,11 @@ public class EmailServiceImpl implements EmailService {
 	@Transactional
 	public void enviarEmail(Email email) {
 		
-		//Obtém destinatários
-		List<EmailDestinatario> destinatarios = email.getDestinatarios();
-		email.setDestinatarios(null);
-		
 		//Configura propriedades 
 		configuraDatasEmail(email);
 		
 		//Insere email
 		dao.insert(email);
-		
-		//Salva destinatários
-		saveDestinatarios(destinatarios);
 		
 		//Associa filtros ao email salvo
 		configuraEmailFiltro(email);	
@@ -54,11 +44,6 @@ public class EmailServiceImpl implements EmailService {
 		dao.update(email);
 	}
 
-	private void saveDestinatarios(List<EmailDestinatario> destinatarios) {
-		for (EmailDestinatario destinatario : destinatarios){
-			destinatarioDAO.insert(destinatario);
-		}
-	}
 	/**
 	 * quando for enviar o email selecionar apenas os filtros Caixa de Entrada 
 	 * @param email
@@ -96,14 +81,11 @@ public class EmailServiceImpl implements EmailService {
 		emails.forEach(e->dao.update(e));
 	}
 
-	public void excluiEmails(List<Email> emails) {
-		
+	public void excluiEmails(List<Email> emails, Usuario destinatario) {
+		List<Long> ids = obtemIdsEmails(emails);
 	}
 	
 	private List<Long> obtemIdsEmails(List<Email> emails){
-		List<Long> ids = new ArrayList<>();
-		
-		emails.stream().mapToLong(e -> e.getId());
-		return ids;
+		return emails.stream().mapToLong(e -> e.getId()).boxed().collect(Collectors.toList());
  	}
 }

@@ -23,7 +23,8 @@ public class EmailDAO extends CrudDao<Email, Long> {
 		List<Email> emails = null;
 		emails = (List<Email>) getEntityManager().createQuery(EnumQueries.OBTEMEMAILPORUSUARIOEFILTRO.getQuery()).
 				setParameter("idFiltro", idFiltro).
-				setParameter("login", usuario.getEmail()).getResultList();
+				setParameter("idDestinatario",usuario.getId()).
+				getResultList();
 		return emails;
 	}
 	
@@ -35,4 +36,5 @@ public class EmailDAO extends CrudDao<Email, Long> {
 				setParameter("idUsuario", usuario.getId()).getResultList();
 		return emails;
 	}
+	
 }

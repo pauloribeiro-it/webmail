@@ -1,7 +1,6 @@
 package br.com.webmail.domain.email;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -47,7 +46,7 @@ public class EmailMB implements Serializable {
 	@EJB
 	private UsuarioService usuarioService;
 	
-	private String emailsTexto;
+	private String destinatario;
 
 	private Email emailSelecionado;
 	
@@ -103,7 +102,7 @@ public class EmailMB implements Serializable {
 
 	public void enviarEmail() {
 		email.setRemetente(usuario);
-		email.setDestinatarios(getDestinatarios());
+		email.setDestinatario(getDestinatarioComoUsuario());
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -111,47 +110,19 @@ public class EmailMB implements Serializable {
 		email = new Email();
 	}
 
-	private List<EmailDestinatario> getDestinatarios() {
-		List<EmailDestinatario> destinatarios = new ArrayList<EmailDestinatario>();
-		List<String> destinatariosTexto = WebmailUtil.getEmails(emailsTexto);
-		destinatarios.addAll(constroiEmailDestinatarios(email, destinatariosTexto));
-		return destinatarios;
-	}
-
-	private List<EmailDestinatario> constroiEmailDestinatarios(Email email,	List<String> destinatarios) {
-		List<EmailDestinatario> emailsDestinatario = new ArrayList<EmailDestinatario>();
-		if (destinatarios.size() > 0){
-			for (String str : destinatarios){
-				emailsDestinatario.add(constroiEmailDestinatario(email, str));
-			}
-		}
-		return emailsDestinatario;
+	private Usuario getDestinatarioComoUsuario() {
+		return usuarioService.findByLogin(destinatario);
 	}
 
 	public String salvarRascunho(){
 		email.setRemetente(usuario);
-		email.setDestinatarios(null);
+		email.setDestinatario(null);
 		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(),EnumFiltro.RASCUNHOS.getDescricao()));
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Rascunho salvo com sucesso!"));
 		email = new Email();
 		return "";
-	}
-	
-	private EmailDestinatario constroiEmailDestinatario(Email email,String destinatario) {
-		Usuario usuario = usuarioService.findByLogin(destinatario);
-		
-//		if(usuario == null){
-//			FacesContext faces = FacesContext.getCurrentInstance();
-//			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//					"Destinatário", "Email não encontrado!"));
-//		}
-		
-		EmailDestinatario emailDestinatario = new EmailDestinatario();
-		emailDestinatario.setEmail(email);
-		emailDestinatario.setUsuario(usuario);
-		return emailDestinatario;
 	}
 	
 	public String obtemConfiguracoes(){
@@ -186,6 +157,14 @@ public class EmailMB implements Serializable {
 	public void setSimpleMenuModel(MenuModel simpleMenuModel) {
 		this.simpleMenuModel = simpleMenuModel;
 	}
+	
+	public void setDestinatario(String destinatario) {
+		this.destinatario = destinatario;
+	}
+	
+	public String getDestinatario() {
+		return destinatario;
+	}
 
 	public Email getEmail() {
 		return email;
@@ -193,14 +172,6 @@ public class EmailMB implements Serializable {
 
 	public void setEmail(Email email) {
 		this.email = email;
-	}
-
-	public String getEmailsTexto() {
-		return emailsTexto;
-	}
-
-	public void setEmailsTexto(String emailsTexto) {
-		this.emailsTexto = emailsTexto;
 	}
 
 	public Email getEmailSelecionado() {
