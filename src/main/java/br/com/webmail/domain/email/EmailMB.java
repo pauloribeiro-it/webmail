@@ -130,7 +130,11 @@ public class EmailMB implements Serializable {
 	}
 
 	public void excluiEmails(){
-		emailService.moveEmailsParaLixeira(emailsSelecionados);
+		if(EnumFiltro.obtemFiltroPorId(filtroSelecionado.getId()) != EnumFiltro.LIXO){
+			emailService.moveEmailsParaLixeira(emailsSelecionados);
+		}else{
+			emailService.excluiEmails(emailsSelecionados);
+		}
 		obtemEmailsCaixaDeEntrada(); 
 		emailsSelecionados = null;
 		FacesContext faces = FacesContext.getCurrentInstance();

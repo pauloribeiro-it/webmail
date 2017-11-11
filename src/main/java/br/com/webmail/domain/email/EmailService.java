@@ -8,5 +8,5 @@ public interface EmailService {
 	void enviarEmail(Email email);
 	List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Long idFiltro);
 	void moveEmailsParaLixeira(List<Email> emails);
-	void excluiEmails(List<Email> emails,Usuario destinatario);
+	void excluiEmails(List<Email> emails);
 }

@@ -81,8 +81,9 @@ public class EmailServiceImpl implements EmailService {
 		emails.forEach(e->dao.update(e));
 	}
 
-	public void excluiEmails(List<Email> emails, Usuario destinatario) {
+	public void excluiEmails(List<Email> emails) {
 		List<Long> ids = obtemIdsEmails(emails);
+		ids.forEach(i->dao.delete(i));
 	}
 	
 	private List<Long> obtemIdsEmails(List<Email> emails){
