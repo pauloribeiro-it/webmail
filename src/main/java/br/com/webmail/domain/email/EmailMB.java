@@ -102,7 +102,7 @@ public class EmailMB implements Serializable {
 
 	public void enviarEmail() {
 		email.setRemetente(usuario);
-		email.setDestinatario(getDestinatarioComoUsuario());
+		email.setDestinatario(usuarioService.findByLogin(destinatario));
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -110,8 +110,10 @@ public class EmailMB implements Serializable {
 		email = new Email();
 	}
 
-	private Usuario getDestinatarioComoUsuario() {
-		return usuarioService.findByLogin(destinatario);
+	public void detalhaEmail(){
+		System.out.println("teste");
+		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/detalhaEmail.xhtml?faces-redirect=true");
 	}
 
 	public String salvarRascunho(){

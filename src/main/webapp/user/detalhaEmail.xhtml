@@ -1,0 +1,19 @@
+<ui:composition template="../templates/layout_central.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="content">
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Email do remetente: "/>#{emailMB.emailSelecionado.destinatario.email}
+				<p:outputLabel value="Nome do remetente: "/>#{emailMB.emailSelecionado.destinatario.nome}
+				<p:outputLabel value="Assunto: "/>#{emailMB.emailSelecionado.assunto}
+				<p:outputLabel value="Corpo: "/>#{emailMB.emailSelecionado.corpo}
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

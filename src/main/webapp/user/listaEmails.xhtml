@@ -26,6 +26,11 @@
 				<f:facet name="footer">
 					<p:commandButton process="tableEmails" value="Excluir" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails"/>
 				</f:facet>
+				<p:column headerText="Detalhar" >
+					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.detalhaEmail}" icon="ui-icon-search" title="Detalhar">
+						<f:setPropertyActionListener value="#{email}" target="#{emailMB.emailSelecionado}" />
+					</p:commandButton>
+				</p:column>
 			</p:dataTable>
 
 		</h:form>
