@@ -9,7 +9,6 @@
 </h:head>
 <h:body>
 	<p:outputLabel style="font-size:30px">Login</p:outputLabel>
-	<h:messages />
 	<h:form prependId="false">
 
 		<p:growl id="messages" showDetail="true" autoUpdate="true"/>
@@ -30,8 +29,10 @@
 				styleClass="btn btn-primary" value="Login" />
 				<p:commandButton action="#{loginMB.loginUser}"
 				styleClass="btn btn-primary" value="Esqueceu a senha?" />
+		
 		</p:panelGrid>
-
+		<br/>
+		<p:commandLink value="Não é cadastrado?" action="cadastro.jsf"/>
 	</h:form>
 </h:body>
 </html>

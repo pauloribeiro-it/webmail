@@ -42,12 +42,12 @@ public class UsuarioMB implements Serializable {
 		this.senha = senha;
 	}
 
-	public String cadastro() {
+	public void cadastro() {
 		usuarioBean.registraUsuario(usuario, senha);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				null, "Cadastro concluído com sucesso."));
-		return "login.jsf";
+				"Cadastro concluído com sucesso.", "Cadastro"));
+		usuario = new Usuario();
 	}
 
 }
