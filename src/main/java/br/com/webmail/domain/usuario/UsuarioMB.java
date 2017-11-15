@@ -43,11 +43,21 @@ public class UsuarioMB implements Serializable {
 	}
 
 	public void cadastro() {
-		usuarioBean.registraUsuario(usuario, senha);
 		FacesContext faces = FacesContext.getCurrentInstance();
+		if(usuarioJaExiste()){
+			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"O nome do usuário informado já existe na base de dados.", "Validação"));
+			return;
+		}
+		
+		usuarioBean.registraUsuario(usuario, senha);
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Cadastro concluído com sucesso.", "Cadastro"));
 		usuario = new Usuario();
+	}
+	
+	private boolean usuarioJaExiste(){
+		return usuarioBean.findByLogin(usuario.getEmail()) != null;
 	}
 
 }

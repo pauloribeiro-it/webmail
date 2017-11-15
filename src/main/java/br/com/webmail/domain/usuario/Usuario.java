@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="usuario")
 public class Usuario {
-	//<f:validateRegex pattern="[A-Za-z0-9\\._-]" />
 	@Id
 	@GeneratedValue
 	@Column(name="id")

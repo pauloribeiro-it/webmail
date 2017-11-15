@@ -14,9 +14,9 @@
 		<p:growl id="messages" showDetail="false" autoUpdate="true"/>
 		<p:panelGrid columns="2">
 			<p:outputLabel value="Nome Completo" for="nome"/>
-			<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true"/>
+			<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" />
 			<p:outputLabel value="Usuário" for="usuario"/>
-			<p:inputText id="usuario" value="#{usuarioMB.usuario.email}" required="true" requiredMessage="Campo usuário obrigatório!"/>
+			<p:inputText id="usuario" value="#{usuarioMB.usuario.email}" required="true" requiredMessage="Campo usuário obrigatório!" validator="nomeUsuarioValidator"/>
 			<p:outputLabel value="Senha" for="senha"/>
 			<p:password id="senha" value="#{usuarioMB.senha}" required="true" requiredMessage="Campo senha obrigatório!"/>
 			<p:commandButton value="Cadastrar" actionListener="#{usuarioMB.cadastro}" />

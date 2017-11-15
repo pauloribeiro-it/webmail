@@ -1,6 +1,5 @@
 package br.com.webmail.domain.usuario;
 
-import static br.com.webmail.util.WebmailUtil.getEmailFormatado;
 import static br.com.webmail.util.WebmailUtil.getEncryptedPassword;
 
 import java.util.Date;
@@ -28,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void registraUsuario(Usuario usuario, String senha) {
 		Login login = loginBean.configuraPerfil(usuario, getEncryptedPassword(senha));
 		usuario.setDataCriacao(new Date());
-		usuario.setEmail(getEmailFormatado(usuario.getEmail()));
+		usuario.setEmail(usuario.getEmail());
 		customUsuarioDao.insert(usuario);
 		loginBean.save(login);
 	}

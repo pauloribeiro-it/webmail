@@ -12,7 +12,6 @@ import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.autorizacao.AutorizacaoService;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
-import br.com.webmail.util.WebmailUtil;
 
 @Stateless
 public class LoginServiceImpl implements LoginService{
@@ -39,7 +38,7 @@ public class LoginServiceImpl implements LoginService{
 		login.setUsuario(usuario);
 		login.setAtivo(true);
 		login.setSenha(senha);
-		login.setLogin(WebmailUtil.getEmailFormatado(usuario.getEmail()));
+		login.setLogin(usuario.getEmail());
 		return login;
 	}
 	
