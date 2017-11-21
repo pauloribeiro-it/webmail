@@ -18,13 +18,12 @@
 			</p:tabMenu>
 			<br />
 			<p:panelGrid columns="2">
-				<h:outputText value="Para: " />
+				<p:outputLabel value="Para: " />
 				<p:inputText value="#{emailMB.destinatario}" />
-				<h:outputText value="Assunto: " />
+				<p:outputLabel value="Assunto: " />
 				<p:inputText value="#{emailMB.email.assunto}" />
 			</p:panelGrid>
-			<p:editor value="#{emailMB.email.corpo}">
-			</p:editor>
+			<p:editor id="corpo" value="#{emailMB.email.corpo}" required="true" requiredMessage="O corpo da mensagem deve ser informado!"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

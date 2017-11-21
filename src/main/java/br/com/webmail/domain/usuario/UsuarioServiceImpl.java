@@ -24,16 +24,26 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@EJB
 	private FiltroService filtroService;
 
+	@EJB
+	private UsuarioService usuarioBean;
+	
 	public void registraUsuario(Usuario usuario, String senha) {
-		Login login = loginBean.configuraPerfil(usuario, getEncryptedPassword(senha));
-		usuario.setDataCriacao(new Date());
-		usuario.setEmail(usuario.getEmail());
-		customUsuarioDao.insert(usuario);
-		loginBean.save(login);
+		if(!usuarioJaExiste(usuario)){
+			Login login = loginBean.configuraPerfil(usuario, getEncryptedPassword(senha));
+			usuario.setDataCriacao(new Date());
+			usuario.setEmail(usuario.getEmail());
+			customUsuarioDao.insert(usuario);
+			loginBean.save(login);
+		}else{
+			throw new IllegalArgumentException("O nome do usuário informado já existe na base de dados.");
+		}
 	}
 
 	public Usuario findByLogin(String login) {
 		return customUsuarioDao.findByLogin(login);
 	}
 	
+	private boolean usuarioJaExiste(Usuario usuario){
+		return usuarioBean.findByLogin(usuario.getEmail()) != null;
+	}
 }

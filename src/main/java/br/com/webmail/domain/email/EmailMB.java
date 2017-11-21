@@ -111,7 +111,6 @@ public class EmailMB implements Serializable {
 	}
 
 	public void detalhaEmail(){
-		System.out.println("teste");
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/detalhaEmail.xhtml?faces-redirect=true");
 	}
@@ -120,7 +119,7 @@ public class EmailMB implements Serializable {
 		email.setRemetente(usuario);
 		email.setDestinatario(null);
 		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(),EnumFiltro.RASCUNHOS.getDescricao()));
-		emailService.enviarEmail(email);
+		emailService.salvaRascunho(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
 		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Rascunho salvo com sucesso!"));
 		email = new Email();
@@ -146,6 +145,11 @@ public class EmailMB implements Serializable {
 	private void configuraFiltroSelecionado(EnumFiltro filtro){
 		this.filtroSelecionado.setId(filtro.getValor());
 		this.filtroSelecionado.setNome(filtro.getDescricao());
+	}
+	
+	public void editarEmail(){
+		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/novoEmail.xhtml?faces-redirect=true");
 	}
 	
 	public List<Email> getEmails() {

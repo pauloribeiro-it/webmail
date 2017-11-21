@@ -21,23 +21,20 @@ public class EmailServiceImpl implements EmailService {
 	@Inject
 	private EmailDAO dao;
 	
-//	@Inject @Dao
-//	private CrudDao<EmailDestinatario, Email> destinatarioDAO;
-	
 	@EJB
 	private FiltroService filtroService;
 	
 	@Transactional
 	public void enviarEmail(Email email) {
 		
-		//Configura propriedades 
-		configuraDatasEmail(email);
-		
-		//Insere email
-		dao.insert(email);
+		registraEmail(email);
 		
 		//Associa filtros ao email salvo
 		configuraEmailFiltro(email);	
+	}
+	
+	public void salvaRascunho(Email email) {
+		registraEmail(email);
 	}
 
 	public void update(Email email) {
@@ -89,4 +86,12 @@ public class EmailServiceImpl implements EmailService {
 	private List<Long> obtemIdsEmails(List<Email> emails){
 		return emails.stream().mapToLong(e -> e.getId()).boxed().collect(Collectors.toList());
  	}
+
+	private void registraEmail(Email email) {
+		//Configura propriedades 
+		configuraDatasEmail(email);
+		
+		//Insere email
+		dao.insert(email);
+	}
 }

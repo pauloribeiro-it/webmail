@@ -9,4 +9,5 @@ public interface EmailService {
 	List<Email> obtemEmailsPorUsuarioEFiltro(Usuario usuario, Long idFiltro);
 	void moveEmailsParaLixeira(List<Email> emails);
 	void excluiEmails(List<Email> emails);
+	void salvaRascunho(Email email);
 }
