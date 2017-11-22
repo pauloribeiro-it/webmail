@@ -32,8 +32,8 @@
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Editar" rendered="#{emailMB.filtroSelecionado.id == 3}">
-					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.editarEmail}" icon="ui-icon-pencil" title="Detalhar">
-						<f:setPropertyActionListener value="#{email}" target="#{emailMB.emailSelecionado}" />
+					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.editarRascunho}" icon="ui-icon-pencil" title="Detalhar">
+						<f:setPropertyActionListener value="#{email}" target="#{emailMB.email}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>

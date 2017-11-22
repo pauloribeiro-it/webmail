@@ -12,9 +12,7 @@
 		<p:layoutUnit position="west" resizable="false" size="300"
 			minSize="300" maxSize="500">
 			<h:form>
-				<p:panelMenu model="#{emailMB.simpleMenuModel}">
-					<p:menuitem value="Novo email" url="/user/novoEmail.jsf"/>
-				</p:panelMenu>
+				<p:panelMenu model="#{emailMB.simpleMenuModel}"/>
 				<br/>
 				<p:commandButton value="Configurações" action="#{emailMB.obtemConfiguracoes()}" immediate="true"/>
 				<br/>

@@ -72,7 +72,7 @@ public class EmailMB implements Serializable {
 
 	private void criaNovoEmailOpcaoMenu() {
 		DefaultMenuItem itemMenu = new DefaultMenuItem("Novo email");
-		itemMenu.setUrl("/user/novoEmail.jsf");
+		itemMenu.setCommand("#{emailMB.novoEmail}");
 		submenu.addElement(itemMenu);
 	}
 
@@ -147,7 +147,13 @@ public class EmailMB implements Serializable {
 		this.filtroSelecionado.setNome(filtro.getDescricao());
 	}
 	
-	public void editarEmail(){
+	public void editarRascunho(){
+		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/novoEmail.xhtml?faces-redirect=true");
+	}
+	
+	public void novoEmail(){
+		email = new Email();
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/novoEmail.xhtml?faces-redirect=true");
 	}
