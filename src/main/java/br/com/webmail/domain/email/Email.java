@@ -42,26 +42,6 @@ public class Email {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataHoraCriacao;
 	
-	@Column(name="data_hora_lido")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraLido;
-	
-	@Column(name="data_hora_recebido")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraRecebido;
-	
-	@Column(name="data_hora_excluido")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraExcluido;
-	
-	@Column(name="data_hora_deletado")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraDeletado;
-	
-	@Column(name="data_hora_enviado")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraEnviado;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_filtro",referencedColumnName="id")
 	private Filtro filtro;
@@ -108,45 +88,6 @@ public class Email {
 		this.dataHoraCriacao = dataHoraCriacao;
 	}
 
-	public Date getDataHoraLido() {
-		return dataHoraLido;
-	}
-
-	public void setDataHoraLido(Date dataHoraLido) {
-		this.dataHoraLido = dataHoraLido;
-	}
-
-	public Date getDataHoraRecebido() {
-		return dataHoraRecebido;
-	}
-
-	public void setDataHoraRecebido(Date dataHoraRecebido) {
-		this.dataHoraRecebido = dataHoraRecebido;
-	}
-
-	public Date getDataHoraExcluido() {
-		return dataHoraExcluido;
-	}
-
-	public void setDataHoraExcluido(Date dataHoraExcluido) {
-		this.dataHoraExcluido = dataHoraExcluido;
-	}
-
-	public Date getDataHoraDeletado() {
-		return dataHoraDeletado;
-	}
-
-	public void setDataHoraDeletado(Date dataHoraDeletado) {
-		this.dataHoraDeletado = dataHoraDeletado;
-	}
-
-	public Date getDataHoraEnviado() {
-		return dataHoraEnviado;
-	}
-
-	public void setDataHoraEnviado(Date dataHoraEnviado) {
-		this.dataHoraEnviado = dataHoraEnviado;
-	}
 
 	public Usuario getRemetente() {
 		return remetente;
