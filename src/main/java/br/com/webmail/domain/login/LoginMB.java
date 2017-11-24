@@ -1,9 +1,10 @@
 package br.com.webmail.domain.login;
 
+import java.io.Serializable;
 import java.util.Base64;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -26,8 +27,9 @@ import br.com.webmail.interceptors.AuditLogin;
 import br.com.webmail.util.WebmailUtil;
 
 @Named(value="loginMB")
-@RequestScoped
-public class LoginMB {
+@SessionScoped
+public class LoginMB implements Serializable{
+	private static final long serialVersionUID = 1565428517636255897L;
 	private String username;
 	private String password;
 	
@@ -52,11 +54,11 @@ public class LoginMB {
 			currentUser.login(token);
 			if (null != SecurityUtils.getSubject().getPrincipal()) {
 				//configura o id da sessão
-				Usuario usuario = usuarioService.findByLogin(username);
-				usuario.setIdSessao(getSessionId(usuario));
+				Usuario usuarioLogado = usuarioService.findByLogin(username);
+				usuarioLogado.setIdSessao(getSessionId(usuarioLogado));
 				
 				//configura na sessão
-				currentUser.getSession().setAttribute(WebmailUtil.USER, usuario);
+				currentUser.getSession().setAttribute(WebmailUtil.USER, usuarioLogado);
 				
 				NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 				nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/listaEmails.xhtml?faces-redirect=true");

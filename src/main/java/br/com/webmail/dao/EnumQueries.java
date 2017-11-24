@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.webmail.domain.auditoria.AuditoriaLogin;
 import br.com.webmail.domain.email.Email;
 import br.com.webmail.domain.filtro.Filtro;
+import br.com.webmail.domain.login.Login;
 import br.com.webmail.domain.usuario.Usuario;
 
 
@@ -33,7 +34,10 @@ public enum EnumQueries {
 	
 	//Auditoria Login
 	OBTEMAUDITORIALOGINPORUSUARIO(AuditoriaLogin.class,"obtemAuditoriaLoginPorUsuario",
-			"select a from AuditoriaLogin a inner join a.usuario u where u.id=:idUsuario and a.idSessao=:idSessao");
+			"select a from AuditoriaLogin a inner join a.usuario u where u.id=:idUsuario and a.idSessao=:idSessao"),
+	
+	//Login
+	OBTEMLOGINPORUSUARIOLOGADO(Login.class,"obtemLoginPorUsuarioLogado","select l from Login l where l.usuario.id =:idUsuario");
 	
 	private String queryName;
 	private String query;

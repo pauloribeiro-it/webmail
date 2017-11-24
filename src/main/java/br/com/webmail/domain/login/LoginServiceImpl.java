@@ -12,6 +12,7 @@ import br.com.webmail.dao.Dao;
 import br.com.webmail.domain.autorizacao.AutorizacaoService;
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.usuario.Usuario;
+import br.com.webmail.util.WebmailUtil;
 
 @Stateless
 public class LoginServiceImpl implements LoginService{
@@ -19,8 +20,7 @@ public class LoginServiceImpl implements LoginService{
 	protected EntityManager entityManager;
 	
 	@Inject
-	@Dao
-	private CrudDao<Login, String> dao;
+	private LoginDao dao;
 	
 	@Inject @Dao
 	private CrudDao<Filtro,Long> filtroDao;
@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService{
 	@EJB
 	private AutorizacaoService autorizacaoBean;
 
-	public void save(Login login) {
+	public void salvaLogin(Login login) {
 		dao.insert(login);
 		autorizacaoBean.save(login);
 	}
@@ -41,6 +41,13 @@ public class LoginServiceImpl implements LoginService{
 		login.setLogin(usuario.getEmail());
 		return login;
 	}
-	
-	
+
+	public void atualizaSenhaLogin(Login login) {
+		login.setSenha(WebmailUtil.getEncryptedPassword(login.getSenha()));
+		dao.update(login);
+	}
+
+	public Login obtemLoginPorUsuario(Usuario usuario) {
+		return dao.obtemLoginPorUsuario(usuario);
+	}
 }

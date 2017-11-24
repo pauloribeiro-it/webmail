@@ -126,8 +126,9 @@ public class EmailMB implements Serializable {
 		return "";
 	}
 	
-	public String obtemConfiguracoes(){
-		return "";
+	public void obtemConfiguracoes(){
+		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/alteraconfiguracao.xhtml?faces-redirect=true");
 	}
 
 	public void excluiEmails(){

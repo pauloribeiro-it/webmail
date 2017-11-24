@@ -1,0 +1,21 @@
+<ui:composition template="../templates/layout_central.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="content">
+		<h:form>
+			<p:growl id="messages" autoUpdate="true" showDetail="true"/>
+			<p:panelGrid columns="2">
+				<p:outputLabel value="Nome do usuário: "/>#{apoioMB.usuarioLogado.nome}
+				<p:outputLabel value="Login: "/>#{apoioMB.usuarioLogado.email}
+				<p:outputLabel value="Senha nova: "/>
+				<p:password id="senhaNova" value="#{apoioMB.senhaNova}" required="true" requiredMessage="Campo senha obrigatório!"/>
+				<p:commandButton value="Confirmar" actionListener="#{apoioMB.alterarSenha()}"/>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

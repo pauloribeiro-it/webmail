@@ -63,15 +63,6 @@ public class EmailServiceImpl implements EmailService {
 		return dao.obtemEmailsPorUsuarioEPorFiltro(usuario, idFiltro);
 	}
 	
-	private void configuraDatasEmail(Email email){
-		email.setDataHoraCriacao(new Date());
-		email.setDataHoraDeletado(null);
-		email.setDataHoraEnviado(new Date());
-		email.setDataHoraExcluido(null);
-		email.setDataHoraLido(null);
-		email.setDataHoraRecebido(null);
-	}
-
 	public void moveEmailsParaLixeira(List<Email> emails) {
 		Filtro filtro = filtroService.obtemFiltroPorId(EnumFiltro.LIXO.getValor());
 		emails.forEach(e->e.setFiltro(filtro));
@@ -88,10 +79,7 @@ public class EmailServiceImpl implements EmailService {
  	}
 
 	private void registraEmail(Email email) {
-		//Configura propriedades 
-		configuraDatasEmail(email);
-		
-		//Insere email
+		email.setDataHoraCriacao(new Date());
 		dao.insert(email);
 	}
 }

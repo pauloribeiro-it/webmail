@@ -1,5 +1,7 @@
 package br.com.webmail.interceptors;
 
+import java.io.Serializable;
+
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
@@ -13,7 +15,8 @@ import br.com.webmail.util.WebmailUtil;
 
 @Interceptor
 @AuditLogin
-public class AuditoriaLoginInterceptor {
+public class AuditoriaLoginInterceptor implements Serializable{
+	private static final long serialVersionUID = 8759036332492812398L;
 	@EJB
 	private AuditoriaLoginService auditoriaLoginService;
 	

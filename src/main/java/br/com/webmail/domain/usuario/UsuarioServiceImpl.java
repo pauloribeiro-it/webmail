@@ -33,7 +33,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			usuario.setDataCriacao(new Date());
 			usuario.setEmail(usuario.getEmail());
 			customUsuarioDao.insert(usuario);
-			loginBean.save(login);
+			loginBean.salvaLogin(login);
 		}else{
 			throw new IllegalArgumentException("O nome do usuário informado já existe na base de dados.");
 		}

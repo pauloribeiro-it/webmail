@@ -14,13 +14,13 @@
 			<h:form>
 				<p:panelMenu model="#{emailMB.simpleMenuModel}"/>
 				<br/>
-				<p:commandButton value="Configurações" action="#{emailMB.obtemConfiguracoes()}" immediate="true"/>
+				<p:commandButton value="Configurações" action="/user/alteraconfiguracao.jsf?faces-redirect=true" />
 				<br/>
-				<p:commandButton value="Logout" actionListener="#{loginMB.logout}" immediate="true"/>
+				<p:commandButton value="Logout" actionListener="#{loginMB.logout}"/>
 			</h:form>
 		</p:layoutUnit>
 		<p:layoutUnit position="center">
-			<ui:insert name="content"></ui:insert>
+			<ui:insert name="content"/>
 		</p:layoutUnit>
 	</p:layout>
 </f:view>
