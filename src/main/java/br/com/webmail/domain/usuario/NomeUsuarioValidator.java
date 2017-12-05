@@ -13,8 +13,7 @@ public class NomeUsuarioValidator implements Validator{
 	public void validate(FacesContext faces, UIComponent component, Object obj) throws ValidatorException {
 		String nomeUsuario = ((String) obj).trim();
 		if(Character.isDigit(nomeUsuario.charAt(0)) || !nomeUsuario.matches("(\\w)+")){
-			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido. O nome não pode começar com número ou conter caracteres especiais.", null));
-			return;
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Formato de nome inválido. O nome não pode começar com número ou conter caracteres especiais.", null));
 		}
 	}
 

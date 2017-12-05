@@ -22,25 +22,31 @@ public class ApoioMB implements Serializable{
 	
 	@EJB
 	private LoginService loginService;
+	
 	private Usuario usuarioLogado;
 	private Login login;
+	private String senhaAtual;
 	private String senhaNova;
+	private String confirmacaoSenhaNova;
 	
 	public ApoioMB(){
 		
-	}
-	
-	public void alterarSenha(){
-		this.login.setSenha(senhaNova);
-		loginService.atualizaSenhaLogin(login);
 	}
 	
 	@PostConstruct
 	private void obtemUsuarioLogado(){
 		this.usuarioLogado = WebmailUtil.getUsuarioSessao();
 		this.login = loginService.obtemLoginPorUsuario(usuarioLogado);
+	}
+	
+	public void alterarSenha(){
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Senha", "Senha alterada com sucesso!"));
+		try{
+			loginService.atualizaSenhaLogin(login, WebmailUtil.getEncryptedPassword(senhaAtual), WebmailUtil.getEncryptedPassword(senhaNova));
+			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Senha", "Senha alterada com sucesso!"));
+		}catch(SenhaInvalidaException exc){
+			faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senha", exc.getMessage()));
+		}
 	}
 	
 	public Usuario getUsuarioLogado() {
@@ -58,5 +64,22 @@ public class ApoioMB implements Serializable{
 	public void setSenhaNova(String senhaNova) {
 		this.senhaNova = senhaNova;
 	}
+
+	public String getSenhaAtual() {
+		return senhaAtual;
+	}
+
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
+	}
+
+	public String getConfirmacaoSenhaNova() {
+		return confirmacaoSenhaNova;
+	}
+
+	public void setConfirmacaoSenhaNova(String confirmacaoSenhaNova) {
+		this.confirmacaoSenhaNova = confirmacaoSenhaNova;
+	}
+	
 	
 }

@@ -7,13 +7,17 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="content">
-		<h:form>
+		<h:form id="formAlteraSenha">
 			<p:growl id="messages" autoUpdate="true" showDetail="true"/>
 			<p:panelGrid columns="2">
 				<p:outputLabel value="Nome do usuário: "/>#{apoioMB.usuarioLogado.nome}
 				<p:outputLabel value="Login: "/>#{apoioMB.usuarioLogado.email}
+				<p:outputLabel value="Senha atual: "/>
+				<p:password id="senhaAtual" name="senhaAtual" value="#{apoioMB.senhaAtual}" required="true" requiredMessage="Campo senha atual obrigatório!"/>
 				<p:outputLabel value="Senha nova: "/>
-				<p:password id="senhaNova" value="#{apoioMB.senhaNova}" required="true" requiredMessage="Campo senha obrigatório!"/>
+				<p:password id="senhaNova" name="senhaNova" value="#{apoioMB.senhaNova}" required="true" requiredMessage="Campo senha nova obrigatório!"/>
+				<p:outputLabel value="Confirmação da nova senha: "/>
+				<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova" validator="confirmacaoSenhaValidator" value="#{apoioMB.confirmacaoSenhaNova}" required="true" requiredMessage="Campo confirmação da senha obrigatório!"/>
 				<p:commandButton value="Confirmar" actionListener="#{apoioMB.alterarSenha()}"/>
 			</p:panelGrid>
 		</h:form>
