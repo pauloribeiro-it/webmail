@@ -5,34 +5,34 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Login</title>
+	<title>#{msg.login_login}</title>
 </h:head>
 <h:body>
-	<p:outputLabel style="font-size:30px">Login</p:outputLabel>
+	<p:outputLabel style="font-size:30px">#{msg.login_login}</p:outputLabel>
 	<h:form prependId="false">
 
-		<p:growl id="messages" showDetail="true" autoUpdate="true"/>
+		<p:growl id="messages" autoUpdate="true"/>
 		<p:panelGrid columns="2" cellpadding="2" cellspacing="2" style="weight:400px">
 
-			<p>Usuário</p>
+			<p>#{msg.login_usuario}</p>
 			
 			<p:inputText id="username" value="#{loginMB.username}"
-				required="true" requiredMessage="O usuário é requerido."
+				required="true" requiredMessage="#{msg.login_usuario_requerido}"
 				size="30" />
 
-			<p>Senha</p>
+			<p>#{msg.login_senha}</p>
 			<p:password id="password" value="#{loginMB.password}"
-				required="true" requiredMessage="A senha é requerida."
+				required="true" requiredMessage="#{msg.login_senha_requerida}"
 				size="30" />
 
 			<p:commandButton action="#{loginMB.loginUser}"
-				styleClass="btn btn-primary" value="Login" />
+				styleClass="btn btn-primary" value="#{msg.login_login}" />
 				<p:commandButton action="#{loginMB.loginUser}"
-				styleClass="btn btn-primary" value="Esqueceu a senha?" />
+				styleClass="btn btn-primary" value="#{msg.login_esqueceusenha}" />
 		
 		</p:panelGrid>
 		<br/>
-		<p:commandLink value="Não é cadastrado?" action="cadastro.jsf" immediate="true"/>
+		<p:commandLink value="#{msg.login_naoecadastrado}" action="cadastro.jsf?faces-redirect=true"/>
 	</h:form>
 </h:body>
 </html>
