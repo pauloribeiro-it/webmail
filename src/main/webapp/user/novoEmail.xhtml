@@ -10,20 +10,19 @@
 		<h:form>
 			<p:growl id="messages" showDetail="true" autoUpdate="true"/>
 			<p:tabMenu style="height:47px;overflow: hidden">
-				<p:menuitem value="Início" url="/user/index.jsf?faces-redirect=true" />
-				<p:menuitem value="Enviar"
-					actionListener="#{emailMB.enviarEmail}" />
-				<p:menuitem value="Salvar Rascunho" action="#{emailMB.salvarRascunho()}" />
-				<p:menuitem value="Cancelar" url="/user/listaEmails.jsf?faces-redirect=true"/>
+				<p:menuitem value="#{msg.novoemail_inicio}" url="/user/index.jsf?faces-redirect=true" />
+				<p:menuitem value="#{msg.novoemail_enviar}" actionListener="#{emailMB.enviarEmail}" />
+				<p:menuitem value="#{msg.novoemail_salvar_rascunho}" action="#{emailMB.salvarRascunho()}" />
+				<p:menuitem value="#{msg.novoemail_cancelar}" url="/user/listaEmails.jsf?faces-redirect=true"/>
 			</p:tabMenu>
 			<br />
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Para: " />
+				<p:outputLabel value="#{msg.novoemail_para} " />
 				<p:inputText value="#{emailMB.destinatario}" />
-				<p:outputLabel value="Assunto: " />
+				<p:outputLabel value="#{msg.novoemail_assunto} " />
 				<p:inputText value="#{emailMB.email.assunto}" />
 			</p:panelGrid>
-			<p:editor id="corpo" value="#{emailMB.email.corpo}" required="true" requiredMessage="O corpo da mensagem deve ser informado!"/>
+			<p:editor id="corpo" value="#{emailMB.email.corpo}" required="true" requiredMessage="#{msg.novoemail_corpo_email_requerido}"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

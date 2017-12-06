@@ -10,15 +10,15 @@
 		<h:form id="formAlteraSenha">
 			<p:growl id="messages" autoUpdate="true" showDetail="true"/>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Nome do usuário: "/>#{apoioMB.usuarioLogado.nome}
-				<p:outputLabel value="Login: "/>#{apoioMB.usuarioLogado.email}
-				<p:outputLabel value="Senha atual: "/>
-				<p:password id="senhaAtual" name="senhaAtual" value="#{apoioMB.senhaAtual}" required="true" requiredMessage="Campo senha atual obrigatório!"/>
-				<p:outputLabel value="Senha nova: "/>
-				<p:password id="senhaNova" name="senhaNova" value="#{apoioMB.senhaNova}" required="true" requiredMessage="Campo senha nova obrigatório!"/>
-				<p:outputLabel value="Confirmação da nova senha: "/>
-				<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova" validator="confirmacaoSenhaValidator" value="#{apoioMB.confirmacaoSenhaNova}" required="true" requiredMessage="Campo confirmação da senha obrigatório!"/>
-				<p:commandButton value="Confirmar" actionListener="#{apoioMB.alterarSenha()}"/>
+				<p:outputLabel value="#{msg.alteraconfiguracao_nome_usuario} "/>#{apoioMB.usuarioLogado.nome}
+				<p:outputLabel value="#{msg.alteraconfiguracao_login} "/>#{apoioMB.usuarioLogado.email}
+				<p:outputLabel value="#{msg.alteraconfiguracao_senha_atual} "/>
+				<p:password id="senhaAtual" name="senhaAtual" value="#{apoioMB.senhaAtual}" required="true" requiredMessage="#{msg.alteraconfiguracao_senha_atual_required_message}"/>
+				<p:outputLabel value="#{msg.alteraconfiguracao_senha_nova} "/>
+				<p:password id="senhaNova" name="senhaNova" value="#{apoioMB.senhaNova}" required="true" requiredMessage="#{msg.alteraconfiguracao_senha_nova_required_message}"/>
+				<p:outputLabel value="#{msg.alteraconfiguracao_confirmacao_senha}"/>
+				<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova" validator="confirmacaoSenhaValidator" value="#{apoioMB.confirmacaoSenhaNova}" required="true" requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}"/>
+				<p:commandButton value="#{msg.alteraconfiguracao_confirmar}" actionListener="#{apoioMB.alterarSenha()}"/>
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

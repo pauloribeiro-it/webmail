@@ -9,10 +9,10 @@
 	<ui:define name="content">
 		<h:form>
 			<p:panelGrid columns="2">
-				<p:outputLabel value="Email do remetente: "/>#{emailMB.emailSelecionado.destinatario.email}
-				<p:outputLabel value="Nome do remetente: "/>#{emailMB.emailSelecionado.destinatario.nome}
-				<p:outputLabel value="Assunto: "/>#{emailMB.emailSelecionado.assunto}
-				<p:outputLabel value="Corpo: "/>#{emailMB.emailSelecionado.corpo}
+				<p:outputLabel value="#{msg.detalhaemail_email_remetente} "/>#{emailMB.emailSelecionado.destinatario.email}
+				<p:outputLabel value="#{msg.detalhaemail_nome_remetente} "/>#{emailMB.emailSelecionado.destinatario.nome}
+				<p:outputLabel value="#{msg.detalhaemail_assunto} "/>#{emailMB.emailSelecionado.assunto}
+				<p:outputLabel value="#{msg.detalhaemail_corpo} "/>#{emailMB.emailSelecionado.corpo}
 			</p:panelGrid>
 		</h:form>
 	</ui:define>
