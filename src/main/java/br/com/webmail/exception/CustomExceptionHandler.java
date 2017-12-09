@@ -10,8 +10,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
+import org.apache.log4j.Logger;
+
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
-//	private static final Logger log = Logger.getLogger(CustomExceptionHandler.class.getCanonicalName());
+	private static final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class);
 	private ExceptionHandler wrapped;
 
 	CustomExceptionHandler(ExceptionHandler exception) {
@@ -36,6 +38,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 			final FacesContext fc = FacesContext.getCurrentInstance();
 
 			try {
+				LOGGER.error(t.getMessage(), t);
 				fc.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 						"Erro", "Ops, ocorreu um erro. Procure o administrador para maiores detalhes."));
 				fc.renderResponse();

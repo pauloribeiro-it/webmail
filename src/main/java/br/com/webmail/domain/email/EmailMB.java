@@ -92,6 +92,9 @@ public class EmailMB implements Serializable {
 	}
 
 	public void retornaEmails(ActionEvent e) {
+		if(true){
+			throw new RuntimeException("oi, eu sou o Goku");
+		}
 		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
 		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
 		configuraFiltroSelecionado(EnumFiltro.obtemFiltroPorId(idFiltro));
