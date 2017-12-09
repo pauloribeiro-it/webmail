@@ -31,7 +31,7 @@ public class ConfirmacaoSenhaValidator implements Validator{
 	    });
 	    
 	    if(!obj.equals(((UIInput)found[0]).getValue())){
-	    	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha", "Verifique se a senha e a confirmação da senha estão iguais!"));
+	    	throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique se a senha e a confirmação da senha estão iguais!", "Senha"));
 	    }
 	}
 

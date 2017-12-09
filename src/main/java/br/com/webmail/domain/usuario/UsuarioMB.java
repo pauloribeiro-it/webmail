@@ -18,8 +18,9 @@ public class UsuarioMB implements Serializable {
 	@Inject
 	private Usuario usuario;
 
-	private String senha;
+	private String senhaNova;
 
+	private String confirmacaoSenhaNova;
 	@EJB
 	private UsuarioService usuarioBean;
 
@@ -34,17 +35,24 @@ public class UsuarioMB implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getSenhaNova() {
+		return senhaNova;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenhaNova(String senha) {
+		this.senhaNova = senha;
 	}
 
+	public String getConfirmacaoSenhaNova() {
+		return confirmacaoSenhaNova;
+	}
+
+	public void setConfirmacaoSenhaNova(String confirmacaoSenhaNova) {
+		this.confirmacaoSenhaNova = confirmacaoSenhaNova;
+	}
 	public void cadastro() {
 		FacesContext faces = FacesContext.getCurrentInstance();
-		usuarioBean.registraUsuario(usuario, senha);
+		usuarioBean.registraUsuario(usuario, senhaNova);
 		faces.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, 
 				"Cadastro concluído com sucesso.", 
 				"Cadastro"));

@@ -10,15 +10,17 @@
 </h:head>
 <h:body>
 
-	<h:form>
+	<h:form id="cadastroUsuario" prependId="false">
 		<p:growl id="messages" showDetail="false" autoUpdate="true"/>
 		<p:panelGrid columns="2">
 			<p:outputLabel value="#{msg.cadastro_nomecompleto}" for="nome"/>
 			<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" />
 			<p:outputLabel value="#{msg.cadastro_usuario}" for="usuario"/>
 			<p:inputText id="usuario" value="#{usuarioMB.usuario.email}" required="true" requiredMessage="#{msg.cadastro_usuario_required_message}" validator="nomeUsuarioValidator"/>
-			<p:outputLabel value="#{msg.cadastro_senha}" for="senha"/>
-			<p:password id="senha" value="#{usuarioMB.senha}" required="true" requiredMessage="#{msg.cadastro_senha_required_message}"/>
+			<p:outputLabel value="#{msg.cadastro_senha}" for="senhaNova"/>
+			<p:password id="senhaNova" value="#{usuarioMB.senhaNova}" required="true" requiredMessage="#{msg.cadastro_senha_required_message}"/>
+			<p:outputLabel value="#{msg.alteraconfiguracao_confirmacao_senha}" for="confirmacaoSenhaNova"/>
+			<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova" validator="confirmacaoSenhaValidator" value="#{usuarioMB.confirmacaoSenhaNova}" required="true" requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}"/>
 			<p:commandButton value="#{msg.cadastro_cadastrar}" actionListener="#{usuarioMB.cadastro}" />
 		</p:panelGrid>
 	</h:form>
