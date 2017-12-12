@@ -6,6 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+	<meta charset="utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
 <title>#{msg.cadastro_titulo}</title>
 </h:head>
 <h:body>
@@ -24,5 +28,6 @@
 			<p:commandButton value="#{msg.cadastro_cadastrar}" actionListener="#{usuarioMB.cadastro}" />
 		</p:panelGrid>
 	</h:form>
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 </h:body>
 </html>
