@@ -15,8 +15,7 @@
 				selection="#{emailMB.emailsSelecionados}" rowKey="#{email.id}"
 				style="margin-bottom:0">
 				<f:facet name="header">#{emailMB.filtroSelecionado.nome}</f:facet>
-				<p:column selectionMode="multiple"
-					style="width:16px;text-align:center" />
+				<p:column selectionMode="multiple" style="width:30px;text-align:center" />
 				<p:column headerText="#{msg.listaemails_assunto}">
 					<h:outputText value="#{email.assunto}" />
 				</p:column>

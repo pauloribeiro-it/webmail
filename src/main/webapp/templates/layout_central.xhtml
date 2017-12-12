@@ -5,12 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
 	<title>#{msg.central_pagina_inicial}</title>
 </h:head>
 
 <f:view>
-<h:outputStylesheet name="bootstrap/css/bootstrap.min.css"/>
-<h:outputScript name="bootstrap/js/bootstrap.min.js"/>
 	<p:layout fullPage="true" style="min-width:400px;min-height:800px;">
 		<p:layoutUnit position="west" resizable="false" size="300"
 			minSize="300" maxSize="500">
@@ -26,6 +27,10 @@
 			<ui:insert name="content"/>
 		</p:layoutUnit>
 	</p:layout>
+	
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" />
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
+	-->
 </f:view>
 
 </html>
