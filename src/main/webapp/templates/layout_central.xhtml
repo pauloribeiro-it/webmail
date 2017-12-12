@@ -7,7 +7,10 @@
 <h:head>
 	<title>#{msg.central_pagina_inicial}</title>
 </h:head>
+
 <f:view>
+<h:outputStylesheet name="bootstrap/css/bootstrap.min.css"/>
+<h:outputScript name="bootstrap/js/bootstrap.min.js"/>
 	<p:layout fullPage="true" style="min-width:400px;min-height:800px;">
 		<p:layoutUnit position="west" resizable="false" size="300"
 			minSize="300" maxSize="500">
@@ -24,4 +27,5 @@
 		</p:layoutUnit>
 	</p:layout>
 </f:view>
+
 </html>
