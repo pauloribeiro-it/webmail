@@ -13,28 +13,27 @@
 </h:head>
 <h:body>
 	<p:outputLabel style="font-size:30px">#{msg.login_login}</p:outputLabel>
+	<div class="input-group">
 	<h:form prependId="false">
 
 		<p:growl id="messages" autoUpdate="true"/>
-		<p:panelGrid columns="2" cellpadding="2" cellspacing="2" style="weight:400px">
-
-			<p>#{msg.login_usuario}</p>
-			
-			<p:inputText id="username" value="#{loginMB.username}"
+			<div>
+			<label for="username">#{msg.login_usuario}</label>
+			<p:inputText id="username" value="#{loginMB.username}" class="form-control"
 				required="true" requiredMessage="#{msg.login_usuario_requerido}"
 				size="30" />
-
-			<p>#{msg.login_senha}</p>
-			<p:password id="password" value="#{loginMB.password}"
+			</div>
+			<div>
+			<label for="password">#{msg.login_senha}</label>
+			<p:password id="password" value="#{loginMB.password}" class="form-control"
 				required="true" requiredMessage="#{msg.login_senha_requerida}"
 				size="30" />
-
+			</div>
 			<p:commandButton action="#{loginMB.loginUser}"
 				styleClass="btn btn-primary" value="#{msg.login_login}" />
-		</p:panelGrid>
-		<br/>
-		<p:commandLink value="#{msg.login_naoecadastrado}" action="cadastro.jsf?faces-redirect=true" immediate="true"/>
+		<p:commandButton styleClass="btn btn-primary" value="#{msg.login_naoecadastrado}" action="cadastro.jsf?faces-redirect=true" immediate="true"/>
 	</h:form>
+	</div>
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 </h:body>
 </html>
