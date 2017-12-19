@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,24 +9,69 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/custom.css"/>
 <title>#{msg.cadastro_titulo}</title>
 </h:head>
 <h:body>
-
-	<h:form id="cadastroUsuario" prependId="false">
-		<p:growl id="messages" showDetail="false" autoUpdate="true"/>
-		<p:panelGrid columns="2">
-			<p:outputLabel value="#{msg.cadastro_nomecompleto}" for="nome"/>
-			<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" required="true" />
-			<p:outputLabel value="#{msg.cadastro_usuario}" for="usuario"/>
-			<p:inputText id="usuario" value="#{usuarioMB.usuario.email}" required="true" requiredMessage="#{msg.cadastro_usuario_required_message}" validator="nomeUsuarioValidator"/>
-			<p:outputLabel value="#{msg.cadastro_senha}" for="senhaNova"/>
-			<p:password id="senhaNova" value="#{usuarioMB.senhaNova}" required="true" requiredMessage="#{msg.cadastro_senha_required_message}"/>
-			<p:outputLabel value="#{msg.alteraconfiguracao_confirmacao_senha}" for="confirmacaoSenhaNova"/>
-			<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova" validator="confirmacaoSenhaValidator" value="#{usuarioMB.confirmacaoSenhaNova}" required="true" requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}"/>
-			<p:commandButton value="#{msg.cadastro_cadastrar}" actionListener="#{usuarioMB.cadastro}" />
-		</p:panelGrid>
-	</h:form>
+	<div class="container">
+		<div class="row main">
+			<div class="panel-title text-center">
+					<h1 style="font-size:30px">#{msg.cadastro_titulo}</h1>
+				<hr/>
+			</div>
+		</div>
+	</div>
+	<div class="main-login main-center">
+		<h:form class="form-horizontal" id="cadastroUsuario" prependId="false">
+			<p:growl id="messages" showDetail="false" autoUpdate="true"/>
+			<div class="form-group">
+				<p:outputLabel class="cols-sm-2 control-label" value="#{msg.cadastro_nomecompleto}" for="nome"/>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-user" aria-hidden="true"/>
+					</span>
+					<p:inputText id="nome" value="#{usuarioMB.usuario.nome}" class="form-control" size="30" required="true" />
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel class="cols-sm-2 control-label" value="#{msg.cadastro_usuario}" for="usuario"/>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-user" aria-hidden="true"/>
+					</span>
+					<p:inputText id="usuario" class="form-control" size="30" value="#{usuarioMB.usuario.email}" required="true" requiredMessage="#{msg.cadastro_usuario_required_message}" validator="nomeUsuarioValidator"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel class="cols-sm-2 control-label" value="#{msg.cadastro_senha}" for="senhaNova"/>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-lock" aria-hidden="true"/>
+					</span>
+					<p:password id="senhaNova" class="form-control" value="#{usuarioMB.senhaNova}" required="true" requiredMessage="#{msg.cadastro_senha_required_message}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel class="cols-sm-2 control-label" value="#{msg.alteraconfiguracao_confirmacao_senha}" for="confirmacaoSenhaNova"/>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="glyphicon glyphicon-lock" aria-hidden="true"/>
+					</span>
+					<p:password id="confirmacaoSenhaNova" class="form-control"
+						name="confirmacaoSenhaNova" 
+						size="30"
+						validator="confirmacaoSenhaValidator"
+						value="#{usuarioMB.confirmacaoSenhaNova}" 
+						required="true" 
+						requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}"/>
+				</div>				
+			</div>			
+			
+			<div class="form-group">
+				<p:commandButton styleClass="btn btn-primary btn-lg btn-block login-button" value="#{msg.cadastro_cadastrar}" actionListener="#{usuarioMB.cadastro}" />
+			</div>
+		</h:form>
+	</div>
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 </h:body>
 </html>
