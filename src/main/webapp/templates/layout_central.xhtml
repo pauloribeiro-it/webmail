@@ -16,7 +16,19 @@
 		<p:layoutUnit position="west" resizable="false" size="300"
 			minSize="300" maxSize="500">
 			<h:form>
-				<p:panelMenu model="#{emailMB.simpleMenuModel}" stateful="true"/>
+				<h:commandLink value="#{msg.central_novo_email}" actionListener="#{emailMB.novoEmail}"/>
+				<br/>
+				<h:commandLink value="#{msg.central_caixa_entrada}" actionListener="#{emailMB.retornaEmails}">
+					<f:param name="filtro" value="entrada"/>
+				</h:commandLink>
+				<br/>
+				<h:commandLink value="#{msg.central_rascunhos}" actionListener="#{emailMB.retornaEmails}">
+					<f:param name="filtro" value="rascunhos"/>
+				</h:commandLink>
+				<br/>
+				<h:commandLink value="#{msg.central_lixo}" actionListener="#{emailMB.retornaEmails}">
+					<f:param name="filtro" value="lixo"/>
+				</h:commandLink>
 				<br/>
 				<p:commandButton value="#{msg.central_configuracoes}" action="/user/alteraconfiguracao.jsf?faces-redirect=true" />
 				<br/>

@@ -2,6 +2,7 @@ package br.com.webmail.domain.email;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -9,14 +10,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
-import org.primefaces.event.MenuActionEvent;
 import org.primefaces.model.menu.DefaultMenuItem;
-import org.primefaces.model.menu.DefaultMenuModel;
-import org.primefaces.model.menu.DefaultSubMenu;
-import org.primefaces.model.menu.MenuModel;
 
 import br.com.webmail.domain.filtro.Filtro;
 import br.com.webmail.domain.filtro.FiltroService;
@@ -29,14 +25,12 @@ import br.com.webmail.util.WebmailUtil;
 @Named("emailMB")
 public class EmailMB implements Serializable {
 	private static final long serialVersionUID = 5052247699927310089L;
-	private MenuModel simpleMenuModel = new DefaultMenuModel();
-	private DefaultSubMenu submenu;
 	private List<Email> emails;
-	
+
 	private Email email;
 
 	private Usuario usuario;
-	
+
 	@EJB
 	private FiltroService filtroService;
 
@@ -45,15 +39,15 @@ public class EmailMB implements Serializable {
 
 	@EJB
 	private UsuarioService usuarioService;
-	
+
 	private String destinatario;
 
 	private Email emailSelecionado;
-	
+
 	private List<Email> emailsSelecionados;
-	
+
 	private Filtro filtroSelecionado = new Filtro();
-	
+
 	public EmailMB() {
 
 	}
@@ -62,18 +56,9 @@ public class EmailMB implements Serializable {
 	public void configuraPagina() {
 		email = new Email();
 		usuario = WebmailUtil.getUsuarioSessao();
-		this.submenu = new DefaultSubMenu("Emails");
-		simpleMenuModel.addElement(submenu);
 		filtroSelecionado = new Filtro(EnumFiltro.CAIXA_ENTRADA.getValor(), EnumFiltro.CAIXA_ENTRADA.getDescricao());
-		criaNovoEmailOpcaoMenu();
 		configuraFiltrosPersonalizados();
 		obtemEmailsCaixaDeEntrada();
-	}
-
-	private void criaNovoEmailOpcaoMenu() {
-		DefaultMenuItem itemMenu = new DefaultMenuItem("Novo email");
-		itemMenu.setCommand("#{emailMB.novoEmail}");
-		submenu.addElement(itemMenu);
 	}
 
 	private void obtemEmailsCaixaDeEntrada() {
@@ -87,13 +72,13 @@ public class EmailMB implements Serializable {
 			itemMenu.setCommand("#{emailMB.retornaEmails}");
 			itemMenu.setId(filtro.getId().toString());
 			itemMenu.setParam("idMenu", filtro.getId());
-			submenu.addElement(itemMenu);
 		}
 	}
 
-	public void retornaEmails(ActionEvent e) {
-		MenuActionEvent menuActionEvent = (MenuActionEvent) e;
-		Long idFiltro = Long.parseLong(menuActionEvent.getMenuItem().getParams().get("idMenu").get(0));
+	public void retornaEmails() {
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String filtro = params.get("filtro");
+		Long idFiltro = obtemIdFiltroSelecionado(filtro);
 		configuraFiltroSelecionado(EnumFiltro.obtemFiltroPorId(idFiltro));
 		emails = emailService.obtemEmailsPorUsuarioEFiltro(usuario, idFiltro);
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
@@ -105,60 +90,78 @@ public class EmailMB implements Serializable {
 		email.setDestinatario(usuarioService.findByLogin(destinatario));
 		emailService.enviarEmail(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Email", "Email enviado com sucesso!"));
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email", "Email enviado com sucesso!"));
 		email = new Email();
 	}
 
-	public void detalhaEmail(){
+	public void detalhaEmail() {
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/detalhaEmail.xhtml?faces-redirect=true");
 	}
 
-	public String salvarRascunho(){
+	public String salvarRascunho() {
 		email.setRemetente(usuario);
 		email.setDestinatario(null);
-		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(),EnumFiltro.RASCUNHOS.getDescricao()));
+		email.setFiltro(new Filtro(EnumFiltro.RASCUNHOS.getValor(), EnumFiltro.RASCUNHOS.getDescricao()));
 		emailService.salvaRascunho(email);
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Rascunho salvo com sucesso!"));
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email", "Rascunho salvo com sucesso!"));
 		email = new Email();
 		return "";
 	}
-	
-	public void obtemConfiguracoes(){
+
+	public void obtemConfiguracoes() {
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/alteraconfiguracao.xhtml?faces-redirect=true");
+		nh.handleNavigation(FacesContext.getCurrentInstance(), null,
+				"/user/alteraconfiguracao.xhtml?faces-redirect=true");
 	}
 
-	public void excluiEmails(){
-		if(EnumFiltro.obtemFiltroPorId(filtroSelecionado.getId()) != EnumFiltro.LIXO){
+	public void excluiEmails() {
+		if (EnumFiltro.obtemFiltroPorId(filtroSelecionado.getId()) != EnumFiltro.LIXO) {
 			emailService.moveEmailsParaLixeira(emailsSelecionados);
-		}else{
+		} else {
 			emailService.excluiEmails(emailsSelecionados);
 		}
-		obtemEmailsCaixaDeEntrada(); 
+		obtemEmailsCaixaDeEntrada();
 		emailsSelecionados = null;
 		FacesContext faces = FacesContext.getCurrentInstance();
-		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Email", "Emails excluídos com sucesso!"));
+		faces.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Email", "Emails excluídos com sucesso!"));
 	}
-	
-	private void configuraFiltroSelecionado(EnumFiltro filtro){
+
+	private void configuraFiltroSelecionado(EnumFiltro filtro) {
 		this.filtroSelecionado.setId(filtro.getValor());
 		this.filtroSelecionado.setNome(filtro.getDescricao());
 	}
-	
-	public void editarRascunho(){
+
+	public void editarRascunho() {
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/novoEmail.xhtml?faces-redirect=true");
 	}
-	
-	public void novoEmail(){
+
+	public void novoEmail() {
 		email = new Email();
 		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
 		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/user/novoEmail.xhtml?faces-redirect=true");
 	}
-	
+
+	private Long obtemIdFiltroSelecionado(String filtro) {
+		Long idFiltro = null;
+		switch (filtro) {
+		case "entrada":
+			idFiltro = EnumFiltro.CAIXA_ENTRADA.getValor();
+			break;
+		case "rascunhos":
+			idFiltro = EnumFiltro.RASCUNHOS.getValor();
+			break;
+		case "lixo":
+			idFiltro = EnumFiltro.LIXO.getValor();
+			break;
+		default:
+			idFiltro = EnumFiltro.CAIXA_ENTRADA.getValor();
+		}
+		return idFiltro;
+	}
+
 	public List<Email> getEmails() {
 		return emails;
 	}
@@ -167,18 +170,10 @@ public class EmailMB implements Serializable {
 		this.emails = emails;
 	}
 
-	public MenuModel getSimpleMenuModel() {
-		return simpleMenuModel;
-	}
-
-	public void setSimpleMenuModel(MenuModel simpleMenuModel) {
-		this.simpleMenuModel = simpleMenuModel;
-	}
-	
 	public void setDestinatario(String destinatario) {
 		this.destinatario = destinatario;
 	}
-	
+
 	public String getDestinatario() {
 		return destinatario;
 	}
@@ -214,5 +209,5 @@ public class EmailMB implements Serializable {
 	public void setFiltroSelecionado(Filtro filtroSelecionado) {
 		this.filtroSelecionado = filtroSelecionado;
 	}
-	
+
 }
