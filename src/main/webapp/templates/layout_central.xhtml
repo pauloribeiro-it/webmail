@@ -12,64 +12,57 @@
 </h:head>
 
 <f:view>
-	<p:layout fullPage="true" style="min-width:200px;min-height:800px;">
-	<p:layoutUnit position="west" resizable="false" size="300"
-		minSize="300" maxSize="500">
-		<h:form>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3">
-					<ul class="nav nav-pills nav-stacked">
-	                <li class="active"><a href="#"><i class="fa fa-home fa-fw"></i>Home</a></li>
-
-	                <li>
-		                <h:commandLink value="#{msg.central_novo_email}" actionListener="#{emailMB.novoEmail}">
-							<i class="fa fa-list-alt fa-fw"/>
-		                </h:commandLink>
-	                </li>
-
-	                <li>
-		                <h:commandLink value="#{msg.central_caixa_entrada}" actionListener="#{emailMB.retornaEmails}">
-		                	<i class="fa fa-list-alt fa-fw"/>
-							<f:param name="filtro" value="entrada"/>
-						</h:commandLink>
-	                </li>
-
-	                <li>
-		                <h:commandLink value="#{msg.central_rascunhos}" actionListener="#{emailMB.retornaEmails}">
-		                	<i class="fa fa-list-alt fa-fw"/>
-							<f:param name="filtro" value="rascunhos"/>
-						</h:commandLink>
-	                </li>
-
-	                <li>
-		              <h:commandLink value="#{msg.central_lixo}" actionListener="#{emailMB.retornaEmails}">
-							<i class="fa fa-list-alt fa-fw"/>
-							<f:param name="filtro" value="lixo"/>
-					   </h:commandLink>
-	                </li>
-
-	                <li>
-		              <h:link value="#{msg.central_configuracoes}"  outcome="/user/alteraconfiguracao.jsf?faces-redirect=true" >
-							<i class="fa fa-list-alt fa-fw"/>
-		              </h:link>
-	                </li>
-	                
-	                <li>
-	                  <h:commandLink value="#{msg.central_logout}" actionListener="#{loginMB.logout}">
-							<i class="fa fa-list-alt fa-fw"/>
-	                  </h:commandLink>
-	                </li>
-	            </ul>
+			<div class="container" style="margin-top:30px">
+				<div class="row">
+					<h:form>
+					<div class="col-md-3" style="border: 1px solid #e3e3e3; border-radius: 4px;">
+						<ul class="nav nav-pills nav-stacked">
+		                <li>
+			                <h:commandLink value="#{msg.central_novo_email}" actionListener="#{emailMB.novoEmail}">
+								<i class="fa fa-list-alt fa-fw"/>
+			                </h:commandLink>
+		                </li>
+	
+		                <li>
+			                <h:commandLink value="#{msg.central_caixa_entrada}" actionListener="#{emailMB.retornaEmails}">
+			                	<i class="fa fa-list-alt fa-fw"/>
+								<f:param name="filtro" value="entrada"/>
+							</h:commandLink>
+		                </li>
+	
+		                <li>
+			                <h:commandLink value="#{msg.central_rascunhos}" actionListener="#{emailMB.retornaEmails}">
+			                	<i class="fa fa-list-alt fa-fw"/>
+								<f:param name="filtro" value="rascunhos"/>
+							</h:commandLink>
+		                </li>
+	
+		                <li>
+			              <h:commandLink value="#{msg.central_lixo}" actionListener="#{emailMB.retornaEmails}">
+								<i class="fa fa-list-alt fa-fw"/>
+								<f:param name="filtro" value="lixo"/>
+						   </h:commandLink>
+		                </li>
+	
+		                <li>
+			              <h:link value="#{msg.central_configuracoes}"  outcome="/user/alteraconfiguracao.jsf?faces-redirect=true" >
+								<i class="fa fa-list-alt fa-fw"/>
+			              </h:link>
+		                </li>
+		                
+		                <li>
+		                  <h:commandLink value="#{msg.central_logout}" actionListener="#{loginMB.logout}">
+								<i class="fa fa-list-alt fa-fw"/>
+		                  </h:commandLink>
+		                </li>
+		            </ul>
+					</div>
+					</h:form>
+				<div class="col-md-9 well">
+					<ui:insert name="content"/>
+				</div>
 				</div>
 			</div>
-		</div>
-		</h:form>
-	</p:layoutUnit>
-	<p:layoutUnit position="center">
-		<ui:insert name="content"/>
-	</p:layoutUnit>
-	</p:layout>
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
 </f:view>
 
