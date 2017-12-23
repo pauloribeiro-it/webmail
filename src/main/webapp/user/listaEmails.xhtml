@@ -7,36 +7,34 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="content">
-		
 		<h:form id="form" prependId="false">
 			<p:growl id="messages" showDetail="true" autoUpdate="true"/>
 			<p:dataTable id="tableEmails" var="email"
 				value="#{emailMB.emails}"
 				selection="#{emailMB.emailsSelecionados}" rowKey="#{email.id}"
 				style="margin-bottom:0">
-				<f:facet name="header">#{emailMB.filtroSelecionado.nome}</f:facet>
+				<f:facet name="header"><span style="color:#337ab7;font-size:150%">#{emailMB.filtroSelecionado.nome}</span></f:facet>
 				<p:column selectionMode="multiple" style="width:30px;text-align:center" />
-				<p:column headerText="#{msg.listaemails_assunto}">
-					<h:outputText value="#{email.assunto}" />
+				<p:column headerText="#{msg.listaemails_assunto}" style="color:#337ab7">
+					<h:outputText value="#{email.assunto}" style="color:#000000"/>
 				</p:column>
-				<p:column headerText="#{msg.listaemails_remetente}">
-					<h:outputText value="#{email.remetente.nome}" />
+				<p:column headerText="#{msg.listaemails_remetente}" style="color:#337ab7">
+					<h:outputText value="#{email.remetente.nome}" style="color:#000000"/>
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton process="tableEmails" value="#{msg.listaemails_excluir}" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails"/>
+					<p:commandButton class="btn btn-primary" process="tableEmails" value="#{msg.listaemails_excluir}" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails"/>
 				</f:facet>
-				<p:column headerText="Detalhar" >
+				<p:column headerText="Detalhar" style="color:#337ab7">
 					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.detalhaEmail}" icon="ui-icon-search" title="#{msg.listaemails_detalhar}">
 						<f:setPropertyActionListener value="#{email}" target="#{emailMB.emailSelecionado}" />
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="#{msg.listaemails_editar}" rendered="#{emailMB.filtroSelecionado.id == 3}">
-					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.editarRascunho}" icon="ui-icon-pencil" title="#{msg.listaemails_editar}">
+					<p:commandButton styleClass="btn btn-primary" process="tableEmails" immediate="true" actionListener="#{emailMB.editarRascunho}" icon="ui-icon-pencil" title="#{msg.listaemails_editar}">
 						<f:setPropertyActionListener value="#{email}" target="#{emailMB.email}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
-
 		</h:form>
 	</ui:define>
 </ui:composition>
