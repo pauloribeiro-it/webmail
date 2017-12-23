@@ -7,13 +7,24 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="content">
-		<h:form>
-			<p:panelGrid columns="2">
-				<p:outputLabel value="#{msg.detalhaemail_email_remetente} "/>#{emailMB.emailSelecionado.destinatario.email}
-				<p:outputLabel value="#{msg.detalhaemail_nome_remetente} "/>#{emailMB.emailSelecionado.destinatario.nome}
-				<p:outputLabel value="#{msg.detalhaemail_assunto} "/>#{emailMB.emailSelecionado.assunto}
-				<p:outputLabel value="#{msg.detalhaemail_corpo} "/>#{emailMB.emailSelecionado.corpo}
-			</p:panelGrid>
-		</h:form>
+		<div class="container">
+			<div class="row main">
+				<h1>#{msg.detalhaemail_titulo}</h1>
+				<div class="main-login main-center">
+					<div class="form-group">
+						<p:outputLabel value="#{msg.detalhaemail_email_remetente}" class="cols-sm-2 control-label"/> #{emailMB.emailSelecionado.destinatario.email}
+					</div>
+					<div class="form-group">
+						<p:outputLabel value="#{msg.detalhaemail_nome_remetente}" class="cols-sm-2 control-label"/> #{emailMB.emailSelecionado.destinatario.nome}
+					</div>
+					<div class="form-group">
+						<p:outputLabel value="#{msg.detalhaemail_assunto}" class="cols-sm-2 control-label"/>#{emailMB.emailSelecionado.assunto}
+					</div>
+					<div>
+						<p:outputLabel value="#{msg.detalhaemail_corpo}" class="cols-sm-2 control-label"/> #{emailMB.emailSelecionado.corpo}
+					</div>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>
