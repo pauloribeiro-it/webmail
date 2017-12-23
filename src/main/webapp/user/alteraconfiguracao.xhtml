@@ -7,27 +7,66 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:define name="content">
-		<h:form id="formAlteraSenha">
-			<p:growl id="messages" autoUpdate="true" showDetail="true" />
-			<p:panelGrid columns="2">
-				<p:outputLabel value="#{msg.alteraconfiguracao_nome_usuario} " />#{apoioMB.usuarioLogado.nome}
-				<p:outputLabel value="#{msg.alteraconfiguracao_login} " />#{apoioMB.usuarioLogado.email}
-				<p:outputLabel value="#{msg.alteraconfiguracao_senha_atual} " />
-				<p:password id="senhaAtual" name="senhaAtual"
-					value="#{apoioMB.senhaAtual}" required="true"
-					requiredMessage="#{msg.alteraconfiguracao_senha_atual_required_message}" />
-				<p:outputLabel value="#{msg.alteraconfiguracao_senha_nova} " />
-				<p:password id="senhaNova" name="senhaNova"
-					value="#{apoioMB.senhaNova}" required="true"
-					requiredMessage="#{msg.alteraconfiguracao_senha_nova_required_message}" />
-				<p:outputLabel value="#{msg.alteraconfiguracao_confirmacao_senha}" />
-				<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova"
-					validator="confirmacaoSenhaValidator"
-					value="#{apoioMB.confirmacaoSenhaNova}" required="true"
-					requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}" />
-				<p:commandButton value="#{msg.alteraconfiguracao_confirmar}"
-					actionListener="#{apoioMB.alterarSenha()}" />
-			</p:panelGrid>
-		</h:form>
+		<div class="container" >
+			<div class="row main">
+				<h1>#{msg.alteraconfiguracao_titulo}</h1>
+
+				<div class="main-login main-center">
+					<h:form id="formAlteraSenha" preprendId="false" class="form-horizontal">
+						<p:growl id="messages" autoUpdate="true" showDetail="true" />
+							<div class="form-group">
+								<p:outputLabel class="cols-sm-2 control-label" value="#{msg.alteraconfiguracao_nome_usuario} " /> #{apoioMB.usuarioLogado.nome}
+							</div>
+							<div class="form-group">
+								<p:outputLabel value="#{msg.alteraconfiguracao_login}" class="cols-sm-2 control-label" /> #{apoioMB.usuarioLogado.email}
+							</div>
+							<div class="form-group">
+								<p:outputLabel value="#{msg.alteraconfiguracao_senha_atual} " class="cols-sm-2 control-label"/>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock" aria-hidden="true"/>
+									</span>
+									<p:password id="senhaAtual" name="senhaAtual"
+										value="#{apoioMB.senhaAtual}" required="true"
+										requiredMessage="#{msg.alteraconfiguracao_senha_atual_required_message}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<p:outputLabel value="#{msg.alteraconfiguracao_senha_nova} " class="cols-sm-2 control-label"/>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock" aria-hidden="true"/>
+									</span>
+									<p:password id="senhaNova" name="senhaNova" 
+										value="#{apoioMB.senhaNova}" required="true"
+										requiredMessage="#{msg.alteraconfiguracao_senha_nova_required_message}" />
+								</div>
+							</div>	
+							<div class="form-group">
+								<p:outputLabel value="#{msg.alteraconfiguracao_confirmacao_senha}" class="cols-sm-2 control-label" />
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-lock" aria-hidden="true"/>
+									</span>
+									<p:password id="confirmacaoSenhaNova" name="confirmacaoSenhaNova"
+										validator="confirmacaoSenhaValidator"
+										value="#{apoioMB.confirmacaoSenhaNova}" required="true"
+										requiredMessage="#{msg.alteraconfiguracao_confirmacao_senha_required_message}" />
+								</div>
+							</div>
+							<div class="form-group" style="text-align:left">
+								<h:commandButton style="font-size:130%" class="btn btn-primary" value="#{msg.alteraconfiguracao_confirmar}"
+									actionListener="#{apoioMB.alterarSenha()}" />
+							</div>
+					</h:form>
+				</div>
+			</div>		
+		</div>
 	</ui:define>
 </ui:composition>
