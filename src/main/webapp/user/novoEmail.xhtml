@@ -10,8 +10,9 @@
 		<h:form>
 			
 			<p:growl id="messages" showDetail="true" autoUpdate="true"/>
+			
 			<p:tabMenu style="height:47px;overflow: hidden">
-				<p:menuitem value="#{msg.novoemail_inicio}" url="/user/index.jsf?faces-redirect=true" />
+				<p:menuitem value="#{msg.novoemail_inicio}" url="/user/listaEmails.jsf?faces-redirect=true" />
 				<p:menuitem value="#{msg.novoemail_enviar}" actionListener="#{emailMB.enviarEmail}" />
 				<p:menuitem value="#{msg.novoemail_salvar_rascunho}" action="#{emailMB.salvarRascunho()}" />
 				<p:menuitem value="#{msg.novoemail_cancelar}" url="/user/listaEmails.jsf?faces-redirect=true"/>
