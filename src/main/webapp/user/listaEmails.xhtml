@@ -23,7 +23,7 @@
 					<h:outputText value="#{email.remetente.nome}" style="color:#000000"/>
 				</p:column>
 				<f:facet name="footer">
-						<h:commandButton class="btn btn-primary" process="tableEmails" value="#{msg.listaemails_excluir}" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails" />
+					<h:commandButton class="btn btn-primary" process="tableEmails" value="#{msg.listaemails_excluir}" actionListener="#{emailMB.excluiEmails}" update=":form:tableEmails" />
 				</f:facet>
 				<p:column headerText="Detalhar" style="color:#337ab7;text-align:center">
 					<p:commandButton process="tableEmails" immediate="true" actionListener="#{emailMB.detalhaEmail}" icon="ui-icon-search" title="#{msg.listaemails_detalhar}">
@@ -31,7 +31,7 @@
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="#{msg.listaemails_editar}" rendered="#{emailMB.filtroSelecionado.id == 3}" style="color:#337ab7;text-align:center">
-					<p:commandButton styleClass="btn btn-primary" process="tableEmails" immediate="true" actionListener="#{emailMB.editarRascunho}" icon="ui-icon-pencil" title="#{msg.listaemails_editar}">
+					<p:commandButton styleClass="btn btn-primary" process="tableEmails" immediate="true" actionListener="#{emailMB.editarRascunho}" icon="ui-icon-pencil" title="#{msg.listaemails_editar}" >
 						<f:setPropertyActionListener value="#{email}" target="#{emailMB.email}" />
 					</p:commandButton>
 				</p:column>
