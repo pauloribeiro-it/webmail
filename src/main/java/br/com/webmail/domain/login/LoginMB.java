@@ -116,4 +116,8 @@ public class LoginMB implements Serializable{
 		String seed = usuario.getEmail()+System.currentTimeMillis();
 		return Base64.getEncoder().encodeToString(seed.getBytes());
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(new Sha256Hash("123123").toHex());
+	}
 }
