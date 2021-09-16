@@ -1,5 +1,6 @@
 package br.com.webmail.domain.login;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Base64;
 
@@ -10,6 +11,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -90,9 +92,12 @@ public class LoginMB implements Serializable{
 		subject.getSession().setAttribute(WebmailUtil.USER, null);
 		subject.getSession().setAttribute(WebmailUtil.AUDITORIALOGIN, null);
 		SecurityUtils.getSubject().logout();
-		NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-		nh.handleNavigation(FacesContext.getCurrentInstance(), null, "listaEmails.xhtml?faces-redirect=true");
 		((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession().invalidate();
+		try {
+			((HttpServletResponse)FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendRedirect("/login.jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
