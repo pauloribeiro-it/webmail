@@ -1,5 +1,8 @@
 package br.com.webmail.exception;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Iterator;
 
 import javax.faces.FacesException;
@@ -10,10 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
-import org.apache.log4j.Logger;
-
 public class CustomExceptionHandler extends ExceptionHandlerWrapper {
-	private static final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class);
+	private static final Logger LOGGER = LogManager.getLogger(CustomExceptionHandler.class);
 	private ExceptionHandler wrapped;
 
 	CustomExceptionHandler(ExceptionHandler exception) {
@@ -27,7 +28,6 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
 	@Override
 	public void handle() throws FacesException {
-
 		final Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator();
 		while (i.hasNext()) {
 			ExceptionQueuedEvent event = i.next();
